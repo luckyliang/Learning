@@ -17,7 +17,7 @@ categories: [ web ]
 
 ## 使用float属性或position属性布局
 
-```
+```css
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,7 +65,7 @@ categories: [ web ]
 
 使用多栏布局可以将一个元素中的内容分为两栏或多栏显示，并且确保各栏中的内容底部对齐
 
-```
+```css
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -105,7 +105,7 @@ categories: [ web ]
 
 也可以使用`column-width`属性单独设置每一栏的宽度而不设定元素的宽度
 
-```
+```css
   div#div1{
       column-count: 2;
       -moz-column-count: 2;
@@ -118,7 +118,7 @@ categories: [ web ]
 
 使用`column-width`属性指定每栏宽度而不设定元素的宽度，则需要在元素外面单独设立一个容器元素，然后指定该容器元素的宽度
 
-```
+```css
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -157,7 +157,7 @@ categories: [ web ]
 
 column-gap属性设定多栏之间的间隔距离
 
-```
+```css
  div#div1{
       column-count: 2;
       -moz-column-count: 2;
@@ -179,7 +179,7 @@ column-gap属性设定多栏之间的间隔距离
 
 先使用float属性布局三个div元素，展示网页中左侧栏、中间内容和右侧边栏
 
-```
+```css
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -250,7 +250,7 @@ column-gap属性设定多栏之间的间隔距离
 
 修改代码如下
 
-```
+```css
 <style type="text/css">
         #container{
             display: -moz-box;

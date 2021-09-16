@@ -1,85 +1,81 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Swift on Cheng Blog</title>
-    <link>https://luckyliang.github.io/tags/swift/</link>
+    <link>http://lruoheng.com/tags/swift/</link>
     <description>Recent content in Swift on Cheng Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 23 Apr 2018 13:20:22 +0000</lastBuildDate>
-    
-	<atom:link href="https://luckyliang.github.io/tags/swift/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 23 Apr 2018 13:20:22 +0000</lastBuildDate><atom:link href="http://lruoheng.com/tags/swift/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>RXSwift - 原理分析</title>
-      <link>https://luckyliang.github.io/2018/04/23/swiftrxsiwft1/</link>
+      <link>http://lruoheng.com/2018/04/23/swiftRXSiwft1/</link>
       <pubDate>Mon, 23 Apr 2018 13:20:22 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/04/23/swiftrxsiwft1/</guid>
+      <guid>http://lruoheng.com/2018/04/23/swiftRXSiwft1/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Moya - 源码解析</title>
-      <link>https://luckyliang.github.io/2018/04/20/swifturlmoyadetail/</link>
+      <link>http://lruoheng.com/2018/04/20/swiftURlMoyaDetail/</link>
       <pubDate>Fri, 20 Apr 2018 20:31:08 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/04/20/swifturlmoyadetail/</guid>
+      <guid>http://lruoheng.com/2018/04/20/swiftURlMoyaDetail/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Swift网络请求 - RXSwift &#43; PromiseKit &#43; Moya</title>
-      <link>https://luckyliang.github.io/2018/04/20/swifturlmoya/</link>
+      <link>http://lruoheng.com/2018/04/20/swiftURlMoya/</link>
       <pubDate>Fri, 20 Apr 2018 16:30:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/04/20/swifturlmoya/</guid>
+      <guid>http://lruoheng.com/2018/04/20/swiftURlMoya/</guid>
       <description>Moya是基于Alamofire网络框架上进行的封装，支持RXSwift 创建模型 import Foundation /// 实用泛行实现通用格式 public struct ResponseData&amp;lt;T&amp;gt;: Codable where T: Codable { let code: String let message: String let data: T?</description>
     </item>
     
     <item>
       <title>Alamofire源码解析</title>
-      <link>https://luckyliang.github.io/2018/04/19/swifturlalamofiredetail/</link>
+      <link>http://lruoheng.com/2018/04/19/swiftURlAlamofireDetail/</link>
       <pubDate>Thu, 19 Apr 2018 16:30:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/04/19/swifturlalamofiredetail/</guid>
+      <guid>http://lruoheng.com/2018/04/19/swiftURlAlamofireDetail/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Siwft网络请求 - Alamofire</title>
-      <link>https://luckyliang.github.io/2018/04/18/swifturlalamofire/</link>
+      <link>http://lruoheng.com/2018/04/18/swiftURlAlamofire/</link>
       <pubDate>Wed, 18 Apr 2018 20:30:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/04/18/swifturlalamofire/</guid>
+      <guid>http://lruoheng.com/2018/04/18/swiftURlAlamofire/</guid>
       <description>一个简单的get请求接口为例，搭建一个比较完整的网络框架，其中包括Session管理，路由和错误处理 这里以获取用户文章列表接口为例 创建模型 ///</description>
     </item>
     
     <item>
       <title>Siwft网络请求 - URLSession</title>
-      <link>https://luckyliang.github.io/2018/04/18/swifturlsession/</link>
+      <link>http://lruoheng.com/2018/04/18/swiftURlSession/</link>
       <pubDate>Wed, 18 Apr 2018 19:40:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/04/18/swifturlsession/</guid>
+      <guid>http://lruoheng.com/2018/04/18/swiftURlSession/</guid>
       <description>URLSession功能 NSURLSession 支持 http2.0 协议 在处理下载任务的时候可以直接把数据下载到磁盘 支持后台下载与上传 同一个 session 发送多个请求，只需要建立一次连接（</description>
     </item>
     
     <item>
       <title>Swift - PromisKit使用</title>
-      <link>https://luckyliang.github.io/2018/04/17/swiftpromiskit/</link>
+      <link>http://lruoheng.com/2018/04/17/swiftPromisKit/</link>
       <pubDate>Tue, 17 Apr 2018 20:31:08 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/04/17/swiftpromiskit/</guid>
+      <guid>http://lruoheng.com/2018/04/17/swiftPromisKit/</guid>
       <description>promistKit主要是解决异步回调地狱的问题，举个例子，比如需要下载一个图片文件，而且这个图片文件的下载链接也需要请求，也就是先请求一个</description>
     </item>
     
     <item>
       <title>Siwft 小技巧记录</title>
-      <link>https://luckyliang.github.io/2018/04/13/swifttipsrecord/</link>
+      <link>http://lruoheng.com/2018/04/13/swiftTipsRecord/</link>
       <pubDate>Fri, 13 Apr 2018 19:22:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/04/13/swifttipsrecord/</guid>
+      <guid>http://lruoheng.com/2018/04/13/swiftTipsRecord/</guid>
       <description>Swift 记录 通过字符串初始化类 比如有个类名为URLSessionViewController，在Swift中通过字符串来初始化 ///规则：项目名.</description>
     </item>
     

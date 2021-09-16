@@ -1,5 +1,5 @@
-baseurl = "https://luckyliang.github.io"
-title = "Cheng Blog" #网页标题
+baseurl = "http://lruoheng.com"
+title = "Cheng Blog"
 theme = "hugo-theme-cleanwhite"
 languageCode = "zh"
 # Enable comments by entering your Disqus shortname
@@ -21,6 +21,7 @@ home = ["HTML", "RSS", "Algolia"]
 
   image_404 = "img/404-bg.jpg"
   title_404 = "你来到了没有知识的荒原 :("
+  omit_categories = false
 
   # leancloud storage for page view counter
   page_view_conter = false
@@ -28,7 +29,7 @@ home = ["HTML", "RSS", "Algolia"]
   leancloud_app_key = ""
 
   # algolia site search
-  algolia_search = true
+  algolia_search = false
   algolia_appId = ""
   algolia_indexName = ""
   algolia_apiKey = ""
@@ -50,7 +51,7 @@ home = ["HTML", "RSS", "Algolia"]
   disqus_site = ""
 
   #Enable wechat pay & alipay to allow readers send reward money if they like the articles
-  reward = true
+  reward = false
   # reward_guide = "如果这篇文章对你有用,请随意打赏"
 
   friends = true
@@ -58,24 +59,19 @@ home = ["HTML", "RSS", "Algolia"]
   about_me = true
 
   # Include any custom CSS and/or JS files, url or relative to /static folder
-  custom_css = ["css/tomorrow-night-eighties.css", "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css", "css/main.css"]
+  #custom_css = ["css/lightbox.css", "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css", "css/main.css"]
   #custom_js = ["js/lightbox.js", "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js", "js/main.js"]
-
-  # Highlight.js
-  # 只对hightlighths有效
-  # demo: https://highlightjs.org/static/demo/
-  # highlightjs = "docco"
 
   [params.social]
   rss            = true
-  email          = "401932941@qq.com"
+  email          = "401932941@gmail.com"
   #facebook      = "full profile url in facebook"
   #googleplus    = "full profile url in googleplus"
   #twitter       = "full profile url in twitter"
   #linkedin       = "https://www.linkedin.com/in/yourlinkedinid"
   #stackoverflow  = "https://stackoverflow.com/users/yourstackoverflowid"
   #instagram     = "full profile url in instagram"
-  github         = "https://github.com/LuckyLiang"
+  github         = "https://github.com/luckyliang"
   #wechat         = "your wechat qr code image"
 #  medium         = "full profile url in medium"
   #pinterest     = "full profile url in pinterest"
@@ -83,29 +79,32 @@ home = ["HTML", "RSS", "Algolia"]
   #gitlab        = "full profile url in gitlab"
   #mastodon      = "full profile url in mastodon"
   #keybase       = "full profile url in keybase"
+  #xing          = "https://www.xing.com/profile/yourxingid"
   #git           = "full profile url for git user"
 
-  #友情链接，暂不设置
-  #[[params.friend_link]]
-  #title = "Linda的博客"
-  #href =  "https://zhaozhihan.com"
+  # [[params.friend_link]]
+  # title = "Linda的博客"
+  # href =  "https://zhaozhihan.com"
+  #
+  # [[params.bookmark_link]]
+  # title =  "Martin Fowler"
+  # href =  "https://martinfowler.com"
+  # [[params.bookmark_link]]
+  # title = "ServiceMesher"
+  # href =  "http://www.servicemesher.com"
+  # [[params.bookmark_link]]
+  # title =  "Pxhere"
+  # href = "https://pxhere.com"
+  # [[params.bookmark_link]]
+  # title = "unsplash"
+  # href = "https://unsplash.com"
 
-  #[[params.bookmark_link]]
-  #title =  "Martin Fowler"
-  #href =  "https://martinfowler.com"
-  #[[params.bookmark_link]]
-  #title = "ServiceMesher"
-  #href =  "http://www.servicemesher.com"
-  #[[params.bookmark_link]]
-  #title =  "Pxhere"
-  #href = "https://pxhere.com"
-  #[[params.bookmark_link]]
-  #title = "unsplash"
-  #href = "https://unsplash.com"
-
-  [[params.addtional_menus]]
-  title =  "BOOKS"
-  href =  "/top/books/"
+  # [[params.addtional_menus]]
+  # title =  "BOOKS"
+  # href =  "/top/books/"
+  # [[params.addtional_menus]]
+  # title =  "ARCHIVE"
+  # href =  "/top/archive/"
   [[params.addtional_menus]]
   title =  "ABOUT"
   href =  "/top/about/"
@@ -119,3 +118,10 @@ notAlternative = true
 [params.algolia]
 vars = ["title", "summary", "date", "publishdate", "expirydate", "permalink"]
 params = ["categories", "tags"]
+
+[markup]
+  [markup.tableOfContents]
+    endLevel = 2
+    startLevel = 1
+  [markup.highlight]
+    style = "dracula"

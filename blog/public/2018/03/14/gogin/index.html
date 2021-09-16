@@ -10,8 +10,8 @@
     <meta property="og:type" content="article">
 
     
-    <meta property="og:image" content="https://luckyliang.github.io/img/home-bg-jeep.jpg">
-    <meta property="twitter:image" content="https://luckyliang.github.io/img/home-bg-jeep.jpg" />
+    <meta property="og:image" content="http://lruoheng.com/img/home-bg-jeep.jpg">
+    <meta property="twitter:image" content="http://lruoheng.com/img/home-bg-jeep.jpg" />
     
 
     
@@ -39,45 +39,32 @@
     <link rel="canonical" href="/2018/03/14/goGin/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
-	
+
     
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     
-    <link rel="stylesheet" href="/css/hux-blog.min.css">
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
 
-    
-    <link rel="stylesheet" href="/css/syntax.css">
-    
     
     <link rel="stylesheet" href="/css/zanshang.css">
-    
-    
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     
-    <link rel="stylesheet" href="https://luckyliang.github.io/css/tomorrow-night-eighties.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"><link rel="stylesheet" href="https://luckyliang.github.io/css/main.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+    
+    
 
     
     
     <script src="/js/jquery.min.js"></script>
-    
-    
-    <script src="/js/bootstrap.min.js"></script>
-    
-    
-    <script src="/js/hux-blog.min.js"></script>
-  
-    
-    
-    <script src="/js/preetyCode.js"></script>
 
     
+    <script src="/js/bootstrap.min.js"></script>
+
     
-    
-    
-    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-        
+    <script src="/js/hux-blog.min.js"></script>
+
     
     
 
@@ -85,7 +72,9 @@
 
 
 
+
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
     <div class="container-fluid">
         
         <div class="navbar-header page-scroll">
@@ -121,6 +110,14 @@
                         </li>
                         
                         <li>
+                            <a href="/categories/other">other</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
                             <a href="/categories/web">web</a>
                         </li>
                         
@@ -131,15 +128,9 @@
                     
                     
 		    
-                        <li><a href="/top/books/">BOOKS</a></li>
-                    
                         <li><a href="/top/about/">ABOUT</a></li>
                     
 
-                    
-		    <li>
-                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
-		    </li>
                     
                 </ul>
             </div>
@@ -185,7 +176,9 @@
         background-image: url('https://img.zhaohuabing.com/in-post/2018-04-11-service-mesh-vs-api-gateway/background.jpg')
     }
 </style>
-<header class="intro-header">
+
+<header class="intro-header" >
+
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -200,15 +193,17 @@
                     <h1>go - gin框架</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
-                        Posted by 
                         
-                            Cheng
-                         
-                        on 
-                        Wednesday, March 14, 2018
-                        
-                        
-                        
+                            Posted by 
+                            
+                                Cheng
+                             
+                            on 
+                            Wednesday, March 14, 2018
+                            
+                            
+                            
+                            
                     </span>
                 </div>
             </div>
@@ -234,100 +229,35 @@
                     <h2>TOC</h2>
                 </header>
                 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#gin简介">gin简介</a>
-<ul>
-<li><a href="#安装">安装</a></li>
-<li><a href="#helloworld">helloworld</a></li>
-</ul></li>
-<li><a href="#路由">路由</a>
-<ul>
-<li><a href="#服务器">服务器</a>
-<ul>
-<li><a href="#默认服务器">默认服务器</a></li>
-</ul></li>
-<li><a href="#路由-1">路由</a>
-<ul>
-<li><a href="#基本路由">基本路由</a></li>
-<li><a href="#路由参数">路由参数</a>
-<ul>
-<li><a href="#api参数">api参数</a></li>
-<li><a href="#url参数">URL参数</a></li>
-<li><a href="#表单参数">表单参数</a></li>
-<li><a href="#文件上传">文件上传</a>
-<ul>
-<li><a href="#上传单个文件">上传单个文件</a></li>
-<li><a href="#上传多个文件">上传多个文件</a></li>
-</ul></li>
-<li><a href="#grouping-routes">Grouping routes</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li><a href="#model">Model</a>
-<ul>
-<li><a href="#数据解析绑定">数据解析绑定</a></li>
-<li><a href="#json绑定">JSON绑定</a></li>
-<li><a href="#form表单">Form表单</a></li>
-<li><a href="#uri绑定">Uri绑定</a></li>
-</ul></li>
-<li><a href="#响应">响应</a>
-<ul>
-<li><a href="#json-xml-yaml渲染">JSON/XML/YAML渲染</a></li>
-<li><a href="#html模板渲染">HTML模板渲染</a></li>
-<li><a href="#文件响应">文件响应</a>
-<ul>
-<li><a href="#静态文件服务">静态文件服务</a></li>
-</ul></li>
-<li><a href="#重定向">重定向</a></li>
-<li><a href="#同步异步">同步异步</a></li>
-</ul></li>
-<li><a href="#中间件middleware">中间件middleware</a>
-<ul>
-<li><a href="#全局中间件">全局中间件</a></li>
-<li><a href="#next-方法"><code>Next()</code>方法</a></li>
-<li><a href="#单个路由中间件">单个路由中间件</a></li>
-<li><a href="#中间件实践">中间件实践</a>
-<ul>
-<li><a href="#简单认证basicauth">简单认证BasicAuth</a></li>
-</ul></li>
-<li><a href="#总结">总结</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#gin简介">gin简介</a></li>
+        <li><a href="#路由">路由</a></li>
+        <li><a href="#model">Model</a></li>
+        <li><a href="#响应">响应</a></li>
+        <li><a href="#中间件middleware">中间件middleware</a></li>
+        <li><a href="#heading"></a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                 
-                
-
-<h2 id="gin简介">gin简介</h2>
-
+                <h2 id="gin简介">gin简介</h2>
 <p>Gin是一个golang的微框架，封装比较优雅，API友好，源码注释比较明确，已经发布了1.0版本。具有快速灵活，容错方便等特点。其实对于golang而言，web框架的依赖要远比Python，Java之类的要小。自身的net/http足够简单，性能也非常不错。框架更像是一些常用函数或者工具的集合。借助框架开发，不仅可以省去很多常用的封装带来的时间，也有助于团队的编码风格和形成规范。</p>
-
 <p>Gin 包括以下几个主要的部分:</p>
-
 <ul>
 <li>设计精巧的路由/中间件系统;</li>
 <li>简单好用的核心上下文 <code>Context</code>;</li>
 <li>附赠工具集(JSON/XML 响应, 数据绑定与校验等).</li>
 </ul>
-
 <h3 id="安装">安装</h3>
-
 <p>终端输入：</p>
-
 <pre><code>go get -u github.com/gin-gonic/gin
-</code></pre>
-
-<p>使用的时候要导入包：</p>
-
+</code></pre><p>使用的时候要导入包：</p>
 <pre><code>import &quot;github.com/gin-gonic/gin&quot;
-</code></pre>
-
-<h3 id="helloworld">helloworld</h3>
-
+</code></pre><h3 id="helloworld">helloworld</h3>
 <p>新建一个go文件(helloworld.go)：</p>
-
 <pre><code>package main
 
 import (
@@ -342,65 +272,43 @@ func main() {
     })
     router.Run(&quot;:8000&quot;) 
 }
-</code></pre>
-
-<p>使用Gin实现Hello world非常简单，创建一个router（路由），然后执行Run方法即可。</p>
-
+</code></pre><p>使用Gin实现Hello world非常简单，创建一个router（路由），然后执行Run方法即可。</p>
 <p>代码结构：</p>
-
 <ul>
 <li>1、<code>router:=gin.Default()</code>：这是默认的服务器。使用gin的<code>Default</code>方法创建一个路由<code>Handler</code>；</li>
 <li>2、然后通过Http方法绑定路由规则和路由函数。不同于<code>net/http</code>库的路由函数，gin进行了封装，把<code>request</code>和<code>response</code>都封装到了<code>gin.Context</code>的上下文环境中。</li>
-
-<li><p>3、最后启动路由的Run方法监听端口。还可以用<code>http.ListenAndServe(&quot;:8080&quot;, router)</code>，或者自定义Http服务器配置。</p>
-
+<li>3、最后启动路由的Run方法监听端口。还可以用<code>http.ListenAndServe(&quot;:8080&quot;, router)</code>，或者自定义Http服务器配置。</li>
+</ul>
 <pre><code>//Run方法
 func (engine *Engine) Run(addr ...string) (err error) {
-defer func() { debugPrintError(err) }()
+    defer func() { debugPrintError(err) }()
 
-address := resolveAddress(addr)
-debugPrint(&quot;Listening and serving HTTP on %s\n&quot;, address)
-err = http.ListenAndServe(address, engine)
-return
+    address := resolveAddress(addr)
+    debugPrint(&quot;Listening and serving HTTP on %s\n&quot;, address)
+    err = http.ListenAndServe(address, engine)
+    return
 }
-</code></pre></li>
-</ul>
-
-<h2 id="路由">路由</h2>
-
+</code></pre><h2 id="路由">路由</h2>
 <h3 id="服务器">服务器</h3>
-
 <h4 id="默认服务器">默认服务器</h4>
-
 <p>如果不传端口号，默认8080</p>
-
 <pre><code>router.Run() 
-</code></pre>
-
-<p>从上面run方法可以看出吗，其内部也是调用的 <code>http.ListenAndServe()</code>，只是在这之前对端口进行了处理</p>
-
+</code></pre><p>从上面run方法可以看出吗，其内部也是调用的 <code>http.ListenAndServe()</code>，只是在这之前对端口进行了处理</p>
 <p>还可以用 <code>http.ListenAndServe()</code>，比如</p>
-
-<pre><code class="language-go">func main() {
-	router := gin.Default()
-	router.GET(&quot;/&quot;, func(context *gin.Context) {
-		context.String(http.StatusOK,&quot;Hello World&quot;)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>() {
+	router <span style="color:#ff79c6">:=</span> gin.<span style="color:#50fa7b">Default</span>()
+	router.<span style="color:#50fa7b">GET</span>(<span style="color:#f1fa8c">&#34;/&#34;</span>, <span style="color:#8be9fd;font-style:italic">func</span>(context <span style="color:#ff79c6">*</span>gin.Context) {
+		context.<span style="color:#50fa7b">String</span>(http.StatusOK,<span style="color:#f1fa8c">&#34;Hello World&#34;</span>)
 	})
-	http.ListenAndServe(&quot;3000&quot;,router)
+	http.<span style="color:#50fa7b">ListenAndServe</span>(<span style="color:#f1fa8c">&#34;3000&#34;</span>,router)
 }
-</code></pre>
-
-<p><code>http.ListenAndServe()</code>方法内部调用</p>
-
+</code></pre></div><p><code>http.ListenAndServe()</code>方法内部调用</p>
 <pre><code>func ListenAndServe(addr string, handler Handler) error {
 //初始化server
 	server := &amp;Server{Addr: addr, Handler: handler} 
 	return server.ListenAndServe()
 }
-</code></pre>
-
-<p>因此我们也可以自定义HTTP服务器的配置：</p>
-
+</code></pre><p>因此我们也可以自定义HTTP服务器的配置：</p>
 <pre><code>func main() {
 	router := gin.Default()
 	s := &amp;http.Server{
@@ -412,16 +320,10 @@ return
 	}
 	s.ListenAndServe()
 }
-</code></pre>
-
-<p>当然Server还有很多其他配置，这里不一一列举</p>
-
+</code></pre><p>当然Server还有很多其他配置，这里不一一列举</p>
 <h3 id="路由-1">路由</h3>
-
 <h4 id="基本路由">基本路由</h4>
-
 <p>gin框架中的基本路由采用的是<code>httprouter</code></p>
-
 <pre><code>// 创建带有默认中间件的路由:
 // 日志与恢复中间件
 router := gin.Default()
@@ -435,42 +337,26 @@ router.DELETE(&quot;/someDelete&quot;, deleting)
 router.PATCH(&quot;/somePatch&quot;, patching)
 router.HEAD(&quot;/someHead&quot;, head)
 router.OPTIONS(&quot;/someOptions&quot;, options)
-</code></pre>
-
-<h4 id="路由参数">路由参数</h4>
-
+</code></pre><h4 id="路由参数">路由参数</h4>
 <p>gin的路由来自httprouter库。因此httprouter具有的功能，gin也具有，不过gin不支持路由正则表达式。</p>
-
 <h5 id="api参数">api参数</h5>
-
 <p>api参数通过Context的Param方法来获取</p>
-
 <pre><code>router.GET(&quot;/user/:name&quot;, func(c *gin.Context) {
     name := c.Param(&quot;name&quot;)
     c.String(http.StatusOK, name)
 })
-</code></pre>
-
-<p>运行后浏览器输入：<a href="http://127.0.0.1:3000/user/hanru运行">http://127.0.0.1:3000/user/hanru运行</a></p>
-
+</code></pre><p>运行后浏览器输入：http://127.0.0.1:3000/user/hanru运行</p>
 <p>冒号<code>:</code>加上一个参数名组成路由参数。可以使用c.Params的方法读取其值。当然这个值是字串string。诸如<code>/user/hanru</code>，和<code>/user/hello</code>都可以匹配，而<code>/user/</code>和<code>/user/hanru/</code>不会被匹配。</p>
-
 <pre><code>router.GET(&quot;/user/:name/*action&quot;, func(c *gin.Context) {
     name := c.Param(&quot;name&quot;)
     action := c.Param(&quot;action&quot;)
     message := name + &quot; is &quot; + action
     c.String(http.StatusOK, message)
 })
-</code></pre>
-
-<p>浏览器中输入：<a href="http://127.0.0.1:3000/user/hanru/send">http://127.0.0.1:3000/user/hanru/send</a></p>
-
+</code></pre><p>浏览器中输入：http://127.0.0.1:3000/user/hanru/send</p>
 <h5 id="url参数">URL参数</h5>
-
 <p>URL 参数通过 DefaultQuery 或 Query 方法获取。</p>
-
 <p>对于参数的处理，经常会出现参数不存在的情况，对于是否提供默认值，gin也考虑了，并且给出了一个优雅的方案，使用c.DefaultQuery方法读取参数，其中当参数不存在的时候，提供一个默认值。使用Query方法读取正常参数，当参数不存在的时候，返回空字串。</p>
-
 <pre><code>func main() {
     router := gin.Default()
     router.GET(&quot;/welcome&quot;, func(c *gin.Context) {
@@ -480,14 +366,9 @@ router.OPTIONS(&quot;/someOptions&quot;, options)
     })
     router.Run(&quot;:3000&quot;)
 }
-</code></pre>
-
-<h5 id="表单参数">表单参数</h5>
-
+</code></pre><h5 id="表单参数">表单参数</h5>
 <p>常见的格式就有四种。例如<code>application/json</code>，<code>application/x-www-form-urlencoded</code>, <code>application/xml</code>和<code>multipart/form-data</code>。后面一个主要用于图片上传。json格式的很好理解，urlencode其实也不难，无非就是把query string的内容，放到了body体里，同样也需要urlencode。默认情况下，c.PostFROM解析的是<code>x-www-form-urlencoded</code>或<code>from-data</code>的参数。</p>
-
 <p>表单参数通过 PostForm 方法获取：</p>
-
 <pre><code>
 func main() {
 
@@ -508,14 +389,9 @@ func main() {
 
     router.Run(&quot;:9527&quot;)
 }
-</code></pre>
-
-<h5 id="文件上传">文件上传</h5>
-
+</code></pre><h5 id="文件上传">文件上传</h5>
 <h6 id="上传单个文件">上传单个文件</h6>
-
 <p><code>multipart/form-data</code>用于文件上传。gin文件上传也很方便，和原生的net/http方法类似，不同在于gin把原生的request封装到c.Request中了。</p>
-
 <pre><code>func main() {
     router := gin.Default()
     // Set a lower memory limit for multipart forms (default is 32 MiB)
@@ -539,14 +415,9 @@ func main() {
     })
     router.Run(&quot;:8080&quot;)
 }
-</code></pre>
-
-<p>使用<code>c.Request.FormFile</code>解析客户端文件name属性。如果不传文件，则会抛错，因此需要处理这个错误。此处我们略写了错误处理。一种是直接用c.SaveUploadedFile()保存文件。另一种方式是使用os的操作，把文件数据复制到硬盘上。</p>
-
+</code></pre><p>使用<code>c.Request.FormFile</code>解析客户端文件name属性。如果不传文件，则会抛错，因此需要处理这个错误。此处我们略写了错误处理。一种是直接用c.SaveUploadedFile()保存文件。另一种方式是使用os的操作，把文件数据复制到硬盘上。</p>
 <h6 id="上传多个文件">上传多个文件</h6>
-
 <p>所谓多个文件，无非就是多一次遍历文件，然后一次copy数据存储即可。</p>
-
 <pre><code>package main
 
 import (
@@ -581,12 +452,8 @@ func main() {
     })
     router.Run(&quot;:8080&quot;)
 }
-</code></pre>
-
-<h5 id="grouping-routes">Grouping routes</h5>
-
+</code></pre><h5 id="grouping-routes">Grouping routes</h5>
 <p>router group是为了方便一部分相同的URL的管理，在项目中也会经常用到，可以适配多种版本</p>
-
 <pre><code>package main
 import (
     &quot;github.com/gin-gonic/gin&quot;
@@ -629,39 +496,28 @@ func readEndpoint(c *gin.Context) {
     name := c.DefaultQuery(&quot;name&quot;, &quot;Guest&quot;) //可设置默认值
     c.String(http.StatusOK, fmt.Sprintf(&quot;Hello %s \n&quot;, name))
 }
-</code></pre>
-
-<p>访问地址<a href="http://127.0.0.1:8080/v1/login?name=hanru">http://127.0.0.1:8080/v1/login?name=hanru</a></p>
-
+</code></pre><p>访问地址http://127.0.0.1:8080/v1/login?name=hanru</p>
 <h2 id="model">Model</h2>
-
 <h3 id="数据解析绑定">数据解析绑定</h3>
-
 <p>模型绑定可以将请求体绑定给一个类型。目前Gin支持JSON、XML、YAML和标准表单值的绑定。简单来说,，就是根据Body数据类型，将数据赋值到指定的结构体变量中 (类似于序列化和反序列化) 。</p>
-
 <p>Gin提供了两套绑定方法：</p>
-
 <ul>
 <li>Must bind
-
 <ul>
 <li>方法：Bind<code>,</code>BindJSON<code>,</code>BindXML<code>,</code>BindQuery<code>,</code>BindYAML</li>
 <li>行为：这些方法使用MustBindWith。如果存在绑定错误，则用c终止请求，使用<code>c.AbortWithError (400) .SetType (ErrorTypeBind)</code>即可。将响应状态代码设置为400，Content-Type header设置为<code>text/plain;charset = utf - 8</code>。请注意，如果在此之后设置响应代码，将会受到警告：<code>[GIN-debug][WARNING] Headers were already written. Wanted to override status code 400 with 422</code>将导致已经编写了警告[GIN-debug][warning]标头。如果想更好地控制行为，可以考虑使用ShouldBind等效方法。</li>
-</ul></li>
+</ul>
+</li>
 <li>Should bind
-
 <ul>
 <li>方法：ShouldBind<code>,</code>ShouldBindJSON<code>,</code>ShouldBindXML<code>,</code>ShouldBindQuery<code>,</code>ShouldBindYAML</li>
 <li>行为：这些方法使用ShouldBindWith。如果存在绑定错误，则返回错误，开发人员有责任适当地处理请求和错误</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <p>注意，使用绑定方法时，Gin 会根据请求头中 Content-Type 来自动判断需要解析的类型。如果你明确绑定的类型，你可以不用自动推断，而用 BindWith 方法。 你也可以指定某字段是必需的。如果一个字段被 <code>binding:&quot;required&quot;</code> 修饰而值却是空的，请求会失败并返回错误。</p>
-
 <h3 id="json绑定">JSON绑定</h3>
-
 <p>JSON的绑定，其实就是将request中的Body中的数据按照JSON格式进行解析，解析后存储到结构体对象中。</p>
-
 <pre><code>package main
 
 import (
@@ -694,14 +550,9 @@ func main() {
 
     router.Run(&quot;:8080&quot;)
 }
-</code></pre>
-
-<p>前面我们使用c.String返回响应，顾名思义则返回string类型。content-type是plain或者text。调用c.JSON则返回json数据。其中gin.H封装了生成json的方式，是一个强大的工具。使用golang可以像动态语言一样写字面量的json，对于嵌套json的实现，嵌套gin.H即可。</p>
-
+</code></pre><p>前面我们使用c.String返回响应，顾名思义则返回string类型。content-type是plain或者text。调用c.JSON则返回json数据。其中gin.H封装了生成json的方式，是一个强大的工具。使用golang可以像动态语言一样写字面量的json，对于嵌套json的实现，嵌套gin.H即可。</p>
 <h3 id="form表单">Form表单</h3>
-
 <p>其实本质是将c中的request中的body数据解析到form中。首先我们先看一下绑定普通表单的例子：</p>
-
 <pre><code>// 3. Form 绑定普通表单的例子
     // Example for binding a HTML form (user=hanru&amp;password=hanru123)
     router.POST(&quot;/loginForm&quot;, func(c *gin.Context) {
@@ -720,10 +571,7 @@ func main() {
 
         c.JSON(http.StatusOK, gin.H{&quot;status&quot;: &quot;you are logged in&quot;})
     })
-</code></pre>
-
-<p>方式二</p>
-
+</code></pre><p>方式二</p>
 <pre><code>    router.POST(&quot;/login&quot;, func(c *gin.Context) {
         var form Login
         //方法二: 使用BindWith函数,如果你明确知道数据的类型
@@ -738,10 +586,7 @@ func main() {
             }
         }
     })
-</code></pre>
-
-<h3 id="uri绑定">Uri绑定</h3>
-
+</code></pre><h3 id="uri绑定">Uri绑定</h3>
 <pre><code>// 5.URI
     router.GET(&quot;/:user/:password&quot;, func(c *gin.Context) {
         var login Login
@@ -751,14 +596,9 @@ func main() {
         }
         c.JSON(200, gin.H{&quot;username&quot;: login.User, &quot;password&quot;: login.Password})
     })
-</code></pre>
-
-<h2 id="响应">响应</h2>
-
+</code></pre><h2 id="响应">响应</h2>
 <p>既然请求可以使用不同的content-type，响应也如此。通常响应会有html，text，plain，json和xml等。 gin提供了很优雅的渲染方法。</p>
-
-<h3 id="json-xml-yaml渲染">JSON/XML/YAML渲染</h3>
-
+<h3 id="jsonxmlyaml渲染">JSON/XML/YAML渲染</h3>
 <pre><code>package main
 
 import (
@@ -814,14 +654,9 @@ func main() {
     // Listen and serve on 0.0.0.0:8080
     r.Run(&quot;:8080&quot;)
 }
-</code></pre>
-
-<h3 id="html模板渲染">HTML模板渲染</h3>
-
+</code></pre><h3 id="html模板渲染">HTML模板渲染</h3>
 <p>gin支持加载HTML模板, 然后根据模板参数进行配置并返回相应的数据。</p>
-
-<p>先要使用 <code>LoadHTMLGlob()</code>或者<code>LoadHTMLFiles()</code>方法来加载模板文件</p>
-
+<p>先要使用 <code>LoadHTMLGlob() </code>或者<code> LoadHTMLFiles()</code>方法来加载模板文件</p>
 <pre><code>func main() {
     router := gin.Default()
     //加载模板
@@ -836,23 +671,15 @@ func main() {
     })
     router.Run(&quot;:8080&quot;)
 }
-</code></pre>
-
-<p>创建一个目录：templates，然后在该目录下创建一个模板文件：</p>
-
+</code></pre><p>创建一个目录：templates，然后在该目录下创建一个模板文件：</p>
 <p>templates/index.tmpl</p>
-
 <pre><code>&lt;html&gt;
     &lt;h1&gt;
         {{ .title }}
     &lt;/h1&gt;
 &lt;/html&gt;
-</code></pre>
-
-<p>运行项目，打开浏览器输入地址：<a href="http://127.0.0.1:8080/index">http://127.0.0.1:8080/index</a></p>
-
+</code></pre><p>运行项目，打开浏览器输入地址：http://127.0.0.1:8080/index</p>
 <p>不同文件夹下模板名字可以相同，此时需要 LoadHTMLGlob() 加载两层模板路径。</p>
-
 <pre><code>router.LoadHTMLGlob(&quot;templates/**/*&quot;)
     router.GET(&quot;/posts/index&quot;, func(c *gin.Context) {
         c.HTML(http.StatusOK, &quot;posts/index.tmpl&quot;, gin.H{
@@ -863,10 +690,7 @@ func main() {
         })
 
     })
-</code></pre>
-
-<p>gin也可以使用自定义的模板引擎，如下</p>
-
+</code></pre><p>gin也可以使用自定义的模板引擎，如下</p>
 <pre><code>import &quot;html/template&quot;
 
 func main() {
@@ -875,14 +699,9 @@ func main() {
     router.SetHTMLTemplate(html)
     router.Run(&quot;:8080&quot;)
 }
-</code></pre>
-
-<h3 id="文件响应">文件响应</h3>
-
+</code></pre><h3 id="文件响应">文件响应</h3>
 <h4 id="静态文件服务">静态文件服务</h4>
-
 <p>可以向客户端展示本地的一些文件信息，例如显示某路径下地文件。服务端代码是：</p>
-
 <pre><code>package main
 
 import (
@@ -902,10 +721,7 @@ func main() {
 
     router.Run(&quot;:8080&quot;)
 }
-</code></pre>
-
-<h3 id="重定向">重定向</h3>
-
+</code></pre><h3 id="重定向">重定向</h3>
 <pre><code>package main
 
 import (
@@ -922,12 +738,8 @@ func main() {
 
     r.Run(&quot;:8080&quot;)
 }
-</code></pre>
-
-<h3 id="同步异步">同步异步</h3>
-
+</code></pre><h3 id="同步异步">同步异步</h3>
 <p>goroutine 机制可以方便地实现异步处理。当在中间件或处理程序中启动新的Goroutines时，你不应该在原始上下文使用它，你必须使用只读的副本。</p>
-
 <pre><code>import (
     &quot;time&quot;
     &quot;github.com/gin-gonic/gin&quot;
@@ -958,14 +770,9 @@ func main() {
     // Listen and serve on 0.0.0.0:8080
     r.Run(&quot;:8080&quot;)
 }
-</code></pre>
-
-<h2 id="中间件middleware">中间件middleware</h2>
-
+</code></pre><h2 id="中间件middleware">中间件middleware</h2>
 <p>golang的net/http设计的一大特点就是特别容易构建中间件。gin也提供了类似的中间件。需要注意的是中间件只对注册过的路由函数起作用。对于分组路由，嵌套使用中间件，可以限定中间件的作用范围。中间件分为全局中间件，单个路由中间件和群组中间件。</p>
-
 <p>我们之前说过, <code>Context</code> 是 <code>Gin</code> 的核心, 它的构造如下:</p>
-
 <pre><code>type Context struct {
     writermem responseWriter
     Request   *http.Request
@@ -980,19 +787,11 @@ func main() {
     Errors   errorMsgs
     Accepted []string
 }
-</code></pre>
-
-<p>其中 <code>handlers</code> 我们通过源码可以知道就是 <code>[]HandlerFunc</code>. 而它的签名正是:</p>
-
+</code></pre><p>其中 <code>handlers</code> 我们通过源码可以知道就是 <code>[]HandlerFunc</code>. 而它的签名正是:</p>
 <pre><code>type HandlerFunc func(*Context)
-</code></pre>
-
-<p>所以中间件和我们普通的 <code>HandlerFunc</code> 没有任何区别对吧, 我们怎么写 <code>HandlerFunc</code> 就可以怎么写一个中间件.</p>
-
+</code></pre><p>所以中间件和我们普通的 <code>HandlerFunc</code> 没有任何区别对吧, 我们怎么写 <code>HandlerFunc</code> 就可以怎么写一个中间件.</p>
 <h3 id="全局中间件">全局中间件</h3>
-
 <p>定义一个中间件函数：</p>
-
 <pre><code>func MiddleWare() gin.HandlerFunc {
     return func(c *gin.Context) {
         t := time.Now()
@@ -1011,10 +810,7 @@ func main() {
         fmt.Println(&quot;time:&quot;, t2)
     }
 }
-</code></pre>
-
-<p>该函数很简单，只会给c上下文添加一个属性，并赋值。后面的路由处理器，可以根据被中间件装饰后提取其值。需要注意，虽然名为全局中间件，只要注册中间件的过程之前设置的路由，将不会受注册的中间件所影响。只有注册了中间件以下代码的路由函数规则，才会被中间件装饰。</p>
-
+</code></pre><p>该函数很简单，只会给c上下文添加一个属性，并赋值。后面的路由处理器，可以根据被中间件装饰后提取其值。需要注意，虽然名为全局中间件，只要注册中间件的过程之前设置的路由，将不会受注册的中间件所影响。只有注册了中间件以下代码的路由函数规则，才会被中间件装饰。</p>
 <pre><code>func main() {
 
 	router := gin.Default()
@@ -1034,20 +830,13 @@ func main() {
 
 	router.Run(&quot;:3000&quot;)
 }
-</code></pre>
-
-<p>使用router装饰中间件，然后在<code>/middlerware</code>即可读取request的值，注意在<code>router.Use(MiddleWare())</code>代码以上的路由函数，将不会有被中间件装饰的效果。</p>
-
+</code></pre><p>使用router装饰中间件，然后在<code>/middlerware</code>即可读取request的值，注意在<code>router.Use(MiddleWare())</code>代码以上的路由函数，将不会有被中间件装饰的效果。</p>
 <blockquote>
 <p>使用花括号包含被装饰的路由函数只是一个代码规范，即使没有被包含在内的路由函数，只要使用router进行路由，都等于被装饰了。想要区分权限范围，可以使用组返回的对象注册中间件。</p>
 </blockquote>
-
-<h3 id="next-方法"><code>Next()</code>方法</h3>
-
+<h3 id="next方法"><code>Next()</code>方法</h3>
 <p>怎么解决一个请求和一个响应经过我们的中间件呢？神奇的语句出现了， 没错就是 <code>c.Next()</code>，所有中间件都有 <code>Request</code> 和 <code>Response</code> 的分水岭， 就是这个 <code>c.Next()</code>，否则没有办法传递中间件。</p>
-
 <p>如果将<code>c.Next()</code>放在<code>fmt.Println(&quot;after middleware,&quot;, status)</code>后面，那么<code>fmt.Println(&quot;after middleware,&quot;, status)</code>和<code>fmt.Println(&quot;request:&quot;,request)</code>执行的顺序就调换了。所以一切都取决于<code>c.Next()</code>执行的位置。<code>c.Next()</code>的核心代码如下：</p>
-
 <pre><code>func (c *Context) Next() {
     c.index++
     // for循环，执行完后买呢所有的handlers
@@ -1055,61 +844,38 @@ func main() {
         c.handlers[c.index](c)
     }
 }
-</code></pre>
-
-<p>它其实是执行了后面所有的handlers。</p>
-
+</code></pre><p>它其实是执行了后面所有的handlers。</p>
 <p>一个请求过来， <code>Gin</code> 会主动调用 <code>c.Next()</code> 一次。因为 <code>handlers</code> 是 <code>slice</code> ，所以后来者中间件会追加到尾部。这样就形成了形如 <code>m1(m2(f()))</code> 的调用链。正如上面数字① ② 标注的一样, 我们会依次执行如下的调用：</p>
-
 <pre><code>m1① -&gt; m2① -&gt; f -&gt; m2② -&gt; m1②
-</code></pre>
-
-<p>另外，如果没有注册就使用<code>MustGet</code>方法读取c的值将会抛错，可以使用Get方法取而代之。上面的注册装饰方式，会让所有下面所写的代码都默认使用了router的注册过的中间件。</p>
-
+</code></pre><p>另外，如果没有注册就使用<code>MustGet</code>方法读取c的值将会抛错，可以使用Get方法取而代之。上面的注册装饰方式，会让所有下面所写的代码都默认使用了router的注册过的中间件。</p>
 <h3 id="单个路由中间件">单个路由中间件</h3>
-
 <p>gin也提供了针对指定的路由函数进行注册。</p>
-
 <pre><code>router.GET(&quot;/before&quot;, MiddleWare(), func(c *gin.Context) {
         request := c.MustGet(&quot;request&quot;).(string)
         c.JSON(http.StatusOK, gin.H{
             &quot;middile_request&quot;: request,
         })
     })
-</code></pre>
-
-<p>把上述代码写在<code>router.Use(Middleware())</code>之前，同样也能看见<code>/before</code>被装饰了中间件。</p>
-
+</code></pre><p>把上述代码写在<code> router.Use(Middleware())</code>之前，同样也能看见<code>/before</code>被装饰了中间件。</p>
 <h3 id="中间件实践">中间件实践</h3>
-
 <p>中间件最大的作用，莫过于用于一些记录log，错误handler，还有就是对部分接口的鉴权。下面就实现一个简易的鉴权中间件。</p>
-
 <h4 id="简单认证basicauth">简单认证BasicAuth</h4>
-
 <p>关于使用<code>gin.BasicAuth() middleware,</code> 可以直接使用一个<code>router group</code>进行处理, 本质和上面的一样。</p>
-
 <p>定义私有数据：</p>
-
 <pre><code>// 模拟私有数据
 var secrets = gin.H{
     &quot;hanru&quot;:    gin.H{&quot;email&quot;: &quot;hanru@163.com&quot;, &quot;phone&quot;: &quot;123433&quot;},
     &quot;wangergou&quot;: gin.H{&quot;email&quot;: &quot;wangergou@example.com&quot;, &quot;phone&quot;: &quot;666&quot;},
     &quot;ruby&quot;:   gin.H{&quot;email&quot;: &quot;ruby@guapa.com&quot;, &quot;phone&quot;: &quot;523443&quot;},
 }
-</code></pre>
-
-<p>然后使用 gin.BasicAuth 中间件，设置授权用户</p>
-
+</code></pre><p>然后使用 gin.BasicAuth 中间件，设置授权用户</p>
 <pre><code>   authorized := r.Group(&quot;/admin&quot;, gin.BasicAuth(gin.Accounts{
         &quot;hanru&quot;:    &quot;hanru123&quot;,
         &quot;wangergou&quot;: &quot;1234&quot;,
         &quot;ruby&quot;:   &quot;hello2&quot;,
         &quot;lucy&quot;:   &quot;4321&quot;,
     }))
-</code></pre>
-
-<p>最后定义路由：</p>
-
+</code></pre><p>最后定义路由：</p>
 <pre><code>    authorized.GET(&quot;/secrets&quot;, func(c *gin.Context) {
         // 获取提交的用户名（AuthUserKey）
         user := c.MustGet(gin.AuthUserKey).(string)
@@ -1119,58 +885,15 @@ var secrets = gin.H{
             c.JSON(http.StatusOK, gin.H{&quot;user&quot;: user, &quot;secret&quot;: &quot;NO SECRET :(&quot;})
         }
     })
-</code></pre>
-
-<p>然后启动项目，打开浏览器输入以下网址：<a href="http://127.0.0.1:8080/admin/secrets">http://127.0.0.1:8080/admin/secrets</a></p>
-
+</code></pre><p>然后启动项目，打开浏览器输入以下网址：http://127.0.0.1:8080/admin/secrets</p>
 <h3 id="总结">总结</h3>
-
 <ol>
-<li>全局中间件<code>router.Use(gin.Logger()) router.Use(gin.Recovery())</code></li>
-<li>单路由的中间件，可以加任意多个<code>router.GET(&quot;/benchmark&quot;, MyMiddelware(), benchEndpoint)</code></li>
-<li>群组路由的中间件 <code>authorized := router.Group(&quot;/&quot;, MyMiddelware())</code>  或者这样用：<code>authorized := router.Group(&quot;/&quot;) authorized.Use(MyMiddelware()) { authorized.POST(&quot;/login&quot;, loginEndpoint) }</code></li>
+<li>全局中间件<code> router.Use(gin.Logger()) router.Use(gin.Recovery())</code></li>
+<li>单路由的中间件，可以加任意多个<code> router.GET(&quot;/benchmark&quot;, MyMiddelware(), benchEndpoint)</code></li>
+<li>群组路由的中间件 <code>authorized := router.Group(&quot;/&quot;, MyMiddelware())</code>  或者这样用：<code> authorized := router.Group(&quot;/&quot;) authorized.Use(MyMiddelware()) { authorized.POST(&quot;/login&quot;, loginEndpoint) }</code></li>
 </ol>
+<h2 id="heading"></h2>
 
-
-                
-                
-<div class="entry-shang text-center">
-    
-	    <p>「真诚赞赏，手留余香」</p>
-	
-	<button class="zs show-zs btn btn-bred">赞赏支持</button>
-</div>
-<div class="zs-modal-bg"></div>
-<div class="zs-modal-box">
-	<div class="zs-modal-head">
-		<button type="button" class="close">×</button>
-		<span class="author"><a href="https://luckyliang.github.io"><img src="/img/favicon.png" />Cheng Blog</a></span>
-        
-	        <p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
-		
- 
-	</div>
-	<div class="zs-modal-body">
-		<div class="zs-modal-btns">
-			<button class="btn btn-blink" data-num="2">2元</button>
-			<button class="btn btn-blink" data-num="5">5元</button>
-			<button class="btn btn-blink" data-num="10">10元</button>
-			<button class="btn btn-blink" data-num="50">50元</button>
-			<button class="btn btn-blink" data-num="100">100元</button>
-			<button class="btn btn-blink" data-num="1">任意金额</button>
-		</div>
-		<div class="zs-modal-pay">
-			<button class="btn btn-bred" id="pay-text">2元</button>
-			<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
-			<img src="/img/reward/wechat-2.png"  id="pay-image"/>
-		</div>
-	</div>
-	<div class="zs-modal-footer">
-		<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
-		<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
-	</div>
-</div>
-<script type="text/javascript" src="/js/reward.js"></script>
 
                 
 
@@ -1211,6 +934,8 @@ var secrets = gin.H{
                         
                         
                         
+                        
+                        
                         <a href="/tags/go" title="go">
                             go
                         </a>
@@ -1223,11 +948,11 @@ var secrets = gin.H{
                         
                         
                         
-                        <a href="/tags/java" title="java">
-                            java
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                            mysql
                         </a>
-                        
-                        
                         
                         
                         
@@ -1238,6 +963,10 @@ var secrets = gin.H{
                         <a href="/tags/swift" title="swift">
                             swift
                         </a>
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -1277,23 +1006,23 @@ var secrets = gin.H{
                    <li>
                        <a href='' rel="alternate" type="application/rss+xml" title="Cheng Blog" >
                            <span class="fa-stack fa-lg">
-                               <i class="fa fa-circle fa-stack-2x"></i>
-                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
                            </span>
                        </a>
                    </li>
                    
                     
                     <li>
-                        <a href="mailto:401932941@qq.com">
+                        <a href="mailto:401932941@gmail.com">
                             <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
 		    
-                    
+
                     
                     
                     
@@ -1304,10 +1033,10 @@ var secrets = gin.H{
                     
                     
                     <li>
-                        <a target="_blank" href="https://github.com/LuckyLiang">
+                        <a target="_blank" href="https://github.com/luckyliang">
                             <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -1321,8 +1050,19 @@ var secrets = gin.H{
                     
                     
             
+            
+            
                 </ul>
-		
+		<p class="copyright text-muted">
+                    Copyright &copy; Cheng Blog 2017
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
             </div>
         </div>
     </div>
@@ -1332,7 +1072,7 @@ var secrets = gin.H{
 
 
 <script>
-    function async(u, c) {
+    function loadAsync(u, c) {
       var d = document, t = 'script',
           o = d.createElement(t),
           s = d.getElementsByTagName(t)[0];
@@ -1350,7 +1090,7 @@ var secrets = gin.H{
 <script>
     
     if($('#tag_cloud').length !== 0){
-        async("/js/jquery.tagcloud.js",function(){
+        loadAsync("/js/jquery.tagcloud.js",function(){
             $.fn.tagcloud.defaults = {
                 
                 color: {start: '#bbbbee', end: '#0085a1'},
@@ -1362,7 +1102,7 @@ var secrets = gin.H{
 
 
 <script>
-    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+    loadAsync("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
         var $nav = document.querySelector("nav");
         if($nav) FastClick.attach($nav);
     })

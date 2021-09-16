@@ -10,8 +10,8 @@
     <meta property="og:type" content="article">
 
     
-    <meta property="og:image" content="https://luckyliang.github.io/img/home-bg-jeep.jpg">
-    <meta property="twitter:image" content="https://luckyliang.github.io/img/home-bg-jeep.jpg" />
+    <meta property="og:image" content="http://lruoheng.com/img/home-bg-jeep.jpg">
+    <meta property="twitter:image" content="http://lruoheng.com/img/home-bg-jeep.jpg" />
     
 
     
@@ -39,45 +39,32 @@
     <link rel="canonical" href="/2018/03/12/goHttpRouter/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
-	
+
     
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     
-    <link rel="stylesheet" href="/css/hux-blog.min.css">
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
 
-    
-    <link rel="stylesheet" href="/css/syntax.css">
-    
     
     <link rel="stylesheet" href="/css/zanshang.css">
-    
-    
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     
-    <link rel="stylesheet" href="https://luckyliang.github.io/css/tomorrow-night-eighties.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"><link rel="stylesheet" href="https://luckyliang.github.io/css/main.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+    
+    
 
     
     
     <script src="/js/jquery.min.js"></script>
-    
-    
-    <script src="/js/bootstrap.min.js"></script>
-    
-    
-    <script src="/js/hux-blog.min.js"></script>
-  
-    
-    
-    <script src="/js/preetyCode.js"></script>
 
     
+    <script src="/js/bootstrap.min.js"></script>
+
     
-    
-    
-    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-        
+    <script src="/js/hux-blog.min.js"></script>
+
     
     
 
@@ -85,7 +72,9 @@
 
 
 
+
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
     <div class="container-fluid">
         
         <div class="navbar-header page-scroll">
@@ -121,6 +110,14 @@
                         </li>
                         
                         <li>
+                            <a href="/categories/other">other</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
                             <a href="/categories/web">web</a>
                         </li>
                         
@@ -131,15 +128,9 @@
                     
                     
 		    
-                        <li><a href="/top/books/">BOOKS</a></li>
-                    
                         <li><a href="/top/about/">ABOUT</a></li>
                     
 
-                    
-		    <li>
-                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
-		    </li>
                     
                 </ul>
             </div>
@@ -185,7 +176,9 @@
         background-image: url('https://img.zhaohuabing.com/in-post/2018-04-11-service-mesh-vs-api-gateway/background.jpg')
     }
 </style>
-<header class="intro-header">
+
+<header class="intro-header" >
+
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -200,15 +193,17 @@
                     <h1>go - httprouter高性能Http框架</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
-                        Posted by 
                         
-                            Cheng
-                         
-                        on 
-                        Monday, March 12, 2018
-                        
-                        
-                        
+                            Posted by 
+                            
+                                Cheng
+                             
+                            on 
+                            Monday, March 12, 2018
+                            
+                            
+                            
+                            
                     </span>
                 </div>
             </div>
@@ -234,689 +229,545 @@
                     <h2>TOC</h2>
                 </header>
                 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#安装-httprouter">安装 HttpRouter</a></li>
-<li><a href="#认识httprouter">认识httprouter</a></li>
-<li><a href="#httprouter命名参数">httprouter命名参数</a></li>
-<li><a href="#httprouter兼容http-hander">httprouter兼容http.hander</a></li>
-<li><a href="#httprouter-处理链">Httprouter 处理链</a></li>
-<li><a href="#httprouter静态文件服务">httprouter静态文件服务</a></li>
-<li><a href="#httprouter异常捕获">httprouter异常捕获</a></li>
-<li><a href="#httprouter案例">httprouter案例</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                 
-                
+                <h3 id="安装-httprouter">安装 HttpRouter</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">go</span> get github.com<span style="color:#ff79c6">/</span>julienschmidt<span style="color:#ff79c6">/</span>httprouter
+</code></pre></div><h3 id="认识httprouter">认识httprouter</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">package</span> main
 
-<h3 id="安装-httprouter">安装 HttpRouter</h3>
-
-<pre><code class="language-go">go get github.com/julienschmidt/httprouter
-</code></pre>
-
-<h3 id="认识httprouter">认识httprouter</h3>
-
-<pre><code class="language-go">package main
-
-import (
-	&quot;fmt&quot;
-	&quot;log&quot;
-	&quot;net/http&quot;
-	&quot;github.com/julienschmidt/httprouter&quot;
+<span style="color:#ff79c6">import</span> (
+	<span style="color:#f1fa8c">&#34;fmt&#34;</span>
+	<span style="color:#f1fa8c">&#34;log&#34;</span>
+	<span style="color:#f1fa8c">&#34;net/http&#34;</span>
+	<span style="color:#f1fa8c">&#34;github.com/julienschmidt/httprouter&#34;</span>
 )
 
-func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	fmt.Fprint(w, &quot;Welcome!\n&quot;)
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">Index</span>(w http.ResponseWriter, r <span style="color:#ff79c6">*</span>http.Request, _ httprouter.Params) {
+	fmt.<span style="color:#50fa7b">Fprint</span>(w, <span style="color:#f1fa8c">&#34;Welcome!\n&#34;</span>)
 }
 
-func main() {
-	router := httprouter.New()
-	router.GET(&quot;/&quot;, Index)
-	log.Fatal(http.ListenAndServe(&quot;:3000&quot;, router))
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>() {
+	router <span style="color:#ff79c6">:=</span> httprouter.<span style="color:#50fa7b">New</span>()
+	router.<span style="color:#50fa7b">GET</span>(<span style="color:#f1fa8c">&#34;/&#34;</span>, Index)
+	log.<span style="color:#50fa7b">Fatal</span>(http.<span style="color:#50fa7b">ListenAndServe</span>(<span style="color:#f1fa8c">&#34;:3000&#34;</span>, router))
 }
-</code></pre>
-
-<p>执行<code>go run main.go</code> 然后在浏览器输入<code>http:// localhost:3000/</code>就可看见运行效果</p>
-
+</code></pre></div><p>执行<code>go run main.go</code> 然后在浏览器输入<code>http:// localhost:3000/</code>就可看见运行效果</p>
 <p>在这个例子中，首先通过<code>httprouter.New()</code>生成了一个<code>*Router</code>路由指针,然后使用<code>GET</code>方法注册一个适配<code>/</code>路径的<code>Index</code>函数，最后<code>*Router</code>作为参数传给<code>ListenAndServe</code>函数启动HTTP服务即可。</p>
-
 <p>其实不止是<code>GET</code>方法，httprouter 为所有的HTTP Method 提供了快捷的使用方式，只需要调用对应的方法即可。</p>
-
-<pre><code class="language-go">func (r *Router) GET(path string, handle Handle) {
-	r.Handle(&quot;GET&quot;, path, handle)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">func</span> (r <span style="color:#ff79c6">*</span>Router) <span style="color:#50fa7b">GET</span>(path <span style="color:#8be9fd">string</span>, handle Handle) {
+	r.<span style="color:#50fa7b">Handle</span>(<span style="color:#f1fa8c">&#34;GET&#34;</span>, path, handle)
 }
 
-func (r *Router) HEAD(path string, handle Handle) {
-	r.Handle(&quot;HEAD&quot;, path, handle)
+<span style="color:#8be9fd;font-style:italic">func</span> (r <span style="color:#ff79c6">*</span>Router) <span style="color:#50fa7b">HEAD</span>(path <span style="color:#8be9fd">string</span>, handle Handle) {
+	r.<span style="color:#50fa7b">Handle</span>(<span style="color:#f1fa8c">&#34;HEAD&#34;</span>, path, handle)
 }
 
-func (r *Router) OPTIONS(path string, handle Handle) {
-	r.Handle(&quot;OPTIONS&quot;, path, handle)
+<span style="color:#8be9fd;font-style:italic">func</span> (r <span style="color:#ff79c6">*</span>Router) <span style="color:#50fa7b">OPTIONS</span>(path <span style="color:#8be9fd">string</span>, handle Handle) {
+	r.<span style="color:#50fa7b">Handle</span>(<span style="color:#f1fa8c">&#34;OPTIONS&#34;</span>, path, handle)
 }
 
-func (r *Router) POST(path string, handle Handle) {
-	r.Handle(&quot;POST&quot;, path, handle)
+<span style="color:#8be9fd;font-style:italic">func</span> (r <span style="color:#ff79c6">*</span>Router) <span style="color:#50fa7b">POST</span>(path <span style="color:#8be9fd">string</span>, handle Handle) {
+	r.<span style="color:#50fa7b">Handle</span>(<span style="color:#f1fa8c">&#34;POST&#34;</span>, path, handle)
 }
 
-func (r *Router) PUT(path string, handle Handle) {
-	r.Handle(&quot;PUT&quot;, path, handle)
+<span style="color:#8be9fd;font-style:italic">func</span> (r <span style="color:#ff79c6">*</span>Router) <span style="color:#50fa7b">PUT</span>(path <span style="color:#8be9fd">string</span>, handle Handle) {
+	r.<span style="color:#50fa7b">Handle</span>(<span style="color:#f1fa8c">&#34;PUT&#34;</span>, path, handle)
 }
 
-func (r *Router) PATCH(path string, handle Handle) {
-	r.Handle(&quot;PATCH&quot;, path, handle)
+<span style="color:#8be9fd;font-style:italic">func</span> (r <span style="color:#ff79c6">*</span>Router) <span style="color:#50fa7b">PATCH</span>(path <span style="color:#8be9fd">string</span>, handle Handle) {
+	r.<span style="color:#50fa7b">Handle</span>(<span style="color:#f1fa8c">&#34;PATCH&#34;</span>, path, handle)
 }
 
-func (r *Router) DELETE(path string, handle Handle) {
-	r.Handle(&quot;DELETE&quot;, path, handle)
+<span style="color:#8be9fd;font-style:italic">func</span> (r <span style="color:#ff79c6">*</span>Router) <span style="color:#50fa7b">DELETE</span>(path <span style="color:#8be9fd">string</span>, handle Handle) {
+	r.<span style="color:#50fa7b">Handle</span>(<span style="color:#f1fa8c">&#34;DELETE&#34;</span>, path, handle)
 }
-</code></pre>
-
-<p>以上这些方法都是 httprouter 支持的，我们可以非常灵活的根据需要，使用对应的方法，这样就解决了<code>net/http</code>默认路由的问题。</p>
-
+</code></pre></div><p>以上这些方法都是 httprouter 支持的，我们可以非常灵活的根据需要，使用对应的方法，这样就解决了<code>net/http</code>默认路由的问题。</p>
 <h3 id="httprouter命名参数">httprouter命名参数</h3>
-
 <p>现代的API，基本上都是Restful API，httprouter提供的命名参数的支持，可以很方便的帮助我们开发Restful API。比如我们设计的API<code>/user/flysnow</code>，这这样一个URL，可以查看<code>flysnow</code>这个用户的信息，如果要查看其他用户的，比如<code>zhangsan</code>,我们只需要访问API<code>/user/zhangsan</code>即可。</p>
-
 <p>现在我们可以发现，其实这是一种URL匹配模式，我们可以把它总结为<code>/user/:name</code>,这是一个通配符，看个例子。</p>
-
-<pre><code class="language-go">func UserInfo(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	fmt.Fprintf(w, &quot;hello, %s!\n&quot;, ps.ByName(&quot;name&quot;))
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">UserInfo</span>(w http.ResponseWriter, r <span style="color:#ff79c6">*</span>http.Request, ps httprouter.Params) {
+	fmt.<span style="color:#50fa7b">Fprintf</span>(w, <span style="color:#f1fa8c">&#34;hello, %s!\n&#34;</span>, ps.<span style="color:#50fa7b">ByName</span>(<span style="color:#f1fa8c">&#34;name&#34;</span>))
 }
 
-func main() {
-	router := httprouter.New()
-	router.GET(&quot;/user/:name&quot;,UserInfo)
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>() {
+	router <span style="color:#ff79c6">:=</span> httprouter.<span style="color:#50fa7b">New</span>()
+	router.<span style="color:#50fa7b">GET</span>(<span style="color:#f1fa8c">&#34;/user/:name&#34;</span>,UserInfo)
 
-	log.Fatal(http.ListenAndServe(&quot;:3000&quot;, router))
+	log.<span style="color:#50fa7b">Fatal</span>(http.<span style="color:#50fa7b">ListenAndServe</span>(<span style="color:#f1fa8c">&#34;:3000&#34;</span>, router))
 }
-</code></pre>
-
-<p>通过上面的代码示例，可以看到，路径的参数是以<code>:</code>开头的，后面紧跟着变量名，比如<code>:name</code>，然后在<code>UserInfo</code>这个处理函数中，通过<code>httprouter.Params</code>的<code>ByName</code>获取对应的值。</p>
-
+</code></pre></div><p>通过上面的代码示例，可以看到，路径的参数是以<code>:</code>开头的，后面紧跟着变量名，比如<code>:name</code>，然后在<code>UserInfo</code>这个处理函数中，通过<code>httprouter.Params</code>的<code>ByName</code>获取对应的值。</p>
 <p><code>:name</code>这种匹配模式，是精准匹配的，同时只能匹配一个，比如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">Pattern: <span style="color:#ff79c6">/</span>user<span style="color:#ff79c6">/</span>:name
 
-<pre><code class="language-go">Pattern: /user/:name
-
- /user/gordon              匹配
- /user/you                 匹配
- /user/gordon/profile      不匹配
- /user/                    不匹配
-</code></pre>
-
-<p>因为httprouter这个路由就是单一匹配的，所以当我们使用命名参数的时候，一定要注意，是否有其他注册的路由和命名参数的路由，匹配同一个路径，比如<code>/user/new</code>这个路由和<code>/user/:name</code>就是冲突的，不能同时注册。</p>
-
+ <span style="color:#ff79c6">/</span>user<span style="color:#ff79c6">/</span>gordon              匹配
+ <span style="color:#ff79c6">/</span>user<span style="color:#ff79c6">/</span>you                 匹配
+ <span style="color:#ff79c6">/</span>user<span style="color:#ff79c6">/</span>gordon<span style="color:#ff79c6">/</span>profile      不匹配
+ <span style="color:#ff79c6">/</span>user<span style="color:#ff79c6">/</span>                    不匹配
+</code></pre></div><p>因为httprouter这个路由就是单一匹配的，所以当我们使用命名参数的时候，一定要注意，是否有其他注册的路由和命名参数的路由，匹配同一个路径，比如<code>/user/new</code>这个路由和<code>/user/:name</code>就是冲突的，不能同时注册。</p>
 <p>这里稍微提下httprouter的另外一种通配符模式，就是把<code>:</code>换成<code>*</code>，也就是<code>*name</code>，这是一种匹配所有的模式，不常用，比如：</p>
-
 <pre><code>Pattern: /user/*name
 
  /user/gordon              匹配
  /user/you                 匹配
  /user/gordon/profile      匹配
  /user/                    匹配
-</code></pre>
-
-<h3 id="httprouter兼容http-hander">httprouter兼容http.hander</h3>
-
+</code></pre><h3 id="httprouter兼容httphander">httprouter兼容http.hander</h3>
 <p>通过上面的例子，我们应该已经发现，<code>GET</code>方法的handle，并不是我们熟悉的<code>http.Handler</code>，它是httprouter自定义的，相比<code>http.Handler</code>多了一个通配符参数的支持。</p>
-
-<pre><code class="language-go">type Handle func(http.ResponseWriter, *http.Request, Params)
-</code></pre>
-
-<p>自定义的Handle，唯一的目的就是支持通配符参数，如果你的HTTP服务里，有些路由没有用到通配符参数，那么可以使用原生的<code>http.Handler</code>，httprouter是兼容支持的，这也为我们从<code>net/http</code>的方式，升级为httprouter路由提供了方便，会高效很多。</p>
-
-<pre><code class="language-go">func (r *Router) Handler(method, path string, handler http.Handler) {
-	r.Handle(method, path,
-		func(w http.ResponseWriter, req *http.Request, _ Params) {
-			handler.ServeHTTP(w, req)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">type</span> Handle <span style="color:#8be9fd;font-style:italic">func</span>(http.ResponseWriter, <span style="color:#ff79c6">*</span>http.Request, Params)
+</code></pre></div><p>自定义的Handle，唯一的目的就是支持通配符参数，如果你的HTTP服务里，有些路由没有用到通配符参数，那么可以使用原生的<code>http.Handler</code>，httprouter是兼容支持的，这也为我们从<code>net/http</code>的方式，升级为httprouter路由提供了方便，会高效很多。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">func</span> (r <span style="color:#ff79c6">*</span>Router) <span style="color:#50fa7b">Handler</span>(method, path <span style="color:#8be9fd">string</span>, handler http.Handler) {
+	r.<span style="color:#50fa7b">Handle</span>(method, path,
+		<span style="color:#8be9fd;font-style:italic">func</span>(w http.ResponseWriter, req <span style="color:#ff79c6">*</span>http.Request, _ Params) {
+			handler.<span style="color:#50fa7b">ServeHTTP</span>(w, req)
 		},
 	)
 }
 
-func (r *Router) HandlerFunc(method, path string, handler http.HandlerFunc) {
-	r.Handler(method, path, handler)
+<span style="color:#8be9fd;font-style:italic">func</span> (r <span style="color:#ff79c6">*</span>Router) <span style="color:#50fa7b">HandlerFunc</span>(method, path <span style="color:#8be9fd">string</span>, handler http.HandlerFunc) {
+	r.<span style="color:#50fa7b">Handler</span>(method, path, handler)
 }
-</code></pre>
-
-<p>httprouter通过<code>Handler</code>和<code>HandlerFunc</code>两个函数，提供了兼容<code>http.Handler</code>和<code>http.HandlerFunc</code>的完美支持。从以上源代码中，我们可以看出，实现的方式也比较简单，就是做了一个<code>http.Handler</code>到<code>httprouter.Handle</code>的转换，舍弃了通配符参数的支持。</p>
-
+</code></pre></div><p>httprouter通过<code>Handler</code>和<code>HandlerFunc</code>两个函数，提供了兼容<code>http.Handler</code>和<code>http.HandlerFunc</code>的完美支持。从以上源代码中，我们可以看出，实现的方式也比较简单，就是做了一个<code>http.Handler</code>到<code>httprouter.Handle</code>的转换，舍弃了通配符参数的支持。</p>
 <h3 id="httprouter-处理链">Httprouter 处理链</h3>
-
 <p>得益于<code>http.Handler</code>的模式，我们可以把不同的<code>http.Handler</code>组成一个处理链，<code>httprouter.Router</code>也是实现了<code>http.Handler</code>的，所以它也可以作为<code>http.Handler</code>处理链的一部分，比如和<code>Negroni</code>、<code>Gorilla handlers</code>这两个库配合使用。</p>
-
 <p>这里使用一个官方的例子，作为Handler处理链的演示。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#6272a4">//一个新类型，用于存储域名对应的路由
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">type</span> HostSwitch <span style="color:#8be9fd;font-style:italic">map</span>[<span style="color:#8be9fd">string</span>]http.Handler
 
-<pre><code class="language-go">//一个新类型，用于存储域名对应的路由
-type HostSwitch map[string]http.Handler
+<span style="color:#6272a4">//实现http.Handler接口，进行不同域名的路由分发
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">func</span> (hs HostSwitch) <span style="color:#50fa7b">ServeHTTP</span>(w http.ResponseWriter, r <span style="color:#ff79c6">*</span>http.Request) {
 
-//实现http.Handler接口，进行不同域名的路由分发
-func (hs HostSwitch) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-
-    //根据域名获取对应的Handler路由，然后调用处理（分发机制）
-	if handler := hs[r.Host]; handler != nil {
-		handler.ServeHTTP(w, r)
-	} else {
-		http.Error(w, &quot;Forbidden&quot;, 403)
+    <span style="color:#6272a4">//根据域名获取对应的Handler路由，然后调用处理（分发机制）
+</span><span style="color:#6272a4"></span>	<span style="color:#ff79c6">if</span> handler <span style="color:#ff79c6">:=</span> hs[r.Host]; handler <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		handler.<span style="color:#50fa7b">ServeHTTP</span>(w, r)
+	} <span style="color:#ff79c6">else</span> {
+		http.<span style="color:#50fa7b">Error</span>(w, <span style="color:#f1fa8c">&#34;Forbidden&#34;</span>, <span style="color:#bd93f9">403</span>)
 	}
 }
 
-func main() {
-    //声明两个路由
-	playRouter := httprouter.New()
-	playRouter.GET(&quot;/&quot;, PlayIndex)
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>() {
+    <span style="color:#6272a4">//声明两个路由
+</span><span style="color:#6272a4"></span>	playRouter <span style="color:#ff79c6">:=</span> httprouter.<span style="color:#50fa7b">New</span>()
+	playRouter.<span style="color:#50fa7b">GET</span>(<span style="color:#f1fa8c">&#34;/&#34;</span>, PlayIndex)
 	
-	toolRouter := httprouter.New()
-	toolRouter.GET(&quot;/&quot;, ToolIndex)
+	toolRouter <span style="color:#ff79c6">:=</span> httprouter.<span style="color:#50fa7b">New</span>()
+	toolRouter.<span style="color:#50fa7b">GET</span>(<span style="color:#f1fa8c">&#34;/&#34;</span>, ToolIndex)
 
-    //分别用于处理不同的二级域名
-	hs := make(HostSwitch)
-	hs[&quot;play.flysnow.org:12345&quot;] = playRouter
-	hs[&quot;tool.flysnow.org:12345&quot;] = toolRouter
+    <span style="color:#6272a4">//分别用于处理不同的二级域名
+</span><span style="color:#6272a4"></span>	hs <span style="color:#ff79c6">:=</span> <span style="color:#8be9fd;font-style:italic">make</span>(HostSwitch)
+	hs[<span style="color:#f1fa8c">&#34;play.flysnow.org:12345&#34;</span>] = playRouter
+	hs[<span style="color:#f1fa8c">&#34;tool.flysnow.org:12345&#34;</span>] = toolRouter
 
-    //HostSwitch实现了http.Handler,所以可以直接用
-	log.Fatal(http.ListenAndServe(&quot;:12345&quot;, hs))
+    <span style="color:#6272a4">//HostSwitch实现了http.Handler,所以可以直接用
+</span><span style="color:#6272a4"></span>	log.<span style="color:#50fa7b">Fatal</span>(http.<span style="color:#50fa7b">ListenAndServe</span>(<span style="color:#f1fa8c">&#34;:12345&#34;</span>, hs))
 }
-</code></pre>
-
-<p>以上就是一个简单的，针对不同域名，使用不同路由的例子，代码中的注释比较详细了，这里就不一一解释了。这个例子中,<code>HostSwitch</code>和<code>httprouter.Router</code>这两个<code>http.Handler</code>就组成了一个<code>http.Handler</code>处理链。</p>
-
+</code></pre></div><p>以上就是一个简单的，针对不同域名，使用不同路由的例子，代码中的注释比较详细了，这里就不一一解释了。这个例子中,<code>HostSwitch</code>和<code>httprouter.Router</code>这两个<code>http.Handler</code>就组成了一个<code>http.Handler</code>处理链。</p>
 <h3 id="httprouter静态文件服务">httprouter静态文件服务</h3>
-
 <p>httprouter提供了很方便的静态文件服务，可以把一个目录托管在服务器上，以供访问。</p>
-
-<pre><code class="language-go">	router.ServeFiles(&quot;/static/*filepath&quot;,http.Dir(&quot;./&quot;))
-</code></pre>
-
-<p>只需要这一句核心代码即可，这个就是把当前目录托管在服务器上，以供访问，访问路径是<code>/static</code>。</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">	router.<span style="color:#50fa7b">ServeFiles</span>(<span style="color:#f1fa8c">&#34;/static/*filepath&#34;</span>,http.<span style="color:#50fa7b">Dir</span>(<span style="color:#f1fa8c">&#34;./&#34;</span>))
+</code></pre></div><p>只需要这一句核心代码即可，这个就是把当前目录托管在服务器上，以供访问，访问路径是<code>/static</code>。</p>
 <p>使用<code>ServeFiles</code>需要注意的是，第一个参数路径，必须要以<code>/*filepath</code>，因为要获取我们要访问的路径信息。</p>
-
-<pre><code class="language-go">func (r *Router) ServeFiles(path string, root http.FileSystem) {
-	if len(path) &lt; 10 || path[len(path)-10:] != &quot;/*filepath&quot; {
-		panic(&quot;path must end with /*filepath in path '&quot; + path + &quot;'&quot;)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">func</span> (r <span style="color:#ff79c6">*</span>Router) <span style="color:#50fa7b">ServeFiles</span>(path <span style="color:#8be9fd">string</span>, root http.FileSystem) {
+	<span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">len</span>(path) &lt; <span style="color:#bd93f9">10</span> <span style="color:#ff79c6">||</span> path[<span style="color:#8be9fd;font-style:italic">len</span>(path)<span style="color:#ff79c6">-</span><span style="color:#bd93f9">10</span>:] <span style="color:#ff79c6">!=</span> <span style="color:#f1fa8c">&#34;/*filepath&#34;</span> {
+		<span style="color:#8be9fd;font-style:italic">panic</span>(<span style="color:#f1fa8c">&#34;path must end with /*filepath in path &#39;&#34;</span> <span style="color:#ff79c6">+</span> path <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;&#39;&#34;</span>)
 	}
 
-	fileServer := http.FileServer(root)
+	fileServer <span style="color:#ff79c6">:=</span> http.<span style="color:#50fa7b">FileServer</span>(root)
 
-	r.GET(path, func(w http.ResponseWriter, req *http.Request, ps Params) {
-		req.URL.Path = ps.ByName(&quot;filepath&quot;)
-		fileServer.ServeHTTP(w, req)
+	r.<span style="color:#50fa7b">GET</span>(path, <span style="color:#8be9fd;font-style:italic">func</span>(w http.ResponseWriter, req <span style="color:#ff79c6">*</span>http.Request, ps Params) {
+		req.URL.Path = ps.<span style="color:#50fa7b">ByName</span>(<span style="color:#f1fa8c">&#34;filepath&#34;</span>)
+		fileServer.<span style="color:#50fa7b">ServeHTTP</span>(w, req)
 	})
 }
-</code></pre>
-
-<p>这是源代码实现，我们发现，最后还是一个<code>GET</code>请求服务，通过<code>http.FileServer</code>把<code>filepath</code>的路径的内容显示出来（如果路径是个目录则列出目录文件；如果路径是文件，则显示内容）。</p>
-
+</code></pre></div><p>这是源代码实现，我们发现，最后还是一个<code>GET</code>请求服务，通过<code>http.FileServer</code>把<code>filepath</code>的路径的内容显示出来（如果路径是个目录则列出目录文件；如果路径是文件，则显示内容）。</p>
 <p>通过上面的源代码，我们也可以知道，<code>*filepath</code>这个通配符是为了获取要放问的文件路径，所以要符合预定，不然就会panic。</p>
-
 <h3 id="httprouter异常捕获">httprouter异常捕获</h3>
-
 <p>很少有路由支持这个功能的，httprouter允许使用者，设置<code>PanicHandler</code>用于处理HTTP请求中发生的panic。</p>
-
-<pre><code class="language-json">func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	panic(&quot;故意抛出的异常&quot;)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	panic(<span style="color:#ff79c6">&#34;故意抛出的异常&#34;</span>)
 }
 
 func main() {
 	router := httprouter.New()
-	router.GET(&quot;/&quot;, Index)
+	router.GET(<span style="color:#ff79c6">&#34;/&#34;</span>, Index)
 	router.PanicHandler = func(w http.ResponseWriter, r *http.Request, v interface{}) {
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintf(w, &quot;error:%s&quot;,v)
+		fmt.Fprintf(w, <span style="color:#ff79c6">&#34;error:%s&#34;</span>,v)
 	}
 
-	log.Fatal(http.ListenAndServe(&quot;:8080&quot;, router))
+	log.Fatal(http.ListenAndServe(<span style="color:#f1fa8c">&#34;:8080&#34;</span>, router))
 }
-</code></pre>
-
-<p>演示例子中，我们通过设置<code>router.PanicHandler</code>来处理发生的panic，处理办法是打印出来异常信息。然后故意在<code>Index</code>函数中抛出一个painc，然后我们运行测试，会看到异常信息。</p>
-
+</code></pre></div><p>演示例子中，我们通过设置<code>router.PanicHandler</code>来处理发生的panic，处理办法是打印出来异常信息。然后故意在<code>Index</code>函数中抛出一个painc，然后我们运行测试，会看到异常信息。</p>
 <p>这是一种非常好的方式，可以让我们对painc进行统一处理，不至于因为漏掉的panic影响用户使用</p>
-
 <p>httprouter还有不少有用的小功能，比如对404进行处理，我们通过设置<code>Router.NotFound</code>来实现，我们看看<code>Router</code>这个结构体的配置，可以发现更多有用的功能。</p>
-
-<pre><code class="language-go">type Router struct {
-    //是否通过重定向，给路径自定加斜杠
-	RedirectTrailingSlash bool
-    //是否通过重定向，自动修复路径，比如双斜杠等自动修复为单斜杠
-	RedirectFixedPath bool
-    //是否检测当前请求的方法被允许
-	HandleMethodNotAllowed bool
-	//是否自定答复OPTION请求
-	HandleOPTIONS bool
-    //404默认处理
-	NotFound http.Handler
-    //不被允许的方法默认处理
-	MethodNotAllowed http.Handler
-    //异常统一处理
-	PanicHandler func(http.ResponseWriter, *http.Request, interface{})
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">type</span> Router <span style="color:#8be9fd;font-style:italic">struct</span> {
+    <span style="color:#6272a4">//是否通过重定向，给路径自定加斜杠
+</span><span style="color:#6272a4"></span>	RedirectTrailingSlash <span style="color:#8be9fd">bool</span>
+    <span style="color:#6272a4">//是否通过重定向，自动修复路径，比如双斜杠等自动修复为单斜杠
+</span><span style="color:#6272a4"></span>	RedirectFixedPath <span style="color:#8be9fd">bool</span>
+    <span style="color:#6272a4">//是否检测当前请求的方法被允许
+</span><span style="color:#6272a4"></span>	HandleMethodNotAllowed <span style="color:#8be9fd">bool</span>
+	<span style="color:#6272a4">//是否自定答复OPTION请求
+</span><span style="color:#6272a4"></span>	HandleOPTIONS <span style="color:#8be9fd">bool</span>
+    <span style="color:#6272a4">//404默认处理
+</span><span style="color:#6272a4"></span>	NotFound http.Handler
+    <span style="color:#6272a4">//不被允许的方法默认处理
+</span><span style="color:#6272a4"></span>	MethodNotAllowed http.Handler
+    <span style="color:#6272a4">//异常统一处理
+</span><span style="color:#6272a4"></span>	PanicHandler <span style="color:#8be9fd;font-style:italic">func</span>(http.ResponseWriter, <span style="color:#ff79c6">*</span>http.Request, <span style="color:#8be9fd;font-style:italic">interface</span>{})
 }
-</code></pre>
-
-<p>这些字段都是导出的(export)，我们可以直接设置，来达到我们的目的。</p>
-
+</code></pre></div><p>这些字段都是导出的(export)，我们可以直接设置，来达到我们的目的。</p>
 <p>httprouter是一个高性能，低内存占用的路由，它使用radix tree实现存储和匹配查找，所以效率非常高，内存占用也很低。关于radix tree大家可以查看相关的资料。</p>
-
 <p>httprouter因为实现了<code>http.Handler</code>，所以可扩展性非常好，可以和其他库、中间件结合使用，gin这个web框架就是使用的自定义的httprouter。</p>
-
 <h3 id="httprouter案例">httprouter案例</h3>
-
 <p>上面介绍了很多，现在来实现一个稍微复杂一点的API，我们现在有一个名为 <code>Book</code> 的实体，可以把 <code>ISDN</code> 字段作为唯一标识。让我们创建更多的动作，即分表代表着 Index 和 Show 动作的 GET <code>/books</code> 和 GET <code>/books/:isdn</code>。 我们的 <code>main.go</code> 文件此时如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">package</span> main
 
-<pre><code class="language-go">package main
-
-import (
-	&quot;encoding/json&quot;
-	&quot;fmt&quot;
-	&quot;log&quot;
-	&quot;net/http&quot;
-	&quot;github.com/julienschmidt/httprouter&quot;
+<span style="color:#ff79c6">import</span> (
+	<span style="color:#f1fa8c">&#34;encoding/json&#34;</span>
+	<span style="color:#f1fa8c">&#34;fmt&#34;</span>
+	<span style="color:#f1fa8c">&#34;log&#34;</span>
+	<span style="color:#f1fa8c">&#34;net/http&#34;</span>
+	<span style="color:#f1fa8c">&#34;github.com/julienschmidt/httprouter&#34;</span>
 )
-type Book struct {
-	// The main identifier for the Book. This will be unique.
-	ISDN   string `json:&quot;isdn&quot;`
-	Title  string `json:&quot;title&quot;`
-	Author string `json:&quot;author&quot;`
-	Pages  int    `json:&quot;pages&quot;`
+<span style="color:#8be9fd;font-style:italic">type</span> Book <span style="color:#8be9fd;font-style:italic">struct</span> {
+	<span style="color:#6272a4">// The main identifier for the Book. This will be unique.
+</span><span style="color:#6272a4"></span>	ISDN   <span style="color:#8be9fd">string</span> <span style="color:#f1fa8c">`json:&#34;isdn&#34;`</span>
+	Title  <span style="color:#8be9fd">string</span> <span style="color:#f1fa8c">`json:&#34;title&#34;`</span>
+	Author <span style="color:#8be9fd">string</span> <span style="color:#f1fa8c">`json:&#34;author&#34;`</span>
+	Pages  <span style="color:#8be9fd">int</span>    <span style="color:#f1fa8c">`json:&#34;pages&#34;`</span>
 }
 
-type JsonResponse struct {
-	// Reserved field to add some meta information to the API response
-	Meta interface{} `json:&quot;meta&quot;`
-	Data interface{} `json:&quot;data&quot;`
+<span style="color:#8be9fd;font-style:italic">type</span> JsonResponse <span style="color:#8be9fd;font-style:italic">struct</span> {
+	<span style="color:#6272a4">// Reserved field to add some meta information to the API response
+</span><span style="color:#6272a4"></span>	Meta <span style="color:#8be9fd;font-style:italic">interface</span>{} <span style="color:#f1fa8c">`json:&#34;meta&#34;`</span>
+	Data <span style="color:#8be9fd;font-style:italic">interface</span>{} <span style="color:#f1fa8c">`json:&#34;data&#34;`</span>
 }
 
-type JsonErrorResponse struct {
-	Error *ApiError `json:&quot;error&quot;`
+<span style="color:#8be9fd;font-style:italic">type</span> JsonErrorResponse <span style="color:#8be9fd;font-style:italic">struct</span> {
+	Error <span style="color:#ff79c6">*</span>ApiError <span style="color:#f1fa8c">`json:&#34;error&#34;`</span>
 }
 
-type ApiError struct {
-	Status int16  `json:&quot;status&quot;`
-	Title  string `json:&quot;title&quot;`
+<span style="color:#8be9fd;font-style:italic">type</span> ApiError <span style="color:#8be9fd;font-style:italic">struct</span> {
+	Status <span style="color:#8be9fd">int16</span>  <span style="color:#f1fa8c">`json:&#34;status&#34;`</span>
+	Title  <span style="color:#8be9fd">string</span> <span style="color:#f1fa8c">`json:&#34;title&#34;`</span>
 }
 
-// A map to store the books with the ISDN as the key
-// This acts as the storage in lieu of an actual database
-var bookstore = make(map[string]*Book)
+<span style="color:#6272a4">// A map to store the books with the ISDN as the key
+</span><span style="color:#6272a4">// This acts as the storage in lieu of an actual database
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">var</span> bookstore = <span style="color:#8be9fd;font-style:italic">make</span>(<span style="color:#8be9fd;font-style:italic">map</span>[<span style="color:#8be9fd">string</span>]<span style="color:#ff79c6">*</span>Book)
 
-// Handler for the books index action
-// GET /books
-func BookIndex(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	books := []*Book{}
-	for _, book := range bookstore {
-		books = append(books, book)
+<span style="color:#6272a4">// Handler for the books index action
+</span><span style="color:#6272a4">// GET /books
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">BookIndex</span>(w http.ResponseWriter, r <span style="color:#ff79c6">*</span>http.Request, _ httprouter.Params) {
+	books <span style="color:#ff79c6">:=</span> []<span style="color:#ff79c6">*</span>Book{}
+	<span style="color:#ff79c6">for</span> _, book <span style="color:#ff79c6">:=</span> <span style="color:#ff79c6">range</span> bookstore {
+		books = <span style="color:#8be9fd;font-style:italic">append</span>(books, book)
 	}
-	response := &amp;JsonResponse{Data: &amp;books}
-	w.Header().Set(&quot;Content-Type&quot;, &quot;application/json; charset=UTF-8&quot;)
-	w.WriteHeader(http.StatusOK)
-	if err := json.NewEncoder(w).Encode(response); err != nil {
-		panic(err)
+	response <span style="color:#ff79c6">:=</span> <span style="color:#ff79c6">&amp;</span>JsonResponse{Data: <span style="color:#ff79c6">&amp;</span>books}
+	w.<span style="color:#50fa7b">Header</span>().<span style="color:#50fa7b">Set</span>(<span style="color:#f1fa8c">&#34;Content-Type&#34;</span>, <span style="color:#f1fa8c">&#34;application/json; charset=UTF-8&#34;</span>)
+	w.<span style="color:#50fa7b">WriteHeader</span>(http.StatusOK)
+	<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">:=</span> json.<span style="color:#50fa7b">NewEncoder</span>(w).<span style="color:#50fa7b">Encode</span>(response); err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		<span style="color:#8be9fd;font-style:italic">panic</span>(err)
 	}
 }
 
-// Handler for the books Show action
-// GET /books/:isdn
-func BookShow(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-	isdn := params.ByName(&quot;isdn&quot;)
-	book, ok := bookstore[isdn]
-	w.Header().Set(&quot;Content-Type&quot;, &quot;application/json; charset=UTF-8&quot;)
-	if !ok {
-		// No book with the isdn in the url has been found
-		w.WriteHeader(http.StatusNotFound)
-		response := JsonErrorResponse{Error: &amp;ApiError{Status: 404, Title: &quot;Record Not Found&quot;}}
-		if err := json.NewEncoder(w).Encode(response); err != nil {
-			panic(err)
+<span style="color:#6272a4">// Handler for the books Show action
+</span><span style="color:#6272a4">// GET /books/:isdn
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">BookShow</span>(w http.ResponseWriter, r <span style="color:#ff79c6">*</span>http.Request, params httprouter.Params) {
+	isdn <span style="color:#ff79c6">:=</span> params.<span style="color:#50fa7b">ByName</span>(<span style="color:#f1fa8c">&#34;isdn&#34;</span>)
+	book, ok <span style="color:#ff79c6">:=</span> bookstore[isdn]
+	w.<span style="color:#50fa7b">Header</span>().<span style="color:#50fa7b">Set</span>(<span style="color:#f1fa8c">&#34;Content-Type&#34;</span>, <span style="color:#f1fa8c">&#34;application/json; charset=UTF-8&#34;</span>)
+	<span style="color:#ff79c6">if</span> !ok {
+		<span style="color:#6272a4">// No book with the isdn in the url has been found
+</span><span style="color:#6272a4"></span>		w.<span style="color:#50fa7b">WriteHeader</span>(http.StatusNotFound)
+		response <span style="color:#ff79c6">:=</span> JsonErrorResponse{Error: <span style="color:#ff79c6">&amp;</span>ApiError{Status: <span style="color:#bd93f9">404</span>, Title: <span style="color:#f1fa8c">&#34;Record Not Found&#34;</span>}}
+		<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">:=</span> json.<span style="color:#50fa7b">NewEncoder</span>(w).<span style="color:#50fa7b">Encode</span>(response); err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+			<span style="color:#8be9fd;font-style:italic">panic</span>(err)
 		}
 	}
-	response := JsonResponse{Data: book}
-	if err := json.NewEncoder(w).Encode(response); err != nil {
-		panic(err)
+	response <span style="color:#ff79c6">:=</span> JsonResponse{Data: book}
+	<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">:=</span> json.<span style="color:#50fa7b">NewEncoder</span>(w).<span style="color:#50fa7b">Encode</span>(response); err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		<span style="color:#8be9fd;font-style:italic">panic</span>(err)
 	}
 }
 
-func main() {
-  	// Create a couple of sample Book entries
-	bookstore[&quot;123&quot;] = &amp;Book{
-		ISDN:   &quot;123&quot;,
-		Title:  &quot;Silence of the Lambs&quot;,
-		Author: &quot;Thomas Harris&quot;,
-		Pages:  367,
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>() {
+  	<span style="color:#6272a4">// Create a couple of sample Book entries
+</span><span style="color:#6272a4"></span>	bookstore[<span style="color:#f1fa8c">&#34;123&#34;</span>] = <span style="color:#ff79c6">&amp;</span>Book{
+		ISDN:   <span style="color:#f1fa8c">&#34;123&#34;</span>,
+		Title:  <span style="color:#f1fa8c">&#34;Silence of the Lambs&#34;</span>,
+		Author: <span style="color:#f1fa8c">&#34;Thomas Harris&#34;</span>,
+		Pages:  <span style="color:#bd93f9">367</span>,
 	}
-	bookstore[&quot;124&quot;] = &amp;Book{
-		ISDN:   &quot;124&quot;,
-		Title:  &quot;To Kill a Mocking Bird&quot;,
-		Author: &quot;Harper Lee&quot;,
-		Pages:  320,
+	bookstore[<span style="color:#f1fa8c">&#34;124&#34;</span>] = <span style="color:#ff79c6">&amp;</span>Book{
+		ISDN:   <span style="color:#f1fa8c">&#34;124&#34;</span>,
+		Title:  <span style="color:#f1fa8c">&#34;To Kill a Mocking Bird&#34;</span>,
+		Author: <span style="color:#f1fa8c">&#34;Harper Lee&#34;</span>,
+		Pages:  <span style="color:#bd93f9">320</span>,
 	}
   
-	router := httprouter.New()
-	router.GET(&quot;/books&quot;, BookIndex)
-	router.GET(&quot;/books/:isdn&quot;, BookShow)
-	log.Fatal(http.ListenAndServe(&quot;:8080&quot;, router))
+	router <span style="color:#ff79c6">:=</span> httprouter.<span style="color:#50fa7b">New</span>()
+	router.<span style="color:#50fa7b">GET</span>(<span style="color:#f1fa8c">&#34;/books&#34;</span>, BookIndex)
+	router.<span style="color:#50fa7b">GET</span>(<span style="color:#f1fa8c">&#34;/books/:isdn&#34;</span>, BookShow)
+	log.<span style="color:#50fa7b">Fatal</span>(http.<span style="color:#50fa7b">ListenAndServe</span>(<span style="color:#f1fa8c">&#34;:8080&#34;</span>, router))
 }
-如果您现在尝试请求 GET https:// localhost:8080/books，您将得到以下响应：
-{
-    &quot;meta&quot;: null,
-    &quot;data&quot;: [
+如果您现在尝试请求 GET https:<span style="color:#6272a4">// localhost:8080/books，您将得到以下响应：
+</span><span style="color:#6272a4"></span>{
+    <span style="color:#f1fa8c">&#34;meta&#34;</span>: null,
+    <span style="color:#f1fa8c">&#34;data&#34;</span>: [
         {
-            &quot;isdn&quot;: &quot;123&quot;,
-            &quot;title&quot;: &quot;Silence of the Lambs&quot;,
-            &quot;author&quot;: &quot;Thomas Harris&quot;,
-            &quot;pages&quot;: 367
+            <span style="color:#f1fa8c">&#34;isdn&#34;</span>: <span style="color:#f1fa8c">&#34;123&#34;</span>,
+            <span style="color:#f1fa8c">&#34;title&#34;</span>: <span style="color:#f1fa8c">&#34;Silence of the Lambs&#34;</span>,
+            <span style="color:#f1fa8c">&#34;author&#34;</span>: <span style="color:#f1fa8c">&#34;Thomas Harris&#34;</span>,
+            <span style="color:#f1fa8c">&#34;pages&#34;</span>: <span style="color:#bd93f9">367</span>
         },
         {
-            &quot;isdn&quot;: &quot;124&quot;,
-            &quot;title&quot;: &quot;To Kill a Mocking Bird&quot;,
-            &quot;author&quot;: &quot;Harper Lee&quot;,
-            &quot;pages&quot;: 320
+            <span style="color:#f1fa8c">&#34;isdn&#34;</span>: <span style="color:#f1fa8c">&#34;124&#34;</span>,
+            <span style="color:#f1fa8c">&#34;title&#34;</span>: <span style="color:#f1fa8c">&#34;To Kill a Mocking Bird&#34;</span>,
+            <span style="color:#f1fa8c">&#34;author&#34;</span>: <span style="color:#f1fa8c">&#34;Harper Lee&#34;</span>,
+            <span style="color:#f1fa8c">&#34;pages&#34;</span>: <span style="color:#bd93f9">320</span>
         }
     ]
 }
-</code></pre>
-
-<p>让我们来重构一下代码。 到目前为止，我们所有的代码都放置在同一个文件中：<code>main.go</code>。我们可以把它们移到各个单独的文件中。此时我们有一个目录：</p>
-
+</code></pre></div><p>让我们来重构一下代码。 到目前为止，我们所有的代码都放置在同一个文件中：<code>main.go</code>。我们可以把它们移到各个单独的文件中。此时我们有一个目录：</p>
 <pre><code>.
 ├── handlers.go
 ├── main.go
 ├── models.go
 └── responses.go
-</code></pre>
-
-<p>我们把所有与 <code>JSON</code> 响应相关的结构体移动到 <code>responses.go</code>，将 handler 函数移动到 <code>Handlers.go</code>，且将 <code>Book</code> 结构体移动到 <code>models.go</code>。</p>
-
+</code></pre><p>我们把所有与 <code>JSON</code> 响应相关的结构体移动到 <code>responses.go</code>，将 handler 函数移动到 <code>Handlers.go</code>，且将 <code>Book</code> 结构体移动到 <code>models.go</code>。</p>
 <p>现在，我们跳过来写一些测试。在 Go 中，<code>*_test.go</code> 文件是用于测试的。因此让我们创建一个 <code>handlers_test.go</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">package</span> main
 
-<pre><code class="language-go">package main
-
-import (
-	&quot;net/http&quot;
-	&quot;net/http/httptest&quot;
-	&quot;testing&quot;
-	&quot;github.com/julienschmidt/httprouter&quot;
+<span style="color:#ff79c6">import</span> (
+	<span style="color:#f1fa8c">&#34;net/http&#34;</span>
+	<span style="color:#f1fa8c">&#34;net/http/httptest&#34;</span>
+	<span style="color:#f1fa8c">&#34;testing&#34;</span>
+	<span style="color:#f1fa8c">&#34;github.com/julienschmidt/httprouter&#34;</span>
 )
 
-func TestBookIndex(t *testing.T) {
-	// Create an entry of the book to the bookstore map
-	testBook := &amp;Book{
-		ISDN:   &quot;111&quot;,
-		Title:  &quot;test title&quot;,
-		Author: &quot;test author&quot;,
-		Pages:  42,
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">TestBookIndex</span>(t <span style="color:#ff79c6">*</span>testing.T) {
+	<span style="color:#6272a4">// Create an entry of the book to the bookstore map
+</span><span style="color:#6272a4"></span>	testBook <span style="color:#ff79c6">:=</span> <span style="color:#ff79c6">&amp;</span>Book{
+		ISDN:   <span style="color:#f1fa8c">&#34;111&#34;</span>,
+		Title:  <span style="color:#f1fa8c">&#34;test title&#34;</span>,
+		Author: <span style="color:#f1fa8c">&#34;test author&#34;</span>,
+		Pages:  <span style="color:#bd93f9">42</span>,
 	}
-	bookstore[&quot;111&quot;] = testBook
-	// A request with an existing isdn
-	req1, err := http.NewRequest(&quot;GET&quot;, &quot;/books&quot;, nil)
-	if err != nil {
-		t.Fatal(err)
+	bookstore[<span style="color:#f1fa8c">&#34;111&#34;</span>] = testBook
+	<span style="color:#6272a4">// A request with an existing isdn
+</span><span style="color:#6272a4"></span>	req1, err <span style="color:#ff79c6">:=</span> http.<span style="color:#50fa7b">NewRequest</span>(<span style="color:#f1fa8c">&#34;GET&#34;</span>, <span style="color:#f1fa8c">&#34;/books&#34;</span>, <span style="color:#ff79c6">nil</span>)
+	<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		t.<span style="color:#50fa7b">Fatal</span>(err)
 	}
-	rr1 := newRequestRecorder(req1, &quot;GET&quot;, &quot;/books&quot;, BookIndex)
-	if rr1.Code != 200 {
-		t.Error(&quot;Expected response code to be 200&quot;)
+	rr1 <span style="color:#ff79c6">:=</span> <span style="color:#50fa7b">newRequestRecorder</span>(req1, <span style="color:#f1fa8c">&#34;GET&#34;</span>, <span style="color:#f1fa8c">&#34;/books&#34;</span>, BookIndex)
+	<span style="color:#ff79c6">if</span> rr1.Code <span style="color:#ff79c6">!=</span> <span style="color:#bd93f9">200</span> {
+		t.<span style="color:#50fa7b">Error</span>(<span style="color:#f1fa8c">&#34;Expected response code to be 200&#34;</span>)
 	}
-	// expected response
-	er1 := &quot;{\&quot;meta\&quot;:null,\&quot;data\&quot;:[{\&quot;isdn\&quot;:\&quot;111\&quot;,\&quot;title\&quot;:\&quot;test title\&quot;,\&quot;author\&quot;:\&quot;test author\&quot;,\&quot;pages\&quot;:42}]}\n&quot;
-	if rr1.Body.String() != er1 {
-		t.Error(&quot;Response body does not match&quot;)
+	<span style="color:#6272a4">// expected response
+</span><span style="color:#6272a4"></span>	er1 <span style="color:#ff79c6">:=</span> <span style="color:#f1fa8c">&#34;{\&#34;meta\&#34;:null,\&#34;data\&#34;:[{\&#34;isdn\&#34;:\&#34;111\&#34;,\&#34;title\&#34;:\&#34;test title\&#34;,\&#34;author\&#34;:\&#34;test author\&#34;,\&#34;pages\&#34;:42}]}\n&#34;</span>
+	<span style="color:#ff79c6">if</span> rr1.Body.<span style="color:#50fa7b">String</span>() <span style="color:#ff79c6">!=</span> er1 {
+		t.<span style="color:#50fa7b">Error</span>(<span style="color:#f1fa8c">&#34;Response body does not match&#34;</span>)
 	}
 }
 
-// Mocks a handler and returns a httptest.ResponseRecorder
-func newRequestRecorder(req *http.Request, method string, strPath string, fnHandler func(w http.ResponseWriter, r *http.Request, param httprouter.Params)) *httptest.ResponseRecorder {
-	router := httprouter.New()
-	router.Handle(method, strPath, fnHandler)
-	// We create a ResponseRecorder (which satisfies http.ResponseWriter) to record the response.
-	rr := httptest.NewRecorder()
-	// Our handlers satisfy http.Handler, so we can call their ServeHTTP method
-	// directly and pass in our Request and ResponseRecorder.
-	router.ServeHTTP(rr, req)
-	return rr
+<span style="color:#6272a4">// Mocks a handler and returns a httptest.ResponseRecorder
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">newRequestRecorder</span>(req <span style="color:#ff79c6">*</span>http.Request, method <span style="color:#8be9fd">string</span>, strPath <span style="color:#8be9fd">string</span>, fnHandler <span style="color:#8be9fd;font-style:italic">func</span>(w http.ResponseWriter, r <span style="color:#ff79c6">*</span>http.Request, param httprouter.Params)) <span style="color:#ff79c6">*</span>httptest.ResponseRecorder {
+	router <span style="color:#ff79c6">:=</span> httprouter.<span style="color:#50fa7b">New</span>()
+	router.<span style="color:#50fa7b">Handle</span>(method, strPath, fnHandler)
+	<span style="color:#6272a4">// We create a ResponseRecorder (which satisfies http.ResponseWriter) to record the response.
+</span><span style="color:#6272a4"></span>	rr <span style="color:#ff79c6">:=</span> httptest.<span style="color:#50fa7b">NewRecorder</span>()
+	<span style="color:#6272a4">// Our handlers satisfy http.Handler, so we can call their ServeHTTP method
+</span><span style="color:#6272a4"></span>	<span style="color:#6272a4">// directly and pass in our Request and ResponseRecorder.
+</span><span style="color:#6272a4"></span>	router.<span style="color:#50fa7b">ServeHTTP</span>(rr, req)
+	<span style="color:#ff79c6">return</span> rr
 }
-</code></pre>
-
-<p>我们使用 <code>httptest</code> 包的 Recorder 来 mock handler。同样，您也可以为 handler <code>BookShow</code> 编写测试。</p>
-
+</code></pre></div><p>我们使用 <code>httptest</code> 包的 Recorder 来 mock handler。同样，您也可以为 handler <code>BookShow</code> 编写测试。</p>
 <p>让我们稍微做些重构。我们仍然把所有路由都定义在了 <code>main</code> 函数中，handler 看起来有点臃肿，我们可以做点 DRY，我们仍然在终端中输出一些日志消息，并且可以添加一个 <code>BookCreate</code> handler 来创建一个新的 Book。</p>
-
 <p>首先，让我们解决 <code>handlers.go</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">package</span> main
 
-<pre><code class="language-go">package main
-
-import (
-	&quot;encoding/json&quot;
-	&quot;fmt&quot;
-	&quot;io&quot;
-	&quot;io/ioutil&quot;
-	&quot;net/http&quot;
-	&quot;github.com/julienschmidt/httprouter&quot;
+<span style="color:#ff79c6">import</span> (
+	<span style="color:#f1fa8c">&#34;encoding/json&#34;</span>
+	<span style="color:#f1fa8c">&#34;fmt&#34;</span>
+	<span style="color:#f1fa8c">&#34;io&#34;</span>
+	<span style="color:#f1fa8c">&#34;io/ioutil&#34;</span>
+	<span style="color:#f1fa8c">&#34;net/http&#34;</span>
+	<span style="color:#f1fa8c">&#34;github.com/julienschmidt/httprouter&#34;</span>
 )
 
-func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	fmt.Fprint(w, &quot;Welcome!\n&quot;)
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">Index</span>(w http.ResponseWriter, r <span style="color:#ff79c6">*</span>http.Request, _ httprouter.Params) {
+	fmt.<span style="color:#50fa7b">Fprint</span>(w, <span style="color:#f1fa8c">&#34;Welcome!\n&#34;</span>)
 }
 
-// Handler for the books Create action
-// POST /books
-func BookCreate(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-	book := &amp;Book{}
-	if err := populateModelFromHandler(w, r, params, book); err != nil {
-		writeErrorResponse(w, http.StatusUnprocessableEntity, &quot;Unprocessible Entity&quot;)
-		return
+<span style="color:#6272a4">// Handler for the books Create action
+</span><span style="color:#6272a4">// POST /books
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">BookCreate</span>(w http.ResponseWriter, r <span style="color:#ff79c6">*</span>http.Request, params httprouter.Params) {
+	book <span style="color:#ff79c6">:=</span> <span style="color:#ff79c6">&amp;</span>Book{}
+	<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">:=</span> <span style="color:#50fa7b">populateModelFromHandler</span>(w, r, params, book); err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		<span style="color:#50fa7b">writeErrorResponse</span>(w, http.StatusUnprocessableEntity, <span style="color:#f1fa8c">&#34;Unprocessible Entity&#34;</span>)
+		<span style="color:#ff79c6">return</span>
 	}
 	bookstore[book.ISDN] = book
-	writeOKResponse(w, book)
+	<span style="color:#50fa7b">writeOKResponse</span>(w, book)
 }
 
-// Handler for the books index action
-// GET /books
-func BookIndex(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	books := []*Book{}
-	for _, book := range bookstore {
-		books = append(books, book)
+<span style="color:#6272a4">// Handler for the books index action
+</span><span style="color:#6272a4">// GET /books
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">BookIndex</span>(w http.ResponseWriter, r <span style="color:#ff79c6">*</span>http.Request, _ httprouter.Params) {
+	books <span style="color:#ff79c6">:=</span> []<span style="color:#ff79c6">*</span>Book{}
+	<span style="color:#ff79c6">for</span> _, book <span style="color:#ff79c6">:=</span> <span style="color:#ff79c6">range</span> bookstore {
+		books = <span style="color:#8be9fd;font-style:italic">append</span>(books, book)
 	}
-	writeOKResponse(w, books)
+	<span style="color:#50fa7b">writeOKResponse</span>(w, books)
 }
 
-// Handler for the books Show action
-// GET /books/:isdn
-func BookShow(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-	isdn := params.ByName(&quot;isdn&quot;)
-	book, ok := bookstore[isdn]
-	if !ok {
-		// No book with the isdn in the url has been found
-		writeErrorResponse(w, http.StatusNotFound, &quot;Record Not Found&quot;)
-		return
+<span style="color:#6272a4">// Handler for the books Show action
+</span><span style="color:#6272a4">// GET /books/:isdn
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">BookShow</span>(w http.ResponseWriter, r <span style="color:#ff79c6">*</span>http.Request, params httprouter.Params) {
+	isdn <span style="color:#ff79c6">:=</span> params.<span style="color:#50fa7b">ByName</span>(<span style="color:#f1fa8c">&#34;isdn&#34;</span>)
+	book, ok <span style="color:#ff79c6">:=</span> bookstore[isdn]
+	<span style="color:#ff79c6">if</span> !ok {
+		<span style="color:#6272a4">// No book with the isdn in the url has been found
+</span><span style="color:#6272a4"></span>		<span style="color:#50fa7b">writeErrorResponse</span>(w, http.StatusNotFound, <span style="color:#f1fa8c">&#34;Record Not Found&#34;</span>)
+		<span style="color:#ff79c6">return</span>
 	}
-	writeOKResponse(w, book)
+	<span style="color:#50fa7b">writeOKResponse</span>(w, book)
 }
 
-// Writes the response as a standard JSON response with StatusOK
-func writeOKResponse(w http.ResponseWriter, m interface{}) {
-	w.Header().Set(&quot;Content-Type&quot;, &quot;application/json; charset=UTF-8&quot;)
-	w.WriteHeader(http.StatusOK)
-	if err := json.NewEncoder(w).Encode(&amp;JsonResponse{Data: m}); err != nil {
-		writeErrorResponse(w, http.StatusInternalServerError, &quot;Internal Server Error&quot;)
+<span style="color:#6272a4">// Writes the response as a standard JSON response with StatusOK
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">writeOKResponse</span>(w http.ResponseWriter, m <span style="color:#8be9fd;font-style:italic">interface</span>{}) {
+	w.<span style="color:#50fa7b">Header</span>().<span style="color:#50fa7b">Set</span>(<span style="color:#f1fa8c">&#34;Content-Type&#34;</span>, <span style="color:#f1fa8c">&#34;application/json; charset=UTF-8&#34;</span>)
+	w.<span style="color:#50fa7b">WriteHeader</span>(http.StatusOK)
+	<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">:=</span> json.<span style="color:#50fa7b">NewEncoder</span>(w).<span style="color:#50fa7b">Encode</span>(<span style="color:#ff79c6">&amp;</span>JsonResponse{Data: m}); err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		<span style="color:#50fa7b">writeErrorResponse</span>(w, http.StatusInternalServerError, <span style="color:#f1fa8c">&#34;Internal Server Error&#34;</span>)
 	}
 }
 
-// Writes the error response as a Standard API JSON response with a response code
-func writeErrorResponse(w http.ResponseWriter, errorCode int, errorMsg string) {
-	w.Header().Set(&quot;Content-Type&quot;, &quot;application/json; charset=UTF-8&quot;)
-	w.WriteHeader(errorCode)
+<span style="color:#6272a4">// Writes the error response as a Standard API JSON response with a response code
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">writeErrorResponse</span>(w http.ResponseWriter, errorCode <span style="color:#8be9fd">int</span>, errorMsg <span style="color:#8be9fd">string</span>) {
+	w.<span style="color:#50fa7b">Header</span>().<span style="color:#50fa7b">Set</span>(<span style="color:#f1fa8c">&#34;Content-Type&#34;</span>, <span style="color:#f1fa8c">&#34;application/json; charset=UTF-8&#34;</span>)
+	w.<span style="color:#50fa7b">WriteHeader</span>(errorCode)
 	json.
-		NewEncoder(w).
-		Encode(&amp;JsonErrorResponse{Error: &amp;ApiError{Status: errorCode, Title: errorMsg}})
+		<span style="color:#50fa7b">NewEncoder</span>(w).
+		<span style="color:#50fa7b">Encode</span>(<span style="color:#ff79c6">&amp;</span>JsonErrorResponse{Error: <span style="color:#ff79c6">&amp;</span>ApiError{Status: errorCode, Title: errorMsg}})
 }
 
-//Populates a model from the params in the Handler
-func populateModelFromHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params, model interface{}) error {
-	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
-	if err != nil {
-		return err
+<span style="color:#6272a4">//Populates a model from the params in the Handler
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">populateModelFromHandler</span>(w http.ResponseWriter, r <span style="color:#ff79c6">*</span>http.Request, params httprouter.Params, model <span style="color:#8be9fd;font-style:italic">interface</span>{}) <span style="color:#8be9fd">error</span> {
+	body, err <span style="color:#ff79c6">:=</span> ioutil.<span style="color:#50fa7b">ReadAll</span>(io.<span style="color:#50fa7b">LimitReader</span>(r.Body, <span style="color:#bd93f9">1048576</span>))
+	<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		<span style="color:#ff79c6">return</span> err
 	}
-	if err := r.Body.Close(); err != nil {
-		return err
+	<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">:=</span> r.Body.<span style="color:#50fa7b">Close</span>(); err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		<span style="color:#ff79c6">return</span> err
 	}
-	if err := json.Unmarshal(body, model); err != nil {
-		return err
+	<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">:=</span> json.<span style="color:#50fa7b">Unmarshal</span>(body, model); err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		<span style="color:#ff79c6">return</span> err
 	}
-	return nil
+	<span style="color:#ff79c6">return</span> <span style="color:#ff79c6">nil</span>
 }
-</code></pre>
-
-<p>我创建了两个函数，<code>writeOKResponse</code> 用于将 <code>StatusOK</code> 写入响应，其返回一个 model 或一个 model slice，<code>writeErrorResponse</code> 将在发生预期或意外错误时将 <code>JSON</code> 错误作为响应。像任何一个优秀的 gopher 一样，我们不应该 panic。我还添加了一个名为 <code>populateModelFromHandler</code> 的函数，它将内容从 body 中解析成所需的任何 model（struct）。在这种情况下，我们在 <code>BookCreate</code> handler 中使用它来填充一个 <code>Book</code>。</p>
-
+</code></pre></div><p>我创建了两个函数，<code>writeOKResponse</code> 用于将 <code>StatusOK</code> 写入响应，其返回一个 model 或一个 model slice，<code>writeErrorResponse</code> 将在发生预期或意外错误时将 <code>JSON</code> 错误作为响应。像任何一个优秀的 gopher 一样，我们不应该 panic。我还添加了一个名为 <code>populateModelFromHandler</code> 的函数，它将内容从 body 中解析成所需的任何 model（struct）。在这种情况下，我们在 <code>BookCreate</code> handler 中使用它来填充一个 <code>Book</code>。</p>
 <p>现在，我们来看看日志。我们简单地创建一个 <code>Logger</code> 函数，它包装了 handler 函数，并在执行 handler 函数之前和之后打印日志消息。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">package</span> main
 
-<pre><code class="language-go">package main
-
-import (
-	&quot;log&quot;
-	&quot;net/http&quot;
-	&quot;time&quot;
-	&quot;github.com/julienschmidt/httprouter&quot;
+<span style="color:#ff79c6">import</span> (
+	<span style="color:#f1fa8c">&#34;log&#34;</span>
+	<span style="color:#f1fa8c">&#34;net/http&#34;</span>
+	<span style="color:#f1fa8c">&#34;time&#34;</span>
+	<span style="color:#f1fa8c">&#34;github.com/julienschmidt/httprouter&#34;</span>
 )
 
-// A Logger function which simply wraps the handler function around some log messages
-func Logger(fn func(w http.ResponseWriter, r *http.Request, param httprouter.Params)) func(w http.ResponseWriter, r *http.Request, param httprouter.Params) {
-	return func(w http.ResponseWriter, r *http.Request, param httprouter.Params) {
-		start := time.Now()
-		log.Printf(&quot;%s %s&quot;, r.Method, r.URL.Path)
-		fn(w, r, param)
-		log.Printf(&quot;Done in %v (%s %s)&quot;, time.Since(start), r.Method, r.URL.Path)
+<span style="color:#6272a4">// A Logger function which simply wraps the handler function around some log messages
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">Logger</span>(fn <span style="color:#8be9fd;font-style:italic">func</span>(w http.ResponseWriter, r <span style="color:#ff79c6">*</span>http.Request, param httprouter.Params)) <span style="color:#8be9fd;font-style:italic">func</span>(w http.ResponseWriter, r <span style="color:#ff79c6">*</span>http.Request, param httprouter.Params) {
+	<span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">func</span>(w http.ResponseWriter, r <span style="color:#ff79c6">*</span>http.Request, param httprouter.Params) {
+		start <span style="color:#ff79c6">:=</span> time.<span style="color:#50fa7b">Now</span>()
+		log.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;%s %s&#34;</span>, r.Method, r.URL.Path)
+		<span style="color:#50fa7b">fn</span>(w, r, param)
+		log.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;Done in %v (%s %s)&#34;</span>, time.<span style="color:#50fa7b">Since</span>(start), r.Method, r.URL.Path)
 	}
 }
-</code></pre>
+</code></pre></div><p>我们来看看路由。首先，在一个地方集中定义所有路由，比如 <code>routes.go</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">package</span> main
 
-<p>我们来看看路由。首先，在一个地方集中定义所有路由，比如 <code>routes.go</code>。</p>
+<span style="color:#ff79c6">import</span> <span style="color:#f1fa8c">&#34;github.com/julienschmidt/httprouter&#34;</span>
 
-<pre><code class="language-go">package main
-
-import &quot;github.com/julienschmidt/httprouter&quot;
-
-/*
-Define all the routes here.
-A new Route entry passed to the routes slice will be automatically
-translated to a handler with the NewRouter() function
-*/
-type Route struct {
-	Name        string
-	Method      string
-	Path        string
+<span style="color:#6272a4">/*
+</span><span style="color:#6272a4">Define all the routes here.
+</span><span style="color:#6272a4">A new Route entry passed to the routes slice will be automatically
+</span><span style="color:#6272a4">translated to a handler with the NewRouter() function
+</span><span style="color:#6272a4">*/</span>
+<span style="color:#8be9fd;font-style:italic">type</span> Route <span style="color:#8be9fd;font-style:italic">struct</span> {
+	Name        <span style="color:#8be9fd">string</span>
+	Method      <span style="color:#8be9fd">string</span>
+	Path        <span style="color:#8be9fd">string</span>
 	HandlerFunc httprouter.Handle
 }
 
-type Routes []Route
+<span style="color:#8be9fd;font-style:italic">type</span> Routes []Route
 
-func AllRoutes() Routes {
-	routes := Routes{
-		Route{&quot;Index&quot;, &quot;GET&quot;, &quot;/&quot;, Index},
-		Route{&quot;BookIndex&quot;, &quot;GET&quot;, &quot;/books&quot;, BookIndex},
-		Route{&quot;Bookshow&quot;, &quot;GET&quot;, &quot;/books/:isdn&quot;, BookShow},
-		Route{&quot;Bookshow&quot;, &quot;POST&quot;, &quot;/books&quot;, BookCreate},
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">AllRoutes</span>() Routes {
+	routes <span style="color:#ff79c6">:=</span> Routes{
+		Route{<span style="color:#f1fa8c">&#34;Index&#34;</span>, <span style="color:#f1fa8c">&#34;GET&#34;</span>, <span style="color:#f1fa8c">&#34;/&#34;</span>, Index},
+		Route{<span style="color:#f1fa8c">&#34;BookIndex&#34;</span>, <span style="color:#f1fa8c">&#34;GET&#34;</span>, <span style="color:#f1fa8c">&#34;/books&#34;</span>, BookIndex},
+		Route{<span style="color:#f1fa8c">&#34;Bookshow&#34;</span>, <span style="color:#f1fa8c">&#34;GET&#34;</span>, <span style="color:#f1fa8c">&#34;/books/:isdn&#34;</span>, BookShow},
+		Route{<span style="color:#f1fa8c">&#34;Bookshow&#34;</span>, <span style="color:#f1fa8c">&#34;POST&#34;</span>, <span style="color:#f1fa8c">&#34;/books&#34;</span>, BookCreate},
 	}
-	return routes
+	<span style="color:#ff79c6">return</span> routes
 }
-</code></pre>
+</code></pre></div><p>让我们创建一个 <code>NewRouter</code> 函数，它可以在 <code>main</code> 函数中调用，它读取上面定义的所有路由，并返回一个可用的 <code>httprouter.Router</code>。因此创建一个文件 <code>router.go</code>。我们还将使用新创建的 <code>Logger</code> 函数来包装 handler。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">package</span> main
 
-<p>让我们创建一个 <code>NewRouter</code> 函数，它可以在 <code>main</code> 函数中调用，它读取上面定义的所有路由，并返回一个可用的 <code>httprouter.Router</code>。因此创建一个文件 <code>router.go</code>。我们还将使用新创建的 <code>Logger</code> 函数来包装 handler。</p>
+<span style="color:#ff79c6">import</span> <span style="color:#f1fa8c">&#34;github.com/julienschmidt/httprouter&#34;</span>
 
-<pre><code class="language-go">package main
-
-import &quot;github.com/julienschmidt/httprouter&quot;
-
-//Reads from the routes slice to translate the values to httprouter.Handle
-func NewRouter(routes Routes) *httprouter.Router {
-	router := httprouter.New()
-	for _, route := range routes {
-		var handle httprouter.Handle
+<span style="color:#6272a4">//Reads from the routes slice to translate the values to httprouter.Handle
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">NewRouter</span>(routes Routes) <span style="color:#ff79c6">*</span>httprouter.Router {
+	router <span style="color:#ff79c6">:=</span> httprouter.<span style="color:#50fa7b">New</span>()
+	<span style="color:#ff79c6">for</span> _, route <span style="color:#ff79c6">:=</span> <span style="color:#ff79c6">range</span> routes {
+		<span style="color:#8be9fd;font-style:italic">var</span> handle httprouter.Handle
 		handle = route.HandlerFunc
-		handle = Logger(handle)
-		router.Handle(route.Method, route.Path, handle)
+		handle = <span style="color:#50fa7b">Logger</span>(handle)
+		router.<span style="color:#50fa7b">Handle</span>(route.Method, route.Path, handle)
 	}
-	return router
+	<span style="color:#ff79c6">return</span> router
 }
-</code></pre>
-
-<p>您的目录此时应该像这样：</p>
-
-<pre><code class="language-go">.
-├── handlers.go
-├── handlers_test.go
-├── logger.go
-├── main.go
-├── models.go
-├── responses.go
-├── router.go
-└── routes.go
-</code></pre>
-
-<p>这应该可以让你开始编写你自己的 API 服务器了。 你当然需要把你的功能放在不同的包中，所以一个好办法就是：</p>
-
-<pre><code class="language-go">.
+</code></pre></div><p>您的目录此时应该像这样：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">.
+├── handlers.<span style="color:#ff79c6">go</span>
+├── handlers_test.<span style="color:#ff79c6">go</span>
+├── logger.<span style="color:#ff79c6">go</span>
+├── main.<span style="color:#ff79c6">go</span>
+├── models.<span style="color:#ff79c6">go</span>
+├── responses.<span style="color:#ff79c6">go</span>
+├── router.<span style="color:#ff79c6">go</span>
+└── routes.<span style="color:#ff79c6">go</span>
+</code></pre></div><p>这应该可以让你开始编写你自己的 API 服务器了。 你当然需要把你的功能放在不同的包中，所以一个好办法就是：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">.
 ├── LICENSE
 ├── README.md
 ├── handlers
-│   ├── books_test.go
-│   └── books.go
+│   ├── books_test.<span style="color:#ff79c6">go</span>
+│   └── books.<span style="color:#ff79c6">go</span>
 ├── models
-│   ├── book.go
-│   └── *
+│   ├── book.<span style="color:#ff79c6">go</span>
+│   └── <span style="color:#ff79c6">*</span>
 ├── store
-│   ├── *
+│   ├── <span style="color:#ff79c6">*</span>
 └── lib
-|   ├── *
-├── main.go
-├── router.go
-├── rotes.go
-</code></pre>
+|   ├── <span style="color:#ff79c6">*</span>
+├── main.<span style="color:#ff79c6">go</span>
+├── router.<span style="color:#ff79c6">go</span>
+├── rotes.<span style="color:#ff79c6">go</span>
+</code></pre></div><p>如果您有一个大的单体服务器，您还可以将 <code>handlers</code>、<code>models</code> 和所有路由功能都放在另一个名为 <code>app</code> 的包中。只要记住，go 不像 Java 或 Scala 那样可以有循环的包调用。因此你必须格外小心您的包结构。</p>
 
-<p>如果您有一个大的单体服务器，您还可以将 <code>handlers</code>、<code>models</code> 和所有路由功能都放在另一个名为 <code>app</code> 的包中。只要记住，go 不像 Java 或 Scala 那样可以有循环的包调用。因此你必须格外小心您的包结构。</p>
-
-
-                
-                
-<div class="entry-shang text-center">
-    
-	    <p>「真诚赞赏，手留余香」</p>
-	
-	<button class="zs show-zs btn btn-bred">赞赏支持</button>
-</div>
-<div class="zs-modal-bg"></div>
-<div class="zs-modal-box">
-	<div class="zs-modal-head">
-		<button type="button" class="close">×</button>
-		<span class="author"><a href="https://luckyliang.github.io"><img src="/img/favicon.png" />Cheng Blog</a></span>
-        
-	        <p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
-		
- 
-	</div>
-	<div class="zs-modal-body">
-		<div class="zs-modal-btns">
-			<button class="btn btn-blink" data-num="2">2元</button>
-			<button class="btn btn-blink" data-num="5">5元</button>
-			<button class="btn btn-blink" data-num="10">10元</button>
-			<button class="btn btn-blink" data-num="50">50元</button>
-			<button class="btn btn-blink" data-num="100">100元</button>
-			<button class="btn btn-blink" data-num="1">任意金额</button>
-		</div>
-		<div class="zs-modal-pay">
-			<button class="btn btn-bred" id="pay-text">2元</button>
-			<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
-			<img src="/img/reward/wechat-2.png"  id="pay-image"/>
-		</div>
-	</div>
-	<div class="zs-modal-footer">
-		<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
-		<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
-	</div>
-</div>
-<script type="text/javascript" src="/js/reward.js"></script>
 
                 
 
@@ -957,6 +808,8 @@ func NewRouter(routes Routes) *httprouter.Router {
                         
                         
                         
+                        
+                        
                         <a href="/tags/go" title="go">
                             go
                         </a>
@@ -969,11 +822,11 @@ func NewRouter(routes Routes) *httprouter.Router {
                         
                         
                         
-                        <a href="/tags/java" title="java">
-                            java
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                            mysql
                         </a>
-                        
-                        
                         
                         
                         
@@ -984,6 +837,10 @@ func NewRouter(routes Routes) *httprouter.Router {
                         <a href="/tags/swift" title="swift">
                             swift
                         </a>
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -1023,23 +880,23 @@ func NewRouter(routes Routes) *httprouter.Router {
                    <li>
                        <a href='' rel="alternate" type="application/rss+xml" title="Cheng Blog" >
                            <span class="fa-stack fa-lg">
-                               <i class="fa fa-circle fa-stack-2x"></i>
-                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
                            </span>
                        </a>
                    </li>
                    
                     
                     <li>
-                        <a href="mailto:401932941@qq.com">
+                        <a href="mailto:401932941@gmail.com">
                             <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
 		    
-                    
+
                     
                     
                     
@@ -1050,10 +907,10 @@ func NewRouter(routes Routes) *httprouter.Router {
                     
                     
                     <li>
-                        <a target="_blank" href="https://github.com/LuckyLiang">
+                        <a target="_blank" href="https://github.com/luckyliang">
                             <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -1067,8 +924,19 @@ func NewRouter(routes Routes) *httprouter.Router {
                     
                     
             
+            
+            
                 </ul>
-		
+		<p class="copyright text-muted">
+                    Copyright &copy; Cheng Blog 2017
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
             </div>
         </div>
     </div>
@@ -1078,7 +946,7 @@ func NewRouter(routes Routes) *httprouter.Router {
 
 
 <script>
-    function async(u, c) {
+    function loadAsync(u, c) {
       var d = document, t = 'script',
           o = d.createElement(t),
           s = d.getElementsByTagName(t)[0];
@@ -1096,7 +964,7 @@ func NewRouter(routes Routes) *httprouter.Router {
 <script>
     
     if($('#tag_cloud').length !== 0){
-        async("/js/jquery.tagcloud.js",function(){
+        loadAsync("/js/jquery.tagcloud.js",function(){
             $.fn.tagcloud.defaults = {
                 
                 color: {start: '#bbbbee', end: '#0085a1'},
@@ -1108,7 +976,7 @@ func NewRouter(routes Routes) *httprouter.Router {
 
 
 <script>
-    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+    loadAsync("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
         var $nav = document.querySelector("nav");
         if($nav) FastClick.attach($nav);
     })

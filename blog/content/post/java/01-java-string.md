@@ -23,13 +23,13 @@ categories: [ java ]
 
 1. 通过字面创建
 
-   ```
+   ```java
    String s = "welcome"
    ```
 
 2. 通过`new`关键字
 
-   ```
+   ```java
    String s = new String("Welcome")
    
    char ch[] = {'s','t','r','i','n','g'}
@@ -43,7 +43,7 @@ categories: [ java ]
 
 在java中string对象是不可变的
 
-```
+```java
   public static void main(String[] args) {
       String s = "Sachin";
       s.concat(" Tendulkar");
@@ -53,7 +53,7 @@ categories: [ java ]
 
 可以通过重新赋值
 
-```
+```java
   public static void main(String[] args) {
       String s = "Sachin";
       s = s.concat(" Tendulkar");
@@ -67,7 +67,7 @@ categories: [ java ]
 
 1. 通过`equals()`方法比较
 
-   ```
+   ```java
      public static void main(String[] args) {
            String s1 = "Sachin";
            String s2 = "Sachin";
@@ -81,7 +81,7 @@ categories: [ java ]
 
 2. 通过`==`操作符比较
 
-   ```
+   ```java
     public static void main(String args[]){  
       String s1="Sachin";  
       String s2="Sachin";  
@@ -99,7 +99,7 @@ categories: [ java ]
 
    s1 < s2 return -1 
 
-   ```
+   ```java
    public static void main(String args[]){  
       String s1="Sachin";  
       String s2="Sachin";  
@@ -116,14 +116,14 @@ categories: [ java ]
 
 1. 通过`+`连接操作符
 
-   ```
+   ```java
     String s="Sachin"+" Tendulkar";  
     String s=50+30+"Sachin"+40+40;  
    ```
 
 2. 通过`concat()`方法
 
-   ```
+   ```java
    String s1="Sachin ";  
    String s2="Tendulkar";  
    String s3=s1.concat(s2);   
@@ -136,7 +136,7 @@ categories: [ java ]
 1. `public String substring(int startIndex)`给定起点返回一个新的string
 2. `public String substring(int startIndex, int endIndex)`给定起点和终点返回一个新的string对象
 
-```
+```java
 String s="SachinTendulkar";  
 System.out.println(s.substring(6));//Tendulkar  
 System.out.println(s.substring(0,6));//Sachin  
@@ -144,7 +144,7 @@ System.out.println(s.substring(0,6));//Sachin
 
 #### `toUpperCase() and toLowerCase()`
 
-```
+```java
 String s="Sachin";  
 System.out.println(s.toUpperCase());//SACHIN  
 System.out.println(s.toLowerCase());//sachin  
@@ -153,7 +153,7 @@ System.out.println(s);//Sachin(no change in original)
 
 #### `trim()`去空格
 
-```
+```java
 String s="  Sachin  ";  
 System.out.println(s);//  Sachin    
 System.out.println(s.trim());//Sachin  
@@ -161,7 +161,7 @@ System.out.println(s.trim());//Sachin
 
 #### `startsWith() and endsWith() `判断开始结尾
 
-```
+```java
 String s="Sachin";  
 System.out.println(s.startsWith("Sa"));//true  
 System.out.println(s.endsWith("n"));//true  
@@ -169,7 +169,7 @@ System.out.println(s.endsWith("n"));//true
 
 #### `charAt()`返回特定位置的字符
 
-```
+```java
 String s="Sachin";  
 System.out.println(s.charAt(0));//S  
 System.out.println(s.charAt(3));//h  
@@ -177,7 +177,7 @@ System.out.println(s.charAt(3));//h
 
 #### ` length()`字符串长度
 
-```
+```java
 String s="Sachin";  
 System.out.println(s.length());//6  
 ```
@@ -186,7 +186,7 @@ System.out.println(s.length());//6
 
 比如将 int, long, float, double, boolean, char and char array 转换成string
 
-```
+```java
 int a=10;  
 String s=String.valueOf(a);  
 System.out.println(s+10);  
@@ -194,7 +194,7 @@ System.out.println(s+10);
 
 #### `replace()`字符串替换
 
-```
+```java
 String s1="Java is a programming language. Java is a platform. Java is an Island.";    
 String replaceString=s1.replace("Java","Kava");//replaces all occurrences of "Java" to "Kava"    
 System.out.println(replaceString); 
@@ -206,7 +206,7 @@ StringBuffer类主要用于创建可变字符串, 主要用于线程安全的
 
 ### 构造方法
 
-```
+```java
 StringBuffer()	
 StringBuffer(String str)	
 StringBuffer(int capacity)	
@@ -214,7 +214,7 @@ StringBuffer(int capacity)
 
 ### 常用方法
 
-```
+```java
 public synchronized StringBuffer append(String s)	//字符串拼接
 public synchronized StringBuffer	insert(int offset, String s)	//字符串插入
 public synchronized StringBuffer	replace(int startIndex, int endIndex, String str)	 //字符串替换

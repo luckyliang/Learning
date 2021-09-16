@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Cheng Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="http://lruoheng.com/img/home-bg-jeep.jpg">
+    <meta property="twitter:image" content="http://lruoheng.com/img/home-bg-jeep.jpg" />
+    
+
+    
+    <meta name="title" content="多环境配置" />
+    <meta property="og:title" content="多环境配置" />
+    <meta property="twitter:title" content="多环境配置" />
+    
+
+    
+    <meta name="description" content="记录在Swift开发中常用的小技巧，方便忘记的时候查阅">
+    <meta property="og:description" content="记录在Swift开发中常用的小技巧，方便忘记的时候查阅" />
+    <meta property="twitter:description" content="记录在Swift开发中常用的小技巧，方便忘记的时候查阅" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="cheng, ChengCheng, chengcheng , Cheng的网络日志, Cheng的博客, chengcheng Blog, 博客, 个人网站, 互联网, Web, 云原生, IOS, Go, Swift, Microservice">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>多环境配置-Cheng Cheng 的博客 | Cheng Cheng Blog</title>
+
+    <link rel="canonical" href="/2018/04/2/ios/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Cheng Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/go">go</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/ios">ios</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/java">java</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/other">other</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/web">web</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E6%B1%87%E7%BC%96">汇编</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://img.zhaohuabing.com/in-post/2018-04-11-service-mesh-vs-api-gateway/background.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/ios" title="IOS">
+                            IOS
+                        </a>
+                        
+                    </div>
+                    <h1>多环境配置</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                Cheng
+                             
+                            on 
+                            Friday, April 13, 2018
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#多环境配置">多环境配置</a>
+      <ul>
+        <li><a href="#一利用build-configuration来配置多环境">一、利用Build Configuration来配置多环境</a></li>
+        <li><a href="#二新建多target">二、新建多Target</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                
+                <h1 id="多环境配置">多环境配置</h1>
+<p>项目中常常会遇到多个app环境，比如开发环境，测试环境，预发布环境，发布环境等，当需要开发打多个包的时候，一般常见做法就是直接代码里面修改环境变量，改完之后Archive一下就打包了。当然这种做法很正确，只不过不是很优雅很高效。如果搭建好了Jenkins(<a href="https://www.jianshu.com/p/41ecb06ae95f">搭建教程</a>)，我们利用它来优雅的打包。如果利用Jenkins来打包，我们就需要来给app来配置一下多个环境变量了。之后Jenkins分别再不同环境下自动集成即可</p>
+<h2 id="一利用build-configuration来配置多环境">一、利用Build Configuration来配置多环境</h2>
+<h3 id="1-新建build-configuration">1. 新建Build Configuration</h3>
+<p><a href="https://link.jianshu.com/?t=https%3A%2F%2Fdeveloper.apple.com%2Flibrary%2Fios%2Frecipes%2Fxcode_help-project_editor%2FArticles%2FBasingBuildConfigurationsonConfigurationFiles.html">官方文档</a>，<a href="https://link.jianshu.com/?t=https%3A%2F%2Fhelp.apple.com%2Fxcode%2Fmac%2F8.0%2F%23%2Fitcaec37c2a6">新版文档链接在这里Build settings reference</a>。</p>
+<p>先点击Project里面找到Configuration，然后选择添加，这里新加一个Configuration。系统默认是2个，一个Debug，一个Release。这里我们需要选择是复制一个Debug还是Release。Release和Debug的区别是，Release是不能调试程序，因为默认是屏蔽了可调试的一些参数，具体可以看BuildSetting里面的区别，而且Release编译时有做编译优化，会比用Debug打包出来的体积更小一点。</p>
+<p>
+  <img src="/Users/liangcheng/Desktop/blogProject/Learning/blog/static/img/iOS/Snipaste_2021-04-02_18-21-49.png" alt="configuration">
+
+</p>
+<p>注意：刚刚新建完Build Configuration之后，这时如果有pod，请立即执行一下</p>
+<pre><code>pod install  
+</code></pre><p>pod安装完成之后会自动生成xcconfig文件，如果你手动新建这个xcconfig，然后把原来的debug和release对应的pod xcconfig文件内容复制进来，这样做是无效的，需要pod自己去生成xcconfig文件才能被识别到。</p>
+<p>新建完Build Configuration，这个时候需要新建pod里面对应的Build Configuration，要不然一会编译会报错。如果没用pod，可以忽略一下这一段。</p>
+<p>然后就可以选择不同的configuration进行运行或者打包
+  <img src="/Users/liangcheng/Desktop/blogProject/Learning/blog/static/img/iOS/Snipaste_2021-04-02_20-20-11.png" alt="Snipaste_2021-04-02_20-20-11">
+
+</p>
+<p>或者新建一个Scheme，不用每次都去修改</p>
+<h4 id="用宏定义来区分每个configuration配置下的环境">用宏定义来区分每个Configuration配置下的环境</h4>
+<p>比如这样的定义，如果configuration选择的是Devleop，然后下面打印只会在Devleop下的DEBUG下才会执行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#ff79c6">#if</span> <span style="color:#ff79c6">DEBUG</span>
+print(<span style="color:#f1fa8c">&#34;DEBUG&#34;</span>)
+<span style="color:#ff79c6">#endif</span>
+</code></pre></div><p>在OC项目中需要在<code>Build Settings中的Preprocessing</code>定义</p>
+<p>
+  <img src="/Users/liangcheng/Desktop/blogProject/Learning/blog/static/img/iOS/Snipaste_2021-04-02_20-17-39.png" alt="Snipaste_2021-04-02_20-17-39">
+
+</p>
+<p>上图配置，如果选中的是Develop，那么代码里只有宏DEVELOP，和DEBUG才会执行</p>
+<p><code>Swfit</code>项目需要在<code>Build Settings -&gt;Swift Compiler - CustomFlags </code>中进行配置</p>
+<p>
+  <img src="/Users/liangcheng/Desktop/blogProject/Learning/blog/static/img/iOS/Snipaste_2021-04-02_20-28-17.png" alt="Snipaste_2021-04-02_20-28-17">
+
+</p>
+<h4 id="新建user-defined-build-settings">新建User-defined Build Settings</h4>
+<p>再次回到Project或者单独的Target的Build Settings里面来，Add User-Defined Setting。</p>
+<h5 id="自定义appname">自定义appName</h5>
+<p>
+  <img src="/Users/liangcheng/Desktop/blogProject/Learning/blog/static/img/iOS/Snipaste_2021-04-02_20-40-18.png" alt="Snipaste_2021-04-02_20-40-18">
+
+</p>
+<p>然后将info.plist中的Bundle name修改为自定义的AppName</p>
+<p>
+  <img src="/Users/liangcheng/Desktop/blogProject/Learning/blog/static/img/iOS/Snipaste_2021-04-02_20-45-03.png" alt="Snipaste_2021-04-02_20-45-03">
+
+</p>
+<h5 id="bundle-identifier配置"><code>bundle Identifier</code>配置</h5>
+<p>
+  <img src="/Users/liangcheng/Desktop/blogProject/Learning/blog/static/img/iOS/Snipaste_2021-04-02_20-50-34.png" alt="Snipaste_2021-04-02_20-50-34">
+
+</p>
+<h5 id="appiconlaunch-image配置">AppIcon、Launch Image配置</h5>
+<p>
+  <img src="/Users/liangcheng/Desktop/blogProject/Learning/blog/static/img/iOS/Snipaste_2021-04-02_21-14-55.png" alt="Snipaste_2021-04-02_21-14-55">
+
+</p>
+<p>对应的资源文件</p>
+<p>
+  <img src="/Users/liangcheng/Desktop/blogProject/Learning/blog/static/img/iOS/Snipaste_2021-04-02_21-15-11.png" alt="Snipaste_2021-04-02_21-15-11">
+
+</p>
+<p>然后根据项目自己选择对应的icon</p>
+<p>
+  <img src="/Users/liangcheng/Desktop/blogProject/Learning/blog/static/img/iOS/Snipaste_2021-04-02_21-18-06.png" alt="Snipaste_2021-04-02_21-18-06">
+
+</p>
+<h5 id="版本信息">版本信息</h5>
+<p>
+  <img src="/Users/liangcheng/Desktop/blogProject/Learning/blog/static/img/iOS/Snipaste_2021-04-02_21-24-41.png" alt="Snipaste_2021-04-02_21-24-41">
+
+</p>
+<p>在<code>info.plist</code>中修改<code>Bundle version</code>为<code>$(CURRENT_PROJECT_VERSION)</code></p>
+<p>
+  <img src="/Users/liangcheng/Desktop/blogProject/Learning/blog/static/img/iOS/Snipaste_2021-04-02_21-27-10.png" alt="Snipaste_2021-04-02_21-27-10">
+
+</p>
+<p>还有就是签名信息等都可以按照上面的方式配置</p>
+<h2 id="二新建多target">二、新建多Target</h2>
+<p>参考：</p>
+<p><a href="https://www.jianshu.com/p/83b6e781eb51l">https://www.jianshu.com/p/83b6e781eb51l</a></p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/04/12/goErrorCollection/" data-toggle="tooltip" data-placement="top" title="go 错误收集">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/04/13/swiftTipsRecord/" data-toggle="tooltip" data-placement="top" title="Siwft 小技巧记录">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/go" title="go">
+                            go
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ios" title="ios">
+                            ios
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                            mysql
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/swift" title="swift">
+                            swift
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+                <section>
+                    <hr>
+                    <h5>FRIENDS</h5>
+                    <ul class="list-inline">
+                        
+                    </ul>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Cheng Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:401932941@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/luckyliang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Cheng Blog 2017
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>

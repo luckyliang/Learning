@@ -1,392 +1,405 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Cheng Blog</title>
-    <link>https://luckyliang.github.io/</link>
+    <link>http://lruoheng.com/</link>
     <description>Recent content on Cheng Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Wed, 24 Oct 2018 23:32:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://luckyliang.github.io/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Tue, 14 Sep 2021 11:50:51 +0800</lastBuildDate><atom:link href="http://lruoheng.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>An Example Post</title>
+      <link>http://lruoheng.com/about/about/</link>
+      <pubDate>Tue, 14 Sep 2021 11:50:51 +0800</pubDate>
+      
+      <guid>http://lruoheng.com/about/about/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>go 操作 mysql</title>
-      <link>https://luckyliang.github.io/2018/10/24/goopmysql/</link>
+      <link>http://lruoheng.com/2018/10/24/goOpMysql/</link>
       <pubDate>Wed, 24 Oct 2018 23:32:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/10/24/goopmysql/</guid>
+      <guid>http://lruoheng.com/2018/10/24/goOpMysql/</guid>
       <description>使用Go操作MySQL等数据库，一般有两种方式：一是使用database/sql接口，直接在代码里硬编码sql语句；二是使用gorm，即对象</description>
     </item>
     
     <item>
-      <title>MySQL基本使用方法</title>
-      <link>https://luckyliang.github.io/2018/10/23/mysqlleaning/</link>
+      <title>MySQL(一) - 基本使用</title>
+      <link>http://lruoheng.com/2018/10/23/MySqlLeaning01/</link>
       <pubDate>Tue, 23 Oct 2018 23:32:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/10/23/mysqlleaning/</guid>
-      <description>MySQL基本使用 安装就不介绍了，网上多的很，这里主要参考官方文档，记录简单用法 MySQL连接和断开 连接mysql mysql -h host -u user -p Enter password: ******** host 连接的</description>
+      <guid>http://lruoheng.com/2018/10/23/MySqlLeaning01/</guid>
+      <description>MySQL安装和连接 安装就不介绍了，网上多的很，这里主要参考官方文档，记录简单用法 连接mysql mysql -h host -u user -p Enter password: ******** host 连接的服务，我本地调式就</description>
+    </item>
+    
+    <item>
+      <title>MySQL(三) - 数据多表查询</title>
+      <link>http://lruoheng.com/2018/10/23/MySqlLeaning03/</link>
+      <pubDate>Tue, 23 Oct 2018 23:32:00 +0000</pubDate>
+      
+      <guid>http://lruoheng.com/2018/10/23/MySqlLeaning03/</guid>
+      <description>创建数据库Sql语句，数据就自己随填写了 DROP DATABASE IF EXISTS test; CREATE DATABASE test; USE test; DROP TABLE IF EXISTS student; #学生表 CREATE TABLE student( id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(10) NOT NULL, age INT, birthday DATE, phone VARCHAR(20), email VARCHAR(50), intro VARCHAR(100) ); DROP TABLE IF EXISTS company; #公司</description>
+    </item>
+    
+    <item>
+      <title>MySQL(二) - 数据基本操作</title>
+      <link>http://lruoheng.com/2018/10/23/MySqlLeaning02/</link>
+      <pubDate>Tue, 23 Oct 2018 23:32:00 +0000</pubDate>
+      
+      <guid>http://lruoheng.com/2018/10/23/MySqlLeaning02/</guid>
+      <description>显示当前数据库下所有表 mysql&amp;gt; SHOW TABLES; Empty set (0.00 sec) 创建表 mysql&amp;gt; CREATE TABLE pet (name VARCHAR(20), owner VARCHAR(20), species VARCHAR(20), sex CHAR(1), birth DATE, death DATE); mysql&amp;gt; SHOW TABLES; +---------------------+ | Tables_in_menagerie | +---------------------+ | pet | +---------------------+ 1 row in set (0.00 sec) mysql&amp;gt; 查看表详细信息 DESCRIBE tableName mysql&amp;gt; DESCRIBE pet; +---------+-------------+------+-----+---------+-------+ |</description>
     </item>
     
     <item>
       <title>RXSwift - 原理分析</title>
-      <link>https://luckyliang.github.io/2018/04/23/swiftrxsiwft1/</link>
+      <link>http://lruoheng.com/2018/04/23/swiftRXSiwft1/</link>
       <pubDate>Mon, 23 Apr 2018 13:20:22 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/04/23/swiftrxsiwft1/</guid>
+      <guid>http://lruoheng.com/2018/04/23/swiftRXSiwft1/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Moya - 源码解析</title>
-      <link>https://luckyliang.github.io/2018/04/20/swifturlmoyadetail/</link>
+      <link>http://lruoheng.com/2018/04/20/swiftURlMoyaDetail/</link>
       <pubDate>Fri, 20 Apr 2018 20:31:08 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/04/20/swifturlmoyadetail/</guid>
+      <guid>http://lruoheng.com/2018/04/20/swiftURlMoyaDetail/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Swift网络请求 - RXSwift &#43; PromiseKit &#43; Moya</title>
-      <link>https://luckyliang.github.io/2018/04/20/swifturlmoya/</link>
+      <link>http://lruoheng.com/2018/04/20/swiftURlMoya/</link>
       <pubDate>Fri, 20 Apr 2018 16:30:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/04/20/swifturlmoya/</guid>
+      <guid>http://lruoheng.com/2018/04/20/swiftURlMoya/</guid>
       <description>Moya是基于Alamofire网络框架上进行的封装，支持RXSwift 创建模型 import Foundation /// 实用泛行实现通用格式 public struct ResponseData&amp;lt;T&amp;gt;: Codable where T: Codable { let code: String let message: String let data: T?</description>
     </item>
     
     <item>
       <title>Alamofire源码解析</title>
-      <link>https://luckyliang.github.io/2018/04/19/swifturlalamofiredetail/</link>
+      <link>http://lruoheng.com/2018/04/19/swiftURlAlamofireDetail/</link>
       <pubDate>Thu, 19 Apr 2018 16:30:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/04/19/swifturlalamofiredetail/</guid>
+      <guid>http://lruoheng.com/2018/04/19/swiftURlAlamofireDetail/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Siwft网络请求 - Alamofire</title>
-      <link>https://luckyliang.github.io/2018/04/18/swifturlalamofire/</link>
+      <link>http://lruoheng.com/2018/04/18/swiftURlAlamofire/</link>
       <pubDate>Wed, 18 Apr 2018 20:30:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/04/18/swifturlalamofire/</guid>
+      <guid>http://lruoheng.com/2018/04/18/swiftURlAlamofire/</guid>
       <description>一个简单的get请求接口为例，搭建一个比较完整的网络框架，其中包括Session管理，路由和错误处理 这里以获取用户文章列表接口为例 创建模型 ///</description>
     </item>
     
     <item>
       <title>Siwft网络请求 - URLSession</title>
-      <link>https://luckyliang.github.io/2018/04/18/swifturlsession/</link>
+      <link>http://lruoheng.com/2018/04/18/swiftURlSession/</link>
       <pubDate>Wed, 18 Apr 2018 19:40:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/04/18/swifturlsession/</guid>
+      <guid>http://lruoheng.com/2018/04/18/swiftURlSession/</guid>
       <description>URLSession功能 NSURLSession 支持 http2.0 协议 在处理下载任务的时候可以直接把数据下载到磁盘 支持后台下载与上传 同一个 session 发送多个请求，只需要建立一次连接（</description>
     </item>
     
     <item>
       <title>Swift - PromisKit使用</title>
-      <link>https://luckyliang.github.io/2018/04/17/swiftpromiskit/</link>
+      <link>http://lruoheng.com/2018/04/17/swiftPromisKit/</link>
       <pubDate>Tue, 17 Apr 2018 20:31:08 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/04/17/swiftpromiskit/</guid>
+      <guid>http://lruoheng.com/2018/04/17/swiftPromisKit/</guid>
       <description>promistKit主要是解决异步回调地狱的问题，举个例子，比如需要下载一个图片文件，而且这个图片文件的下载链接也需要请求，也就是先请求一个</description>
     </item>
     
     <item>
       <title>Siwft 小技巧记录</title>
-      <link>https://luckyliang.github.io/2018/04/13/swifttipsrecord/</link>
+      <link>http://lruoheng.com/2018/04/13/swiftTipsRecord/</link>
       <pubDate>Fri, 13 Apr 2018 19:22:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/04/13/swifttipsrecord/</guid>
+      <guid>http://lruoheng.com/2018/04/13/swiftTipsRecord/</guid>
       <description>Swift 记录 通过字符串初始化类 比如有个类名为URLSessionViewController，在Swift中通过字符串来初始化 ///规则：项目名.</description>
     </item>
     
     <item>
+      <title>多环境配置</title>
+      <link>http://lruoheng.com/2018/04/2/ios/</link>
+      <pubDate>Fri, 13 Apr 2018 19:22:00 +0000</pubDate>
+      
+      <guid>http://lruoheng.com/2018/04/2/ios/</guid>
+      <description>多环境配置 项目中常常会遇到多个app环境，比如开发环境，测试环境，预发布环境，发布环境等，当需要开发打多个包的时候，一般常见做法就是直接代码</description>
+    </item>
+    
+    <item>
       <title>go 错误收集</title>
-      <link>https://luckyliang.github.io/2018/04/12/goerrorcollection/</link>
+      <link>http://lruoheng.com/2018/04/12/goErrorCollection/</link>
       <pubDate>Thu, 12 Apr 2018 19:32:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/04/12/goerrorcollection/</guid>
-      <description>ListenAndServe: listen tcp: address 3000: missing port in address exit status 1 学习go net/http包，代码如下 func getNews(writer http.ResponseWriter, request *http.Request) { writer.Write([]byte(&amp;quot;hello&amp;quot;)) } func main() { http.HandleFunc(&amp;quot;/getNews&amp;quot;,getNews) log.Println(&amp;quot;Listening....&amp;quot;) err := http.ListenAndServe(&amp;quot;3000&amp;quot;,nil) if err != nil { log.Fatal(&amp;quot;ListenAndServe: &amp;quot;, err) } } 执行命令 $ go run main.go</description>
+      <guid>http://lruoheng.com/2018/04/12/goErrorCollection/</guid>
+      <description>ListenAndServe: listen tcp: address 3000: missing port in address exit status 1 学习go net/http包，代码如下 func getNews(writer http.ResponseWriter, request *http.Request) { writer.Write([]byte(&amp;#34;hello&amp;#34;)) } func main() { http.HandleFunc(&amp;#34;/getNews&amp;#34;,getNews) log.Println(&amp;#34;Listening....&amp;#34;) err := http.ListenAndServe(&amp;#34;3000&amp;#34;,nil) if err != nil { log.Fatal(&amp;#34;ListenAndServe: &amp;#34;, err) } } 执行命令 $ go run main.go</description>
     </item>
     
     <item>
       <title>IOS底层原理一  探寻OC对象本质</title>
-      <link>https://luckyliang.github.io/2018/04/11/iosunderlying_ocobjectessence/</link>
+      <link>http://lruoheng.com/2018/04/11/iosunderlying_ocobjectessence/</link>
       <pubDate>Wed, 11 Apr 2018 09:32:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/04/11/iosunderlying_ocobjectessence/</guid>
+      <guid>http://lruoheng.com/2018/04/11/iosunderlying_ocobjectessence/</guid>
       <description>IOS底层原理总结 - 探寻oc对象的本质 面试题：一个NSObject对象占用多少内存？ 探寻OC对象的本质，我们平时编写的Objective-C</description>
     </item>
     
     <item>
       <title>go - 正则表达式</title>
-      <link>https://luckyliang.github.io/2018/03/15/goexpress/</link>
+      <link>http://lruoheng.com/2018/03/15/goExpress/</link>
       <pubDate>Thu, 15 Mar 2018 21:25:23 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/03/15/goexpress/</guid>
+      <guid>http://lruoheng.com/2018/03/15/goExpress/</guid>
       <description>正则的使用 golang中的正则和其他语言的用法，没有太多的差别。只是方法上稍微不同。 2.1 常用的方法以及说明 //判断在 b（s、r）中能否找到 pattern 所</description>
     </item>
     
     <item>
       <title>go - gin框架</title>
-      <link>https://luckyliang.github.io/2018/03/14/gogin/</link>
+      <link>http://lruoheng.com/2018/03/14/goGin/</link>
       <pubDate>Wed, 14 Mar 2018 19:25:23 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/03/14/gogin/</guid>
+      <guid>http://lruoheng.com/2018/03/14/goGin/</guid>
       <description>gin简介 Gin是一个golang的微框架，封装比较优雅，API友好，源码注释比较明确，已经发布了1.0版本。具有快速灵活，容错方便等特点。</description>
     </item>
     
     <item>
       <title>go - 处理web请求</title>
-      <link>https://luckyliang.github.io/2018/03/13/gorequest/</link>
+      <link>http://lruoheng.com/2018/03/13/goRequest/</link>
       <pubDate>Tue, 13 Mar 2018 19:25:21 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/03/13/gorequest/</guid>
+      <guid>http://lruoheng.com/2018/03/13/goRequest/</guid>
       <description>web应用非常重要的功能之一就是接受来自客户端发起的请求，然后返回数据以完成与客服端的数据交互，这篇文章主要记录go在处理这些数据请求时常用</description>
     </item>
     
     <item>
       <title>go - httprouter高性能Http框架</title>
-      <link>https://luckyliang.github.io/2018/03/12/gohttprouter/</link>
+      <link>http://lruoheng.com/2018/03/12/goHttpRouter/</link>
       <pubDate>Mon, 12 Mar 2018 20:35:23 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/03/12/gohttprouter/</guid>
-      <description>安装 HttpRouter go get github.com/julienschmidt/httprouter 认识httprouter package main import ( &amp;quot;fmt&amp;quot; &amp;quot;log&amp;quot; &amp;quot;net/http&amp;quot; &amp;quot;github.com/julienschmidt/httprouter&amp;quot; ) func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) { fmt.Fprint(w, &amp;quot;Welcome!\n&amp;quot;) } func main() { router := httprouter.New() router.GET(&amp;quot;/&amp;quot;, Index) log.Fatal(http.ListenAndServe(&amp;quot;:3000&amp;quot;, router)) } 执行go run main.go 然后在浏览器输入http://</description>
+      <guid>http://lruoheng.com/2018/03/12/goHttpRouter/</guid>
+      <description>安装 HttpRouter go get github.com/julienschmidt/httprouter 认识httprouter package main import ( &amp;#34;fmt&amp;#34; &amp;#34;log&amp;#34; &amp;#34;net/http&amp;#34; &amp;#34;github.com/julienschmidt/httprouter&amp;#34; ) func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) { fmt.Fprint(w, &amp;#34;Welcome!\n&amp;#34;) } func main() { router := httprouter.New() router.GET(&amp;#34;/&amp;#34;, Index) log.Fatal(http.ListenAndServe(&amp;#34;:3000&amp;#34;, router)) } 执行go run main.go 然后在浏览器输入http://</description>
     </item>
     
     <item>
       <title>go - net/http的简单使用</title>
-      <link>https://luckyliang.github.io/2018/03/10/gonet/</link>
+      <link>http://lruoheng.com/2018/03/10/goNet/</link>
       <pubDate>Sat, 10 Mar 2018 20:32:40 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/03/10/gonet/</guid>
+      <guid>http://lruoheng.com/2018/03/10/goNet/</guid>
       <description>Go 语言中处理 HTTP 请求主要跟两个东西相关：ServeMux 和 Handler。 ServrMux：本质上是一个 HTTP 请求路由器,它把收到的请求与一组预先</description>
     </item>
     
     <item>
-      <title>NASM 环境搭建</title>
-      <link>https://luckyliang.github.io/2018/02/11/nasminstall/</link>
+      <title>Hugo 搭建个人博客</title>
+      <link>http://lruoheng.com/2018/02/11/hugoblog/</link>
       <pubDate>Sun, 11 Feb 2018 09:32:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/02/11/nasminstall/</guid>
+      <guid>http://lruoheng.com/2018/02/11/hugoblog/</guid>
+      <description>Hugo是由Go语言实现的静态网站生成器。简单、易用、高效、易扩展、快速部署。使用的是go语言的模板语法 创建 hugo的安装参考hugo中文文</description>
+    </item>
+    
+    <item>
+      <title>NASM 环境搭建</title>
+      <link>http://lruoheng.com/2018/02/11/nasminstall/</link>
+      <pubDate>Sun, 11 Feb 2018 09:32:00 +0000</pubDate>
+      
+      <guid>http://lruoheng.com/2018/02/11/nasminstall/</guid>
       <description>一. 安装NASM NASM网站： https://www.nasm.us/ 点击Downloads 到下载页面，下载最新安装包 点击展开包，点击x x x.tar.gz包 下载 双击下载的包解压，</description>
     </item>
     
     <item>
       <title>Go 学习笔记（七） - 错误处理</title>
-      <link>https://luckyliang.github.io/2018/02/09/goerror/</link>
+      <link>http://lruoheng.com/2018/02/09/goError/</link>
       <pubDate>Fri, 09 Feb 2018 19:35:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/02/09/goerror/</guid>
+      <guid>http://lruoheng.com/2018/02/09/goError/</guid>
       <description>错误指出程序中的异常情况。假设我们正在尝试打开一个文件，文件系统中不存在这个文件。这是一个异常情况，它表示为一个错误。 Go中的错误也是一种类</description>
     </item>
     
     <item>
       <title>Go 学习笔记（六） - 接口</title>
-      <link>https://luckyliang.github.io/2018/02/08/gointerface/</link>
+      <link>http://lruoheng.com/2018/02/08/goInterface/</link>
       <pubDate>Thu, 08 Feb 2018 22:45:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/02/08/gointerface/</guid>
+      <guid>http://lruoheng.com/2018/02/08/goInterface/</guid>
       <description>在Go中，接口是一组方法签名。当类型为接口中的所有方法提供定义时，它被称为实现接口。 接口的定义语法 定义接口 /* 定义接口 */ type interface_name interface { method_name1 [return_type] method_name2 [return_type] method_name3 [return_type] ...</description>
     </item>
     
     <item>
       <title>Go 学习笔记（五） - 方法</title>
-      <link>https://luckyliang.github.io/2018/02/08/gomethod/</link>
+      <link>http://lruoheng.com/2018/02/08/goMethod/</link>
       <pubDate>Thu, 08 Feb 2018 18:42:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/02/08/gomethod/</guid>
+      <guid>http://lruoheng.com/2018/02/08/goMethod/</guid>
       <description>方法声明 package geometry import &amp;quot;math&amp;quot; type Point struct{ X, Y float64 } // traditional function func Distance(p, q Point) float64 { return math.Hypot(q.X-p.X, q.Y-p.Y) } // same thing, but as a method of the Point type func (p Point) Distance(q Point) float64 { return math.Hypot(q.X-p.X, q.Y-p.Y) } 在方法调用过程中，接收器参数一般会在方法</description>
     </item>
     
     <item>
       <title>Go 学习笔记（四） - 函数</title>
-      <link>https://luckyliang.github.io/2018/02/07/gofunc/</link>
+      <link>http://lruoheng.com/2018/02/07/gofunc/</link>
       <pubDate>Wed, 07 Feb 2018 23:12:34 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/02/07/gofunc/</guid>
+      <guid>http://lruoheng.com/2018/02/07/gofunc/</guid>
       <description>函数 函数声明 函数声明包括函数名、形式参数列表、返回值列表（可省略）以及函数体。 func name(parameter-list) (result-list) { body } 返回值列表描述了函数返回值的变量名以及类型，如果一</description>
     </item>
     
     <item>
       <title>Go 学习笔记（三） - 复合类型</title>
-      <link>https://luckyliang.github.io/2018/02/06/gocomplextype/</link>
+      <link>http://lruoheng.com/2018/02/06/goComplexType/</link>
       <pubDate>Tue, 06 Feb 2018 20:39:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/02/06/gocomplextype/</guid>
+      <guid>http://lruoheng.com/2018/02/06/goComplexType/</guid>
       <description>复合数据类型 数组 数组是一个由固定长度的特定类型元素组成的序列，因为数组的长度是固定的，因此在Go语言中很少直接使用数组 数组的每个元素可以通过</description>
     </item>
     
     <item>
       <title>Go 学习笔记（二） - 基础数据类型</title>
-      <link>https://luckyliang.github.io/2018/02/05/gobasetype/</link>
+      <link>http://lruoheng.com/2018/02/05/goBaseType/</link>
       <pubDate>Mon, 05 Feb 2018 21:32:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/02/05/gobasetype/</guid>
+      <guid>http://lruoheng.com/2018/02/05/goBaseType/</guid>
       <description>基础数据类型 Go语言将数据类型分为四类：基础类型、复合类型、引用类型和接口类型。 基础类型：数字、字符串和布尔型等 复合数据类型：数组和结构体，</description>
     </item>
     
     <item>
       <title>Go 学习笔记（一） - 程序结构</title>
-      <link>https://luckyliang.github.io/2018/02/05/gostructure/</link>
+      <link>http://lruoheng.com/2018/02/05/goStructure/</link>
       <pubDate>Mon, 05 Feb 2018 19:32:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/02/05/gostructure/</guid>
+      <guid>http://lruoheng.com/2018/02/05/goStructure/</guid>
       <description>程序结构 命名 Go语言中的函数名、变量名、常量名、类型名、语句标号和包名等所有的命名，都遵循一个简单的命名规则：一个名字必须以一个字母（Uni</description>
     </item>
     
     <item>
       <title>Go flag - 命令行参数解析</title>
-      <link>https://luckyliang.github.io/2018/02/09/goflag/</link>
+      <link>http://lruoheng.com/2018/02/09/goflag/</link>
       <pubDate>Tue, 09 Jan 2018 19:35:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/02/09/goflag/</guid>
+      <guid>http://lruoheng.com/2018/02/09/goflag/</guid>
       <description>flag - 命令行参数解析 概念： 命令行参数（或参数）：是指运行程序时提供的参数 示例 以nginx为例 执行nginx -h 输出： $ nginx -h nginx version: nginx/1.17.8 Usage: nginx [-?hvVtTq] [-s signal] [-c filename] [-p</description>
     </item>
     
     <item>
-      <title>Java（四）- I/O操作</title>
-      <link>https://luckyliang.github.io/2017/01/16/java02/</link>
-      <pubDate>Mon, 16 Jan 2017 19:32:00 +0000</pubDate>
-      
-      <guid>https://luckyliang.github.io/2017/01/16/java02/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Java（三）- Exceptions</title>
-      <link>https://luckyliang.github.io/2017/01/15/java02/</link>
-      <pubDate>Sun, 15 Jan 2017 19:32:00 +0000</pubDate>
-      
-      <guid>https://luckyliang.github.io/2017/01/15/java02/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>MacOS安装SASS</title>
-      <link>https://luckyliang.github.io/2017/01/15/web05/</link>
+      <link>http://lruoheng.com/2017/01/15/web05/</link>
       <pubDate>Sun, 15 Jan 2017 19:30:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2017/01/15/web05/</guid>
-      <description>Homebrew安装 （推荐） brew install sass/sass/sass NPM安装 npm install -g sass 注：国内 npm 建议使用淘宝镜像来安装，参考：NPM 国内慢的问题解决 ruby 安装 这个方法比较麻烦不推</description>
+      <guid>http://lruoheng.com/2017/01/15/web05/</guid>
+      <description>Homebrew安装 （推荐） brew install sass/sass/sass NPM安装 npm install -g sass **注：**国内 npm 建议使用淘宝镜像来安装，参考：NPM 国内慢的问题解决 ruby 安装 这个方法比较</description>
     </item>
     
     <item>
       <title>CSS布局</title>
-      <link>https://luckyliang.github.io/2017/01/14/web04/</link>
+      <link>http://lruoheng.com/2017/01/14/web04/</link>
       <pubDate>Sat, 14 Jan 2017 21:32:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2017/01/14/web04/</guid>
-      <description>使用float属性或position属性布局 &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;quot;UTF-8&amp;quot;&amp;gt; &amp;lt;title&amp;gt;float或postion布局&amp;lt;/title&amp;gt</description>
-    </item>
-    
-    <item>
-      <title>Java（二）- 正则</title>
-      <link>https://luckyliang.github.io/2017/01/14/java02/</link>
-      <pubDate>Sat, 14 Jan 2017 19:32:00 +0000</pubDate>
-      
-      <guid>https://luckyliang.github.io/2017/01/14/java02/</guid>
-      <description></description>
+      <guid>http://lruoheng.com/2017/01/14/web04/</guid>
+      <description>使用float属性或position属性布局 &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html lang=&amp;#34;en&amp;#34;&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;UTF-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;float或postion布局&amp;lt;/title&amp;gt</description>
     </item>
     
     <item>
       <title>CSS选择器</title>
-      <link>https://luckyliang.github.io/2017/01/14/web03/</link>
+      <link>http://lruoheng.com/2017/01/14/web03/</link>
       <pubDate>Sat, 14 Jan 2017 12:32:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2017/01/14/web03/</guid>
+      <guid>http://lruoheng.com/2017/01/14/web03/</guid>
       <description>基础选择器 标签选择器 命名只要和对应的html标签相同即可 h1{ font-size: 30px; color: #333333; } 在开发中标签选择器一般用于定义全局样式 类选择器 也称class选择器，在c</description>
     </item>
     
     <item>
       <title>CSS基础复习</title>
-      <link>https://luckyliang.github.io/2017/01/13/web02/</link>
+      <link>http://lruoheng.com/2017/01/13/web02/</link>
       <pubDate>Fri, 13 Jan 2017 19:32:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2017/01/13/web02/</guid>
+      <guid>http://lruoheng.com/2017/01/13/web02/</guid>
       <description>盒子 模型 一个块级元素，包括内容、外边距（margin）、边框（border）、内边距（padding）4个组成部分，在不设定的情况下内外边距</description>
     </item>
     
     <item>
       <title>Java（一）- String</title>
-      <link>https://luckyliang.github.io/2017/01/03/java01/</link>
+      <link>http://lruoheng.com/2017/01/03/java01/</link>
       <pubDate>Fri, 13 Jan 2017 19:32:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2017/01/03/java01/</guid>
-      <description>String类 字符串创建 在java中string是字符序列对象，可以通过两种方式创建 通过字面创建 String s = &amp;quot;welcome&amp;quot; 通过new关键字 String s = new String(&amp;quot;Welcome&amp;quot;) char ch[] = {&#39;s&#39;,&#39;t&#39;,&#39;r&#39;,&#39;i&#39;,&#39;n&#39;,&#39;g&#39;} String</description>
+      <guid>http://lruoheng.com/2017/01/03/java01/</guid>
+      <description>String类 字符串创建 在java中string是字符序列对象，可以通过两种方式创建 通过字面创建 String s = &amp;#34;welcome&amp;#34; 通过new关键字 String s = new String(&amp;#34;Welcome&amp;#34;) char ch[] = {&amp;#39;s&amp;#39;,&amp;#39;t&amp;#39;,&amp;#39;r&amp;#39;,&amp;#39;i&amp;#39;,&amp;#39;n&amp;#39;,&amp;#39;g&amp;#39;} String</description>
     </item>
     
     <item>
       <title>web学习笔记（一）- html5的结构</title>
-      <link>https://luckyliang.github.io/2017/01/12/web01/</link>
+      <link>http://lruoheng.com/2017/01/12/web01/</link>
       <pubDate>Thu, 12 Jan 2017 19:32:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2017/01/12/web01/</guid>
+      <guid>http://lruoheng.com/2017/01/12/web01/</guid>
       <description>新增的主体结构元素 article`元素 article元素代表文档、页面或应用程序中独立完整的、可以独自被外部引用的内容 一个article元素</description>
     </item>
     
     <item>
       <title></title>
-      <link>https://luckyliang.github.io/post/go/cobra%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/</link>
+      <link>http://lruoheng.com/post/go/cobra%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/post/go/cobra%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/</guid>
-      <description>Cobra命令行库 项目地址：https://github.com/spf13/cobra.git
-文档地址：https://godoc.org/github.com/spf13/cobra#Command
-命令行由指令（commands）参数（Args）和标签（flags）组成
-遵循的格式为 appName command arg &amp;ndash;flag
-比如
-hugo server --port=1313
-git clone URL --bare
-Commands 指令是程序的核心，程序之间交互都由Command指令完成， 一个command包含子command和可选的运行方法
-更多的command见文档地址：https://godoc.org/github.com/spf13/cobra#Command
-Flags flags标志的是一种修改命令（command）的行为
-比如上面的port就是端口的一种标志
-Flag的功能由pflag library库提供
-Installing 使用go get latest version 获取该库
-go get -u github.com/spf13/cobra/cobra  在程序中导入
-import &amp;quot;github.com/spf13/cobra&amp;quot;  Getting Started 使用Cobra来组织您的应用，应用的目录最好是
-appName/ cmd/ add.go your.go conmands.go main.go  创建rootCmd package cmd import ( &amp;quot;fmt&amp;quot; &amp;quot;github.com/spf13/cobra&amp;quot; ) var ( rootCmd = &amp;amp;cobra.Command{ Use: &amp;quot;hugo&amp;quot;, Short: &amp;quot;Hugo is a very fast static site generator&amp;quot;, Long: `A Fast and Flexible Static Site Generator built with love by spf13 and friends in Go.</description>
+      <guid>http://lruoheng.com/post/go/cobra%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/</guid>
+      <description>Cobra命令行库 项目地址：https://github.com/spf13/cobra.git 文档地址：https://godoc.org</description>
     </item>
     
     <item>
       <title></title>
-      <link>https://luckyliang.github.io/post/ios/swift-%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B%E5%8D%8F%E8%AE%AE/</link>
+      <link>http://lruoheng.com/post/go/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/post/ios/swift-%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B%E5%8D%8F%E8%AE%AE/</guid>
-      <description>序列  Sequence 协议是集合类型结构中的基础。 一个序列 (sequence) 代表的是一系列具有相同类型 的值，你可以对这些值进行迭代。
- for element in someSequence { doSomething(with: element) }  满足 Sequence 协议的要求十分简单，你需要做的所有事情就是提供一个返回迭代器 (iterator) 的 makeIterator() 方法:
-protocol Sequence { associatedtype Iterator: IteratorProtocol func makeIterator() -&amp;gt; Iterator // ... }  迭代器 序列通过创建一个迭代器来提供对元素的访问。 迭代器每次产生一个序列的值，并且当遍历序 列时对遍历状态进行管理。在 IteratorProtocol 协议中唯一的一个方法是 next()，这个方法需 要在每次被调用时返回序列中的下一个值。当序列被耗尽时，next() 应该返回 nil:
-protocol IteratorProtocol { associatedtype Element mutating func next() -&amp;gt; Element? }  for 循环其实是下面这段代码 的一种简写形式:
-var iterator = someSequence.makeIterator() while let element = iterator.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://luckyliang.github.io/search/placeholder/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://luckyliang.github.io/search/placeholder/</guid>
+      <guid>http://lruoheng.com/post/go/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://luckyliang.github.io/top/about/</link>
+      <link>http://lruoheng.com/post/ios/swift-%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B%E5%8D%8F%E8%AE%AE/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/top/about/</guid>
+      <guid>http://lruoheng.com/post/ios/swift-%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B%E5%8D%8F%E8%AE%AE/</guid>
+      <description>序列 Sequence 协议是集合类型结构中的基础。 一个序列 (sequence) 代表的是一系列具有相同类型 的值，你可以对这些值进行迭代。 for element in someSequence { doSomething(with: element) } 满足 Sequence 协议的要求十分简单</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://lruoheng.com/post/ios/swift-r%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://lruoheng.com/post/ios/swift-r%E6%96%87%E4%BB%B6/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://luckyliang.github.io/top/books/</link>
+      <link>http://lruoheng.com/search/placeholder/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/top/books/</guid>
+      <guid>http://lruoheng.com/search/placeholder/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://lruoheng.com/top/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://lruoheng.com/top/about/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://lruoheng.com/top/books/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://lruoheng.com/top/books/</guid>
       <description></description>
     </item>
     

@@ -10,8 +10,8 @@
     <meta property="og:type" content="article">
 
     
-    <meta property="og:image" content="https://luckyliang.github.io/img/home-bg-jeep.jpg">
-    <meta property="twitter:image" content="https://luckyliang.github.io/img/home-bg-jeep.jpg" />
+    <meta property="og:image" content="http://lruoheng.com/img/home-bg-jeep.jpg">
+    <meta property="twitter:image" content="http://lruoheng.com/img/home-bg-jeep.jpg" />
     
 
     
@@ -39,45 +39,32 @@
     <link rel="canonical" href="/2018/04/18/swiftURlAlamofire/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
-	
+
     
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     
-    <link rel="stylesheet" href="/css/hux-blog.min.css">
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
 
-    
-    <link rel="stylesheet" href="/css/syntax.css">
-    
     
     <link rel="stylesheet" href="/css/zanshang.css">
-    
-    
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     
-    <link rel="stylesheet" href="https://luckyliang.github.io/css/tomorrow-night-eighties.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"><link rel="stylesheet" href="https://luckyliang.github.io/css/main.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+    
+    
 
     
     
     <script src="/js/jquery.min.js"></script>
-    
-    
-    <script src="/js/bootstrap.min.js"></script>
-    
-    
-    <script src="/js/hux-blog.min.js"></script>
-  
-    
-    
-    <script src="/js/preetyCode.js"></script>
 
     
+    <script src="/js/bootstrap.min.js"></script>
+
     
-    
-    
-    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-        
+    <script src="/js/hux-blog.min.js"></script>
+
     
     
 
@@ -85,7 +72,9 @@
 
 
 
+
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
     <div class="container-fluid">
         
         <div class="navbar-header page-scroll">
@@ -121,6 +110,14 @@
                         </li>
                         
                         <li>
+                            <a href="/categories/other">other</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
                             <a href="/categories/web">web</a>
                         </li>
                         
@@ -131,15 +128,9 @@
                     
                     
 		    
-                        <li><a href="/top/books/">BOOKS</a></li>
-                    
                         <li><a href="/top/about/">ABOUT</a></li>
                     
 
-                    
-		    <li>
-                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
-		    </li>
                     
                 </ul>
             </div>
@@ -185,7 +176,9 @@
         background-image: url('https://img.zhaohuabing.com/in-post/2018-04-11-service-mesh-vs-api-gateway/background.jpg')
     }
 </style>
-<header class="intro-header">
+
+<header class="intro-header" >
+
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -204,15 +197,17 @@
                     <h1>Siwft网络请求 - Alamofire</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
-                        Posted by 
                         
-                            Cheng
-                         
-                        on 
-                        Wednesday, April 18, 2018
-                        
-                        
-                        
+                            Posted by 
+                            
+                                Cheng
+                             
+                            on 
+                            Wednesday, April 18, 2018
+                            
+                            
+                            
+                            
                     </span>
                 </div>
             </div>
@@ -238,404 +233,356 @@
                     <h2>TOC</h2>
                 </header>
                 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#创建模型">创建模型</a></li>
-<li><a href="#创建路由-postsapirouter">创建路由<code>PostsApiRouter</code></a>
-<ul>
-<li><a href="#常量配置">常量配置</a></li>
-<li><a href="#路由-postsapirouter">路由<code>PostsApiRouter</code></a></li>
-</ul></li>
-<li><a href="#创建请求管理类">创建请求管理类</a>
-<ul>
-<li><a href="#自定义-requestinterceptor">自定义<code>RequestInterceptor</code></a></li>
-<li><a href="#servertrustmanager"><code>ServerTrustManager</code></a></li>
-</ul></li>
-<li><a href="#错误处理-对服务器错误和服务器和客户端约定错误进行扩展">错误处理，对服务器错误和服务器和客户端约定错误进行扩展</a></li>
-<li><a href="#请求封装">请求封装</a></li>
-<li><a href="#也可提供一个api管理类-可有可无-方便管理">也可提供一个api管理类，可有可无，方便管理</a></li>
-<li><a href="#最后完成请求">最后完成请求</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                 
-                
-
-<p>一个简单的get请求接口为例，搭建一个比较完整的网络框架，其中包括Session管理，路由和错误处理</p>
-
+                <p>一个简单的get请求接口为例，搭建一个比较完整的网络框架，其中包括Session管理，路由和错误处理</p>
 <p>这里以获取用户文章列表接口为例</p>
-
 <h4 id="创建模型">创建模型</h4>
-
-<pre><code class="language-swift">/// 实用泛行实现通用格式
-public struct ResponseData&lt;ResultData&gt;: Codable where ResultData: Codable {
-    let code: String
-    let message: String
-    let data: ResultData
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#6272a4">/// 实用泛行实现通用格式</span>
+<span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">struct</span> <span style="color:#50fa7b">ResponseData</span>&lt;ResultData&gt;: Codable <span style="color:#ff79c6">where</span> ResultData: Codable {
+    <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">code</span>: <span style="color:#8be9fd;font-style:italic">String</span>
+    <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">message</span>: <span style="color:#8be9fd;font-style:italic">String</span>
+    <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">data</span>: ResultData
 }
 
-public struct Post: Codable {
-    let id: Int
-    let title: String
-    let body: String
-    let userID: Int
+<span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">struct</span> <span style="color:#50fa7b">Post</span>: Codable {
+    <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">id</span>: <span style="color:#8be9fd;font-style:italic">Int</span>
+    <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">title</span>: <span style="color:#8be9fd;font-style:italic">String</span>
+    <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">body</span>: <span style="color:#8be9fd;font-style:italic">String</span>
+    <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">userID</span>: <span style="color:#8be9fd;font-style:italic">Int</span>
 }
 
-extension Post {
-    enum CodingKeys: String, CodingKey {
-        case id
-        case title
-        case body
-        case userID = &quot;userId&quot; //自定义key
+<span style="color:#8be9fd;font-style:italic">extension</span> <span style="color:#50fa7b">Post</span> {
+    <span style="color:#8be9fd;font-style:italic">enum</span> <span style="color:#50fa7b">CodingKeys</span>: <span style="color:#8be9fd;font-style:italic">String</span>, CodingKey {
+        <span style="color:#ff79c6">case</span> id
+        <span style="color:#ff79c6">case</span> title
+        <span style="color:#ff79c6">case</span> body
+        <span style="color:#ff79c6">case</span> userID = <span style="color:#f1fa8c">&#34;userId&#34;</span> <span style="color:#6272a4">//自定义key</span>
     }
 }
-</code></pre>
-
-<h4 id="创建路由-postsapirouter">创建路由<code>PostsApiRouter</code></h4>
-
+</code></pre></div><h4 id="创建路由postsapirouter">创建路由<code>PostsApiRouter</code></h4>
 <h5 id="常量配置">常量配置</h5>
-
 <p>里面包含<code>baseURL</code>, 参数<code>key</code>, <code>header</code>常用字段定义，或者其他&hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#8be9fd;font-style:italic">import</span> <span style="color:#50fa7b">Foundation</span>
 
-<pre><code class="language-swift">import Foundation
-
-/// baseURL
-struct ProductionServer {
-    #if DEBUG
-    static let baseURL = &quot;http://localhost:3000/&quot;
-    #else
-    static let baseURL = &quot;https://jsonplaceholder.typicode.com/&quot;
-    #endif
+<span style="color:#6272a4">/// baseURL</span>
+<span style="color:#8be9fd;font-style:italic">struct</span> <span style="color:#50fa7b">ProductionServer</span> {
+    <span style="color:#ff79c6">#if</span> <span style="color:#ff79c6">DEBUG</span>
+    <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">baseURL</span> = <span style="color:#f1fa8c">&#34;http://localhost:3000/&#34;</span>
+    <span style="color:#ff79c6">#else</span>
+    <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">baseURL</span> = <span style="color:#f1fa8c">&#34;https://jsonplaceholder.typicode.com/&#34;</span>
+    <span style="color:#ff79c6">#endif</span>
 }
 
-/// 定义传参key值
-struct APIParameterKey {
-    static let password = &quot;password&quot;
-    static let email    = &quot;email&quot;
-    static let userId   = &quot;userId&quot;
+<span style="color:#6272a4">/// 定义传参key值</span>
+<span style="color:#8be9fd;font-style:italic">struct</span> <span style="color:#50fa7b">APIParameterKey</span> {
+    <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">password</span> = <span style="color:#f1fa8c">&#34;password&#34;</span>
+    <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">email</span>    = <span style="color:#f1fa8c">&#34;email&#34;</span>
+    <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">userId</span>   = <span style="color:#f1fa8c">&#34;userId&#34;</span>
 }
 
-/// httpheader
-enum HTTPHeaderField: String {
-    case authentication = &quot;Authorization&quot;
-    case contentType = &quot;Content-Type&quot;
-    case acceptType = &quot;Accept&quot;
-    case acceptEncoding = &quot;Accept-Encoding&quot;
+<span style="color:#6272a4">/// httpheader</span>
+<span style="color:#8be9fd;font-style:italic">enum</span> <span style="color:#50fa7b">HTTPHeaderField</span>: <span style="color:#8be9fd;font-style:italic">String</span> {
+    <span style="color:#ff79c6">case</span> authentication = <span style="color:#f1fa8c">&#34;Authorization&#34;</span>
+    <span style="color:#ff79c6">case</span> contentType = <span style="color:#f1fa8c">&#34;Content-Type&#34;</span>
+    <span style="color:#ff79c6">case</span> acceptType = <span style="color:#f1fa8c">&#34;Accept&#34;</span>
+    <span style="color:#ff79c6">case</span> acceptEncoding = <span style="color:#f1fa8c">&#34;Accept-Encoding&#34;</span>
 }
 
-/// 传输类型
-enum ContentType: String {
-    case json = &quot;application/json&quot;
+<span style="color:#6272a4">/// 传输类型</span>
+<span style="color:#8be9fd;font-style:italic">enum</span> <span style="color:#50fa7b">ContentType</span>: <span style="color:#8be9fd;font-style:italic">String</span> {
+    <span style="color:#ff79c6">case</span> json = <span style="color:#f1fa8c">&#34;application/json&#34;</span>
 }
 
-</code></pre>
+</code></pre></div><h5 id="路由postsapirouter">路由<code>PostsApiRouter</code></h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#8be9fd;font-style:italic">import</span> <span style="color:#50fa7b">Alamofire</span>
 
-<h5 id="路由-postsapirouter">路由<code>PostsApiRouter</code></h5>
-
-<pre><code class="language-swift">import Alamofire
-
-/// 文章类路由
-enum PostsApiRouter{
-    case getPosts(userId: Int)
+<span style="color:#6272a4">/// 文章类路由</span>
+<span style="color:#8be9fd;font-style:italic">enum</span> <span style="color:#50fa7b">PostsApiRouter</span>{
+    <span style="color:#ff79c6">case</span> getPosts(userId: <span style="color:#8be9fd;font-style:italic">Int</span>)
 }
 
-extension PostsApiRouter: APIConfiguration {
-    /// 请求方法
-    var method: HTTPMethod {
-        switch self {
-        case .getPosts:
-            return .get
+<span style="color:#8be9fd;font-style:italic">extension</span> <span style="color:#50fa7b">PostsApiRouter</span>: APIConfiguration {
+    <span style="color:#6272a4">/// 请求方法</span>
+    <span style="color:#8be9fd;font-style:italic">var</span> <span style="color:#8be9fd;font-style:italic">method</span>: HTTPMethod {
+        <span style="color:#ff79c6">switch</span> <span style="color:#ff79c6">self</span> {
+        <span style="color:#ff79c6">case</span> .getPosts:
+            <span style="color:#ff79c6">return</span> .<span style="color:#ff79c6">get</span>
         }
     }
     
-    ///请求路径
-    var path: String {
-        switch self {
-        case .getPosts:
-            return &quot;posts&quot;
+    <span style="color:#6272a4">///请求路径</span>
+    <span style="color:#8be9fd;font-style:italic">var</span> <span style="color:#8be9fd;font-style:italic">path</span>: <span style="color:#8be9fd;font-style:italic">String</span> {
+        <span style="color:#ff79c6">switch</span> <span style="color:#ff79c6">self</span> {
+        <span style="color:#ff79c6">case</span> .getPosts:
+            <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;posts&#34;</span>
         }
     }
     
-    /// 请求参数
-    var parameters: Parameters? {
-        switch self {
-        case .getPosts(let userId):
-            return [APIParameterKey.userId : userId]
+    <span style="color:#6272a4">/// 请求参数</span>
+    <span style="color:#8be9fd;font-style:italic">var</span> <span style="color:#8be9fd;font-style:italic">parameters</span>: Parameters? {
+        <span style="color:#ff79c6">switch</span> <span style="color:#ff79c6">self</span> {
+        <span style="color:#ff79c6">case</span> .getPosts(<span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">userId</span>):
+            <span style="color:#ff79c6">return</span> [APIParameterKey.userId : userId]
         }
     }
     
-    //重写encoding
-    var encoding: ParameterEncoding {
-        switch method {
-        case .get:
-            return URLEncoding.default
-        default:
-            return JSONEncoding.default
+    <span style="color:#6272a4">//重写encoding</span>
+    <span style="color:#8be9fd;font-style:italic">var</span> <span style="color:#8be9fd;font-style:italic">encoding</span>: ParameterEncoding {
+        <span style="color:#ff79c6">switch</span> method {
+        <span style="color:#ff79c6">case</span> .<span style="color:#ff79c6">get</span>:
+            <span style="color:#ff79c6">return</span> URLEncoding.<span style="color:#ff79c6">default</span>
+        <span style="color:#ff79c6">default</span>:
+            <span style="color:#ff79c6">return</span> JSONEncoding.<span style="color:#ff79c6">default</span>
         }
     }
     
-    ///构建request
-    func asURLRequest() throws -&gt; URLRequest {
-        let url = try ProductionServer.baseURL.asURL()
+    <span style="color:#6272a4">///构建request</span>
+    <span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">asURLRequest</span>() <span style="color:#ff79c6">throws</span> -&gt; URLRequest {
+        <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">url</span> = <span style="color:#ff79c6">try</span> ProductionServer.baseURL.asURL()
         
-        var urlRequest = URLRequest(url: url.appendingPathComponent(path))
+        <span style="color:#8be9fd;font-style:italic">var</span> <span style="color:#8be9fd;font-style:italic">urlRequest</span> = URLRequest(url: url.appendingPathComponent(path))
         
-        //http method
+        <span style="color:#6272a4">//http method</span>
         urlRequest.httpMethod = method.rawValue
         
-        // header：
+        <span style="color:#6272a4">// header：</span>
         urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.acceptType.rawValue)
         urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
         
-        do {
-            urlRequest = try encoding.encode(urlRequest, with: parameters)
-        } catch  {
-            throw AFError.parameterEncodingFailed(reason: .jsonEncodingFailed(error: error))
+        <span style="color:#ff79c6">do</span> {
+            urlRequest = <span style="color:#ff79c6">try</span> encoding.encode(urlRequest, with: parameters)
+        } <span style="color:#ff79c6">catch</span>  {
+            <span style="color:#ff79c6">throw</span> AFError.parameterEncodingFailed(reason: .jsonEncodingFailed(error: error))
         }
 
-        return urlRequest
+        <span style="color:#ff79c6">return</span> urlRequest
         
     }
 }
-</code></pre>
+</code></pre></div><h4 id="创建请求管理类">创建请求管理类</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#8be9fd;font-style:italic">import</span> <span style="color:#50fa7b">Foundation</span>
+<span style="color:#8be9fd;font-style:italic">import</span> <span style="color:#50fa7b">RxSwift</span>
+<span style="color:#8be9fd;font-style:italic">import</span> <span style="color:#50fa7b">Alamofire</span>
+<span style="color:#8be9fd;font-style:italic">import</span> <span style="color:#50fa7b">PromiseKit</span>
 
-<h4 id="创建请求管理类">创建请求管理类</h4>
-
-<pre><code class="language-swift">import Foundation
-import RxSwift
-import Alamofire
-import PromiseKit
-
-public final class AFApiProvider {
+<span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#ff79c6">final</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">AFApiProvider</span> {
     
-    private static var _apiProvider = AFApiProvider(session: {() -&gt; Session in
-        ///自定义session
-        let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.headers = .default
-        let serverTrustManager = AFTrustManager() //自定义服务器信任管理器
-        let interceptor = AFApiRequestInterceptor() //自定义/拦截器，根据需求自行添加
+    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd;font-style:italic">var</span> <span style="color:#8be9fd;font-style:italic">_apiProvider</span> = AFApiProvider(session: {() -&gt; Session <span style="color:#ff79c6">in</span>
+        <span style="color:#6272a4">///自定义session</span>
+        <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">sessionConfig</span> = URLSessionConfiguration.<span style="color:#ff79c6">default</span>
+        sessionConfig.headers = .<span style="color:#ff79c6">default</span>
+        <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">serverTrustManager</span> = AFTrustManager() <span style="color:#6272a4">//自定义服务器信任管理器</span>
+        <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">interceptor</span> = AFApiRequestInterceptor() <span style="color:#6272a4">//自定义/拦截器，根据需求自行添加</span>
         
-        return Session(configuration: sessionConfig,
+        <span style="color:#ff79c6">return</span> Session(configuration: sessionConfig,
                        interceptor: interceptor,
                        serverTrustManager: serverTrustManager,
-                       redirectHandler: nil, //重定向操作
-            cachedResponseHandler: nil, //缓存
-            eventMonitors: []) //事件监听
+                       redirectHandler: <span style="color:#ff79c6">nil</span>, <span style="color:#6272a4">//重定向操作</span>
+            cachedResponseHandler: <span style="color:#ff79c6">nil</span>, <span style="color:#6272a4">//缓存</span>
+            eventMonitors: []) <span style="color:#6272a4">//事件监听</span>
     }())
     
     
-    public static func shared() -&gt; AFApiProvider {
-        return _apiProvider
+    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">shared</span>() -&gt; AFApiProvider {
+        <span style="color:#ff79c6">return</span> _apiProvider
     }
     
-    private let _disposeBag = DisposeBag()
+    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">_disposeBag</span> = DisposeBag()
     
-    private var _session: Session
+    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">var</span> <span style="color:#8be9fd;font-style:italic">_session</span>: Session
     
-    private init(session: Session = Session.default) {
+    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">init</span>(session: Session = Session.<span style="color:#ff79c6">default</span>) {
         _session = session
     }
 
 }
-</code></pre>
+</code></pre></div><h5 id="自定义requestinterceptor">自定义<code>RequestInterceptor</code></h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#8be9fd;font-style:italic">import</span> <span style="color:#50fa7b">Alamofire</span>
 
-<h5 id="自定义-requestinterceptor">自定义<code>RequestInterceptor</code></h5>
-
-<pre><code class="language-swift">import Alamofire
-
-/// 请求拦截器
-public final class AFApiRequestInterceptor: RequestInterceptor {
+<span style="color:#6272a4">/// 请求拦截器</span>
+<span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#ff79c6">final</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">AFApiRequestInterceptor</span>: RequestInterceptor {
     
-    /// 定义准备请求闭包，可以回调在这个时候做某些事
-    private let _prepare: ((URLRequest) -&gt; URLRequest)?
-    /// 将要发送请求闭包
-    private let _willSend: ((URLRequest) -&gt; Void)?
+    <span style="color:#6272a4">/// 定义准备请求闭包，可以回调在这个时候做某些事</span>
+    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">_prepare</span>: ((URLRequest) -&gt; URLRequest)?
+    <span style="color:#6272a4">/// 将要发送请求闭包</span>
+    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">_willSend</span>: ((URLRequest) -&gt; <span style="color:#8be9fd;font-style:italic">Void</span>)?
     
-    init(prepare:((URLRequest) -&gt; URLRequest)? = nil, willSend: ((URLRequest) -&gt; Void)? = nil) {
+    <span style="color:#8be9fd;font-style:italic">init</span>(prepare:((URLRequest) -&gt; URLRequest)? = <span style="color:#ff79c6">nil</span>, willSend: ((URLRequest) -&gt; <span style="color:#8be9fd;font-style:italic">Void</span>)? = <span style="color:#ff79c6">nil</span>) {
         _prepare = prepare
         _willSend = willSend
     }
     
-    public func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (AFResult&lt;URLRequest&gt;) -&gt; Void) {
-        // 准备请求, 然后对request做一些设置，比如这里设置header
-        var request = _prepare?(urlRequest) ?? urlRequest
-        request.setValue(&quot;zh-cn&quot;, forHTTPHeaderField: &quot;Accept-Language&quot;)
-        request.setValue(&quot;gzip, deflate&quot;, forHTTPHeaderField: &quot;Accept-Encoding&quot;)
-        //设置完成后将要发送
+    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">adapt</span>(<span style="color:#ff79c6">_</span> urlRequest: URLRequest, <span style="color:#ff79c6">for</span> session: Session, completion: @escaping (AFResult&lt;URLRequest&gt;) -&gt; <span style="color:#8be9fd;font-style:italic">Void</span>) {
+        <span style="color:#6272a4">// 准备请求, 然后对request做一些设置，比如这里设置header</span>
+        <span style="color:#8be9fd;font-style:italic">var</span> <span style="color:#8be9fd;font-style:italic">request</span> = _prepare?(urlRequest) ?? urlRequest
+        request.setValue(<span style="color:#f1fa8c">&#34;zh-cn&#34;</span>, forHTTPHeaderField: <span style="color:#f1fa8c">&#34;Accept-Language&#34;</span>)
+        request.setValue(<span style="color:#f1fa8c">&#34;gzip, deflate&#34;</span>, forHTTPHeaderField: <span style="color:#f1fa8c">&#34;Accept-Encoding&#34;</span>)
+        <span style="color:#6272a4">//设置完成后将要发送</span>
         _willSend?(request)
         completion(.success(request))
     }
     
-    public func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -&gt; Void) {
+    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">retry</span>(<span style="color:#ff79c6">_</span> request: Request, <span style="color:#ff79c6">for</span> session: Session, dueTo error: Error, completion: @escaping (RetryResult) -&gt; <span style="color:#8be9fd;font-style:italic">Void</span>) {
         completion(.doNotRetry)
     }
 }
-</code></pre>
-
-<h5 id="servertrustmanager"><code>ServerTrustManager</code></h5>
-
+</code></pre></div><h5 id="servertrustmanager"><code>ServerTrustManager</code></h5>
 <p>服务器证书信任管理器<code>ServerTrustManager</code>，这里只是陪着不做验证，如果项目需要验证证书的可以写在这个管理器里</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#8be9fd;font-style:italic">import</span> <span style="color:#50fa7b">Alamofire</span>
 
-<pre><code class="language-swift">import Alamofire
-
-/// 服务器证书信任管理,这里不做验证，信任所有
-public final class AFTrustManager: ServerTrustManager {
-    init() {
-        let allHostsMustBeEvaluated = false
-        let evaluators = [&quot;&quot;: DisabledEvaluator()] //不做验证
-        super.init(allHostsMustBeEvaluated: allHostsMustBeEvaluated, evaluators: evaluators)
+<span style="color:#6272a4">/// 服务器证书信任管理,这里不做验证，信任所有</span>
+<span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#ff79c6">final</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">AFTrustManager</span>: ServerTrustManager {
+    <span style="color:#8be9fd;font-style:italic">init</span>() {
+        <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">allHostsMustBeEvaluated</span> = <span style="color:#ff79c6">false</span>
+        <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">evaluators</span> = [<span style="color:#f1fa8c">&#34;&#34;</span>: DisabledEvaluator()] <span style="color:#6272a4">//不做验证</span>
+        <span style="color:#ff79c6">super</span>.<span style="color:#8be9fd;font-style:italic">init</span>(allHostsMustBeEvaluated: allHostsMustBeEvaluated, evaluators: evaluators)
     }
 
-</code></pre>
-
-<h4 id="错误处理-对服务器错误和服务器和客户端约定错误进行扩展">错误处理，对服务器错误和服务器和客户端约定错误进行扩展</h4>
-
-<pre><code class="language-swift">import Foundation
-// 服务器报错
-enum ServerError: Error {
-    case forbidden              //Status code 403
-    case notFound               //Status code 404
-    case internalServerError    //Status code 500
+</code></pre></div><h4 id="错误处理对服务器错误和服务器和客户端约定错误进行扩展">错误处理，对服务器错误和服务器和客户端约定错误进行扩展</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#8be9fd;font-style:italic">import</span> <span style="color:#50fa7b">Foundation</span>
+<span style="color:#6272a4">// 服务器报错</span>
+<span style="color:#8be9fd;font-style:italic">enum</span> <span style="color:#50fa7b">ServerError</span>: Error {
+    <span style="color:#ff79c6">case</span> forbidden              <span style="color:#6272a4">//Status code 403</span>
+    <span style="color:#ff79c6">case</span> notFound               <span style="color:#6272a4">//Status code 404</span>
+    <span style="color:#ff79c6">case</span> internalServerError    <span style="color:#6272a4">//Status code 500</span>
 }
 
-/// 服务器错误处理
-extension ServerError {
+<span style="color:#6272a4">/// 服务器错误处理</span>
+<span style="color:#8be9fd;font-style:italic">extension</span> <span style="color:#50fa7b">ServerError</span> {
         
-    public var errorDescription: String {
-        switch self {
-        case .forbidden:
-            return &quot;服务器禁止访问&quot;
-        case .notFound:
-            return &quot;未找到页面&quot;
-        case .internalServerError:
-            return &quot;服务器异常&quot;
+    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">var</span> <span style="color:#8be9fd;font-style:italic">errorDescription</span>: <span style="color:#8be9fd;font-style:italic">String</span> {
+        <span style="color:#ff79c6">switch</span> <span style="color:#ff79c6">self</span> {
+        <span style="color:#ff79c6">case</span> .forbidden:
+            <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;服务器禁止访问&#34;</span>
+        <span style="color:#ff79c6">case</span> .notFound:
+            <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;未找到页面&#34;</span>
+        <span style="color:#ff79c6">case</span> .internalServerError:
+            <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;服务器异常&#34;</span>
         }
     }
 }
 
-import Foundation
+<span style="color:#8be9fd;font-style:italic">import</span> <span style="color:#50fa7b">Foundation</span>
 
-/// 自定义错误和服务器约定错误
-public enum ServerApiError: Swift.Error {
-        /// 解析Json格式错误
-        case parseJsonError
+<span style="color:#6272a4">/// 自定义错误和服务器约定错误</span>
+<span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">enum</span> <span style="color:#50fa7b">ServerApiError</span>: Swift.Error {
+        <span style="color:#6272a4">/// 解析Json格式错误</span>
+        <span style="color:#ff79c6">case</span> parseJsonError
 
-        /// 解析服务器定义StatusCode格式错误
-        case parseStatusCodeTypeError
+        <span style="color:#6272a4">/// 解析服务器定义StatusCode格式错误</span>
+        <span style="color:#ff79c6">case</span> parseStatusCodeTypeError
         
-        /// 服务器自定义错误
-        case serverDefineError(code: String, message: String)
+        <span style="color:#6272a4">/// 服务器自定义错误</span>
+        <span style="color:#ff79c6">case</span> serverDefineError(code: <span style="color:#8be9fd;font-style:italic">String</span>, message: <span style="color:#8be9fd;font-style:italic">String</span>)
     
 }
-extension ServerApiError {
+<span style="color:#8be9fd;font-style:italic">extension</span> <span style="color:#50fa7b">ServerApiError</span> {
     
-    /// 错误描述
-    public var errorAPIDescription: String {
-        switch self {
-        case .parseJsonError:
-            return &quot;解析Json格式错误&quot;
-        case .parseStatusCodeTypeError:
-            return &quot;解析服务器定义StatusCode格式错误&quot;
-        case .serverDefineError(_, let message): //返回服务器定义的错误信息
-            return message
+    <span style="color:#6272a4">/// 错误描述</span>
+    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">var</span> <span style="color:#8be9fd;font-style:italic">errorAPIDescription</span>: <span style="color:#8be9fd;font-style:italic">String</span> {
+        <span style="color:#ff79c6">switch</span> <span style="color:#ff79c6">self</span> {
+        <span style="color:#ff79c6">case</span> .parseJsonError:
+            <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;解析Json格式错误&#34;</span>
+        <span style="color:#ff79c6">case</span> .parseStatusCodeTypeError:
+            <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;解析服务器定义StatusCode格式错误&#34;</span>
+        <span style="color:#ff79c6">case</span> .serverDefineError(<span style="color:#ff79c6">_</span>, <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">message</span>): <span style="color:#6272a4">//返回服务器定义的错误信息</span>
+            <span style="color:#ff79c6">return</span> message
         }
     }
 }
 
 
-import Alamofire
+<span style="color:#8be9fd;font-style:italic">import</span> <span style="color:#50fa7b">Alamofire</span>
 
-///扩展AFError描述属性
-extension  AFError {
-    public var AFErrorDescription: String {
-        switch self {
-        case .invalidURL(let urlConvertible):
-            return &quot;无效的URL，错误url: \(urlConvertible)&quot;
-        case .sessionDeinitialized:
-            return &quot;&quot;&quot;
-            session无效而没有错误，因此它可能被意外取消了初始化。 \
-            在请求期间，请确保保留对您的session的引用。
-            &quot;&quot;&quot;
-        default:
-//            return &quot;剩余的自行定义，其实并没有什么用，Alamofire已经对其错误进行了定义`errorDescription`，不过是英文而已，也还比较好理解&quot;
-            return self.errorDescription
+<span style="color:#6272a4">///扩展AFError描述属性</span>
+<span style="color:#8be9fd;font-style:italic">extension</span>  <span style="color:#50fa7b">AFError</span> {
+    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">var</span> <span style="color:#8be9fd;font-style:italic">AFErrorDescription</span>: <span style="color:#8be9fd;font-style:italic">String</span> {
+        <span style="color:#ff79c6">switch</span> <span style="color:#ff79c6">self</span> {
+        <span style="color:#ff79c6">case</span> .invalidURL(<span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">urlConvertible</span>):
+            <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;无效的URL，错误url: </span><span style="color:#f1fa8c">\(</span>urlConvertible<span style="color:#f1fa8c">)</span><span style="color:#f1fa8c">&#34;</span>
+        <span style="color:#ff79c6">case</span> .sessionDeinitialized:
+            <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;&#34;&#34;
+</span><span style="color:#f1fa8c">            session无效而没有错误，因此它可能被意外取消了初始化。 \
+</span><span style="color:#f1fa8c">            在请求期间，请确保保留对您的session的引用。
+</span><span style="color:#f1fa8c">            &#34;&#34;&#34;</span>
+        <span style="color:#ff79c6">default</span>:
+<span style="color:#6272a4">//            return &#34;剩余的自行定义，其实并没有什么用，Alamofire已经对其错误进行了定义`errorDescription`，不过是英文而已，也还比较好理解&#34;</span>
+            <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">self</span>.errorDescription
         }
     }
 }
 
-/// 扩展错误描述属性
-extension Swift.Error {
+<span style="color:#6272a4">/// 扩展错误描述属性</span>
+<span style="color:#8be9fd;font-style:italic">extension</span> <span style="color:#50fa7b">Swift</span>.Error {
     
-    public var description: String {
-        if let afError = self as? AFError {
-            return afError.errorDescription
-        }else if let serverError = self as? ServerError {
-            return serverError.errorDescription
-        }else if let serverApiError = self as? ServerApiError {
-            return serverApiError.errorAPIDescription
-        } else {
-            return localizedDescription
+    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">var</span> <span style="color:#8be9fd;font-style:italic">description</span>: <span style="color:#8be9fd;font-style:italic">String</span> {
+        <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">afError</span> = <span style="color:#ff79c6">self</span> <span style="color:#ff79c6">as</span>? AFError {
+            <span style="color:#ff79c6">return</span> afError.errorDescription
+        }<span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">serverError</span> = <span style="color:#ff79c6">self</span> <span style="color:#ff79c6">as</span>? ServerError {
+            <span style="color:#ff79c6">return</span> serverError.errorDescription
+        }<span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">serverApiError</span> = <span style="color:#ff79c6">self</span> <span style="color:#ff79c6">as</span>? ServerApiError {
+            <span style="color:#ff79c6">return</span> serverApiError.errorAPIDescription
+        } <span style="color:#ff79c6">else</span> {
+            <span style="color:#ff79c6">return</span> localizedDescription
         }
     }
 }
 	
-</code></pre>
-
-<h4 id="请求封装">请求封装</h4>
-
-<pre><code class="language-swift">/// 请求管理
-extension AFApiProvider {
-    /// 返回Promis
-    /// - Parameters
-    ///     - urlConvertible: `URLRequestConvertible`请求
-    ///     - observerOn：`ImmediateSchedulerType` 监听队列 默认全局对列
-    ///     - subscribeOn: `ImmediateSchedulerType`回调队列 默认主队列
-    /// - return: Promise&lt;T&gt;
-    public func request&lt;T: Codable&gt; (_ urlConvertible: Alamofire.URLRequestConvertible,
+</code></pre></div><h4 id="请求封装">请求封装</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#6272a4">/// 请求管理</span>
+<span style="color:#8be9fd;font-style:italic">extension</span> <span style="color:#50fa7b">AFApiProvider</span> {
+    <span style="color:#6272a4">/// 返回Promis</span>
+    <span style="color:#6272a4">/// - Parameters</span>
+    <span style="color:#6272a4">///     - urlConvertible: `URLRequestConvertible`请求</span>
+    <span style="color:#6272a4">///     - observerOn：`ImmediateSchedulerType` 监听队列 默认全局对列</span>
+    <span style="color:#6272a4">///     - subscribeOn: `ImmediateSchedulerType`回调队列 默认主队列</span>
+    <span style="color:#6272a4">/// - return: Promise&lt;T&gt;</span>
+    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">request</span>&lt;T: Codable&gt; (<span style="color:#ff79c6">_</span> urlConvertible: Alamofire.URLRequestConvertible,
                                      observerOn: ImmediateSchedulerType = ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()),
                                      subscribeOn: ImmediateSchedulerType = MainScheduler.instance) -&gt; Promise&lt;T&gt; {
-        return Promise{ seal in
+        <span style="color:#ff79c6">return</span> Promise{ seal <span style="color:#ff79c6">in</span>
             
             observerRequest(urlConvertible)
                 .observeOn(observerOn)
                 .subscribeOn(subscribeOn)
-                .subscribe(onSuccess: { seal.fulfill($0)}) { seal.reject($0)}
+                .subscribe(onSuccess: { seal.fulfill(<span style="color:#8be9fd;font-style:italic">$0</span>)}) { seal.reject(<span style="color:#8be9fd;font-style:italic">$0</span>)}
                 .disposed(by: _disposeBag)
         }
     }
     
-    /// 发起请求，使用rxswift做回调，里面进行错误统一处理
-    /// - Parameters:
-    ///     - urlConvertible: `URLRequestConvertible` 构建DataRequest
-    /// - return: `Single&lt;T&gt;`，`Single&lt;T&gt;` 携带返回模型或错误
-    private func observerRequest&lt;T: Codable&gt;(_ urlConvertible: Alamofire.URLRequestConvertible) -&gt; Single&lt;T&gt; {
+    <span style="color:#6272a4">/// 发起请求，使用rxswift做回调，里面进行错误统一处理</span>
+    <span style="color:#6272a4">/// - Parameters:</span>
+    <span style="color:#6272a4">///     - urlConvertible: `URLRequestConvertible` 构建DataRequest</span>
+    <span style="color:#6272a4">/// - return: `Single&lt;T&gt;`，`Single&lt;T&gt;` 携带返回模型或错误</span>
+    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">observerRequest</span>&lt;T: Codable&gt;(<span style="color:#ff79c6">_</span> urlConvertible: Alamofire.URLRequestConvertible) -&gt; Single&lt;T&gt; {
         
-        return Single&lt;T&gt;.create { (observer) -&gt; Disposable in
+        <span style="color:#ff79c6">return</span> Single&lt;T&gt;.create { (observer) -&gt; Disposable <span style="color:#ff79c6">in</span>
             
-            let request =  AFApiProvider.shared()._session
+            <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">request</span> =  AFApiProvider.shared()._session
                 .request(urlConvertible)
                 .validate()
-                .responseDecodable { (response: DataResponse&lt;T&gt; ) in
-                    do {
-                        let dataModel =  try response
+                .responseDecodable { (response: DataResponse&lt;T&gt; ) <span style="color:#ff79c6">in</span>
+                    <span style="color:#ff79c6">do</span> {
+                        <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">dataModel</span> =  <span style="color:#ff79c6">try</span> response
                             ._storeServerTimerIntervalDistance()
                             ._catchRandomDomainFlag()
-                            ._filterServerSuccessData()///验证服务器格式和定义的错误
-                            .map(type: T.self)  //json转模型
+                            ._filterServerSuccessData()<span style="color:#6272a4">///验证服务器格式和定义的错误</span>
+                            .map(type: T.<span style="color:#ff79c6">self</span>)  <span style="color:#6272a4">//json转模型</span>
                         observer(.success(dataModel))
-                    } catch let error{
+                    } <span style="color:#ff79c6">catch</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">error</span>{
                         observer(.error(error))
                     }
             }
             
-            return Disposables.create {
+            <span style="color:#ff79c6">return</span> Disposables.create {
                 
                 request.cancel()
             }
@@ -643,224 +590,177 @@ extension AFApiProvider {
     }
 }
 
-extension DataResponse {
+<span style="color:#8be9fd;font-style:italic">extension</span> <span style="color:#50fa7b">DataResponse</span> {
     
-    /// 校验http返回 校准服务器时间，看自己需求是否需要
-    fileprivate func _storeServerTimerIntervalDistance() throws -&gt; DataResponse {
-        guard let serverTime = response?.allHeaderFields[&quot;Date&quot;] as? String else {
-            return self
+    <span style="color:#6272a4">/// 校验http返回 校准服务器时间，看自己需求是否需要</span>
+    fileprivate <span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">_storeServerTimerIntervalDistance</span>() <span style="color:#ff79c6">throws</span> -&gt; DataResponse {
+        <span style="color:#ff79c6">guard</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">serverTime</span> = response?.allHeaderFields[<span style="color:#f1fa8c">&#34;Date&#34;</span>] <span style="color:#ff79c6">as</span>? <span style="color:#8be9fd;font-style:italic">String</span> <span style="color:#ff79c6">else</span> {
+            <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">self</span>
         }
         
-        let dataFormatter = DateFormatter().then {
-            $0.locale = Locale(identifier: &quot;en_US_POSIX&quot;)
-            $0.dateFormat = &quot;EEE, d MMM yyyy HH:mm:ss zzz&quot;
+        <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">dataFormatter</span> = DateFormatter().then {
+            <span style="color:#8be9fd;font-style:italic">$0</span>.locale = Locale(identifier: <span style="color:#f1fa8c">&#34;en_US_POSIX&#34;</span>)
+            <span style="color:#8be9fd;font-style:italic">$0</span>.dateFormat = <span style="color:#f1fa8c">&#34;EEE, d MMM yyyy HH:mm:ss zzz&#34;</span>
         }
         
-        if let serverDate = dataFormatter.date(from: serverTime) {
-            let timeIntervaDistance = Date().timeIntervalSince1970 - serverDate.timeIntervalSince1970
-            print(&quot;请求时间差: \(timeIntervaDistance)&quot;)
+        <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">serverDate</span> = dataFormatter.date(from: serverTime) {
+            <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">timeIntervaDistance</span> = Date().timeIntervalSince1970 <span style="color:#ff79c6">-</span> serverDate.timeIntervalSince1970
+            print(<span style="color:#f1fa8c">&#34;请求时间差: </span><span style="color:#f1fa8c">\(</span>timeIntervaDistance<span style="color:#f1fa8c">)</span><span style="color:#f1fa8c">&#34;</span>)
             
         }
-        return self
+        <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">self</span>
     }
     
-    ///根据http返回处理特殊逻辑，如切换域名等,看自己需求
-    fileprivate func _catchRandomDomainFlag() -&gt; DataResponse {
-        guard let statusCode = response?.statusCode else { return self }
-        if [403, 502, 503].contains(statusCode) {
-            print(&quot;http 错误码: \(statusCode)&quot;)
+    <span style="color:#6272a4">///根据http返回处理特殊逻辑，如切换域名等,看自己需求</span>
+    fileprivate <span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">_catchRandomDomainFlag</span>() -&gt; DataResponse {
+        <span style="color:#ff79c6">guard</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">statusCode</span> = response?.statusCode <span style="color:#ff79c6">else</span> { <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">self</span> }
+        <span style="color:#ff79c6">if</span> [<span style="color:#bd93f9">403</span>, <span style="color:#bd93f9">502</span>, <span style="color:#bd93f9">503</span>].contains(statusCode) {
+            print(<span style="color:#f1fa8c">&#34;http 错误码: </span><span style="color:#f1fa8c">\(</span>statusCode<span style="color:#f1fa8c">)</span><span style="color:#f1fa8c">&#34;</span>)
         }
-        return self
+        <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">self</span>
     }
     
-    /// 服务器返回数据格式错误,这样就必须让服务端按规范的数据格式返回数据，不然直接抛出错误
-    /// 根据自己项目需求更改
-    fileprivate func _filterServerSuccessData() throws -&gt; DataResponse {
+    <span style="color:#6272a4">/// 服务器返回数据格式错误,这样就必须让服务端按规范的数据格式返回数据，不然直接抛出错误</span>
+    <span style="color:#6272a4">/// 根据自己项目需求更改</span>
+    fileprivate <span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">_filterServerSuccessData</span>() <span style="color:#ff79c6">throws</span> -&gt; DataResponse {
         
-        do {
-            let responseJson = try mapJSON(failsOnEmptyData: false)
-            guard let dic = responseJson as? [String : Any] else {
-                throw ServerApiError.parseJsonError
+        <span style="color:#ff79c6">do</span> {
+            <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">responseJson</span> = <span style="color:#ff79c6">try</span> mapJSON(failsOnEmptyData: <span style="color:#ff79c6">false</span>)
+            <span style="color:#ff79c6">guard</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">dic</span> = responseJson <span style="color:#ff79c6">as</span>? [<span style="color:#8be9fd;font-style:italic">String</span> : <span style="color:#8be9fd;font-style:italic">Any</span>] <span style="color:#ff79c6">else</span> {
+                <span style="color:#ff79c6">throw</span> ServerApiError.parseJsonError
             }
-            if let error = _praseServerError(dic: dic) { throw error  }
-            return self
-        } catch  {
-            throw error
+            <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">error</span> = _praseServerError(dic: dic) { <span style="color:#ff79c6">throw</span> error  }
+            <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">self</span>
+        } <span style="color:#ff79c6">catch</span>  {
+            <span style="color:#ff79c6">throw</span> error
         }
     }
     
     
-    /// 服务器自定义数据错误，直接抛出错误
-    private func _praseServerError(dic:[String: Any]) -&gt; Error? {
+    <span style="color:#6272a4">/// 服务器自定义数据错误，直接抛出错误</span>
+    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">_praseServerError</span>(dic:[<span style="color:#8be9fd;font-style:italic">String</span>: <span style="color:#8be9fd;font-style:italic">Any</span>]) -&gt; Error? {
         
-        //returnCode 为服务器与前端约定的returnCode
-        guard let code = dic[&quot;code&quot;] as? String else { return ServerApiError.parseStatusCodeTypeError }
-        let message = dic[&quot;message&quot;] as? String
-        guard [&quot;000000&quot;].contains(code) else { //比如0为请求成功，那么其他状态为错误信息，返回错误
-            return ServerApiError.serverDefineError(code: code, message: message ?? &quot;服务器返回 错误 code: \(code)&quot;)
+        <span style="color:#6272a4">//returnCode 为服务器与前端约定的returnCode</span>
+        <span style="color:#ff79c6">guard</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">code</span> = dic[<span style="color:#f1fa8c">&#34;code&#34;</span>] <span style="color:#ff79c6">as</span>? <span style="color:#8be9fd;font-style:italic">String</span> <span style="color:#ff79c6">else</span> { <span style="color:#ff79c6">return</span> ServerApiError.parseStatusCodeTypeError }
+        <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">message</span> = dic[<span style="color:#f1fa8c">&#34;message&#34;</span>] <span style="color:#ff79c6">as</span>? <span style="color:#8be9fd;font-style:italic">String</span>
+        <span style="color:#ff79c6">guard</span> [<span style="color:#f1fa8c">&#34;000000&#34;</span>].contains(code) <span style="color:#ff79c6">else</span> { <span style="color:#6272a4">//比如0为请求成功，那么其他状态为错误信息，返回错误</span>
+            <span style="color:#ff79c6">return</span> ServerApiError.serverDefineError(code: code, message: message ?? <span style="color:#f1fa8c">&#34;服务器返回 错误 code: </span><span style="color:#f1fa8c">\(</span>code<span style="color:#f1fa8c">)</span><span style="color:#f1fa8c">&#34;</span>)
         }
-        return nil
+        <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">nil</span>
     }
     
     
 }
 
-extension DataResponse {
+<span style="color:#8be9fd;font-style:italic">extension</span> <span style="color:#50fa7b">DataResponse</span> {
     
-    /// 对返回结果转Json
-    /// - failsOnEmptyData：默认为true, 如果失败返回空
-    func mapJSON(failsOnEmptyData: Bool = true) throws -&gt; Any {
+    <span style="color:#6272a4">/// 对返回结果转Json</span>
+    <span style="color:#6272a4">/// - failsOnEmptyData：默认为true, 如果失败返回空</span>
+    <span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">mapJSON</span>(failsOnEmptyData: <span style="color:#8be9fd;font-style:italic">Bool</span> = <span style="color:#ff79c6">true</span>) <span style="color:#ff79c6">throws</span> -&gt; <span style="color:#8be9fd;font-style:italic">Any</span> {
         
-        guard let `data` = data else { return NSNull() }
-        do {
-            return try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-        } catch {
-            if data.count &lt; 1 &amp;&amp; !failsOnEmptyData {
-                return NSNull()
+        <span style="color:#ff79c6">guard</span> <span style="color:#8be9fd;font-style:italic">let</span> `data` = data <span style="color:#ff79c6">else</span> { <span style="color:#ff79c6">return</span> NSNull() }
+        <span style="color:#ff79c6">do</span> {
+            <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">try</span> JSONSerialization.jsonObject(with: data, options: .allowFragments)
+        } <span style="color:#ff79c6">catch</span> {
+            <span style="color:#ff79c6">if</span> data.count <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">&amp;&amp;</span> <span style="color:#ff79c6">!</span>failsOnEmptyData {
+                <span style="color:#ff79c6">return</span> NSNull()
             }
-            throw AFError.responseSerializationFailed(reason: .jsonSerializationFailed(error: error))
+            <span style="color:#ff79c6">throw</span> AFError.responseSerializationFailed(reason: .jsonSerializationFailed(error: error))
         }
     }
     
-    /// 将json转成模型，参考moya
-    func map&lt;D: Decodable&gt;(type: D.Type, atKeyPath keyPath: String? = nil, using decoder: JSONDecoder = JSONDecoder(), failsOnEmptyData: Bool = true) throws -&gt; D {
-        let serializeToData: (Any) throws -&gt; Data? = { (jsonObject) in
-            guard JSONSerialization.isValidJSONObject(jsonObject) else {
-                return nil
+    <span style="color:#6272a4">/// 将json转成模型，参考moya</span>
+    <span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">map</span>&lt;D: Decodable&gt;(type: D.<span style="color:#ff79c6">Type</span>, atKeyPath keyPath: <span style="color:#8be9fd;font-style:italic">String</span>? = <span style="color:#ff79c6">nil</span>, using decoder: JSONDecoder = JSONDecoder(), failsOnEmptyData: <span style="color:#8be9fd;font-style:italic">Bool</span> = <span style="color:#ff79c6">true</span>) <span style="color:#ff79c6">throws</span> -&gt; D {
+        <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">serializeToData</span>: (<span style="color:#8be9fd;font-style:italic">Any</span>) <span style="color:#ff79c6">throws</span> -&gt; Data? = { (jsonObject) <span style="color:#ff79c6">in</span>
+            <span style="color:#ff79c6">guard</span> JSONSerialization.isValidJSONObject(jsonObject) <span style="color:#ff79c6">else</span> {
+                <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">nil</span>
             }
-            do {
-                return try JSONSerialization.data(withJSONObject: jsonObject)
-            } catch {
-                throw AFError.responseSerializationFailed(reason: .jsonSerializationFailed(error: error))
+            <span style="color:#ff79c6">do</span> {
+                <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">try</span> JSONSerialization.data(withJSONObject: jsonObject)
+            } <span style="color:#ff79c6">catch</span> {
+                <span style="color:#ff79c6">throw</span> AFError.responseSerializationFailed(reason: .jsonSerializationFailed(error: error))
             }
         }
         
-        guard let `data` = data else { throw APIError.parseJsonError }
-        let jsonData: Data
+        <span style="color:#ff79c6">guard</span> <span style="color:#8be9fd;font-style:italic">let</span> `data` = data <span style="color:#ff79c6">else</span> { <span style="color:#ff79c6">throw</span> APIError.parseJsonError }
+        <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">jsonData</span>: Data
         
-        keyPathCheck: if let keyPath = keyPath {
-            guard let jsonObject = (try mapJSON(failsOnEmptyData: failsOnEmptyData) as? NSDictionary)?.value(forKeyPath: keyPath) else {
-                if failsOnEmptyData {
-                    throw APIError.parseJsonError
-                } else {
+        keyPathCheck: <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">keyPath</span> = keyPath {
+            <span style="color:#ff79c6">guard</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">jsonObject</span> = (<span style="color:#ff79c6">try</span> mapJSON(failsOnEmptyData: failsOnEmptyData) <span style="color:#ff79c6">as</span>? NSDictionary)?.value(forKeyPath: keyPath) <span style="color:#ff79c6">else</span> {
+                <span style="color:#ff79c6">if</span> failsOnEmptyData {
+                    <span style="color:#ff79c6">throw</span> APIError.parseJsonError
+                } <span style="color:#ff79c6">else</span> {
                     jsonData = data
-                    break keyPathCheck
+                    <span style="color:#ff79c6">break</span> keyPathCheck
                 }
             }
             
-            if let data = try serializeToData(jsonObject) {
+            <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">data</span> = <span style="color:#ff79c6">try</span> serializeToData(jsonObject) {
                 jsonData = data
-            } else {
-                let wrappedJsonObject = [&quot;value&quot;: jsonObject]
-                let wrappedJsonData: Data
-                if let data = try serializeToData(wrappedJsonObject) {
+            } <span style="color:#ff79c6">else</span> {
+                <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">wrappedJsonObject</span> = [<span style="color:#f1fa8c">&#34;value&#34;</span>: jsonObject]
+                <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">wrappedJsonData</span>: Data
+                <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">data</span> = <span style="color:#ff79c6">try</span> serializeToData(wrappedJsonObject) {
                     wrappedJsonData = data
-                } else {
-                    throw APIError.parseJsonError
+                } <span style="color:#ff79c6">else</span> {
+                    <span style="color:#ff79c6">throw</span> APIError.parseJsonError
                 }
-                do {
-                    return try decoder.decode(DecodableWrapper&lt;D&gt;.self, from: wrappedJsonData).value
-                } catch let error {
-                    throw AFError.responseSerializationFailed(reason: .jsonSerializationFailed(error: error))
+                <span style="color:#ff79c6">do</span> {
+                    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">try</span> decoder.decode(DecodableWrapper&lt;D&gt;.<span style="color:#ff79c6">self</span>, from: wrappedJsonData).value
+                } <span style="color:#ff79c6">catch</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">error</span> {
+                    <span style="color:#ff79c6">throw</span> AFError.responseSerializationFailed(reason: .jsonSerializationFailed(error: error))
                 }
             }
-        } else {
+        } <span style="color:#ff79c6">else</span> {
             jsonData = data
         }
-        do {
-            if jsonData.count &lt; 1 &amp;&amp; !failsOnEmptyData {
-                if let emptyJSONObjectData = &quot;{}&quot;.data(using: .utf8), let emptyDecodableValue = try? decoder.decode(D.self, from: emptyJSONObjectData) {
-                    return emptyDecodableValue
-                } else if let emptyJSONArrayData = &quot;[{}]&quot;.data(using: .utf8), let emptyDecodableValue = try? decoder.decode(D.self, from: emptyJSONArrayData) {
-                    return emptyDecodableValue
+        <span style="color:#ff79c6">do</span> {
+            <span style="color:#ff79c6">if</span> jsonData.count <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">&amp;&amp;</span> <span style="color:#ff79c6">!</span>failsOnEmptyData {
+                <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">emptyJSONObjectData</span> = <span style="color:#f1fa8c">&#34;{}&#34;</span>.data(using: .utf8), <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">emptyDecodableValue</span> = <span style="color:#ff79c6">try</span>? decoder.decode(D.<span style="color:#ff79c6">self</span>, from: emptyJSONObjectData) {
+                    <span style="color:#ff79c6">return</span> emptyDecodableValue
+                } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">emptyJSONArrayData</span> = <span style="color:#f1fa8c">&#34;[{}]&#34;</span>.data(using: .utf8), <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">emptyDecodableValue</span> = <span style="color:#ff79c6">try</span>? decoder.decode(D.<span style="color:#ff79c6">self</span>, from: emptyJSONArrayData) {
+                    <span style="color:#ff79c6">return</span> emptyDecodableValue
                 }
             }
-            return try decoder.decode(D.self, from: jsonData)
-        } catch let error {
-            throw AFError.responseSerializationFailed(reason: .jsonSerializationFailed(error: error))
+            <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">try</span> decoder.decode(D.<span style="color:#ff79c6">self</span>, from: jsonData)
+        } <span style="color:#ff79c6">catch</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">error</span> {
+            <span style="color:#ff79c6">throw</span> AFError.responseSerializationFailed(reason: .jsonSerializationFailed(error: error))
         }
     }
 }
 
-private struct DecodableWrapper&lt;T: Decodable&gt;: Decodable {
-    let value: T
+<span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">struct</span> <span style="color:#50fa7b">DecodableWrapper</span>&lt;T: Decodable&gt;: Decodable {
+    <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">value</span>: T
 }
-</code></pre>
+</code></pre></div><h4 id="也可提供一个api管理类可有可无方便管理">也可提供一个api管理类，可有可无，方便管理</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#8be9fd;font-style:italic">import</span> <span style="color:#50fa7b">Alamofire</span>
+<span style="color:#8be9fd;font-style:italic">import</span> <span style="color:#50fa7b">PromiseKit</span>
+<span style="color:#8be9fd;font-style:italic">import</span> <span style="color:#50fa7b">RxSwift</span>
 
-<h4 id="也可提供一个api管理类-可有可无-方便管理">也可提供一个api管理类，可有可无，方便管理</h4>
-
-<pre><code class="language-swift">import Alamofire
-import PromiseKit
-import RxSwift
-
-public final class APIClient {
+<span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#ff79c6">final</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">APIClient</span> {
     
-    public static func getPosts(userId: Int) -&gt;Promise&lt;ResponseData&lt;[Post]&gt;&gt; {
+    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">getPosts</span>(userId: <span style="color:#8be9fd;font-style:italic">Int</span>) -&gt;Promise&lt;ResponseData<span style="color:#ff79c6">&lt;</span>[Post]<span style="color:#ff79c6">&gt;&gt;</span> {
         
-        return AFApiProvider.shared().request(PostsApiRouter.getPosts(userId: userId))
+        <span style="color:#ff79c6">return</span> AFApiProvider.shared().request(PostsApiRouter.getPosts(userId: userId))
     }
 }
-</code></pre>
-
-<h4 id="最后完成请求">最后完成请求</h4>
-
-<pre><code class="language-swift">    @IBAction func requestClick(_ sender: Any) {
+</code></pre></div><h4 id="最后完成请求">最后完成请求</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift">    <span style="color:#ff79c6">@IBAction</span> <span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">requestClick</span>(<span style="color:#ff79c6">_</span> sender: <span style="color:#8be9fd;font-style:italic">Any</span>) {
         
-        APIClient.getPosts(userId: 101).ensure {
-          ///这里可做网络菊花之类的
-            print(&quot;请求中....&quot;)
-        }.done { (postData) in
-            print(&quot;请求完成....&quot;)
-            postData.data.forEach { (post) in
+        APIClient.getPosts(userId: <span style="color:#bd93f9">101</span>).ensure {
+          <span style="color:#6272a4">///这里可做网络菊花之类的</span>
+            print(<span style="color:#f1fa8c">&#34;请求中....&#34;</span>)
+        }.done { (postData) <span style="color:#ff79c6">in</span>
+            print(<span style="color:#f1fa8c">&#34;请求完成....&#34;</span>)
+            postData.data.forEach { (post) <span style="color:#ff79c6">in</span>
                 print(post)
             }
-        }.catch { (error) in
-                 ///错误处理
+        }.<span style="color:#ff79c6">catch</span> { (error) <span style="color:#ff79c6">in</span>
+                 <span style="color:#6272a4">///错误处理</span>
             print(error.description)
         }
     }
-</code></pre>
-
-
-                
-                
-<div class="entry-shang text-center">
-    
-	    <p>「真诚赞赏，手留余香」</p>
-	
-	<button class="zs show-zs btn btn-bred">赞赏支持</button>
-</div>
-<div class="zs-modal-bg"></div>
-<div class="zs-modal-box">
-	<div class="zs-modal-head">
-		<button type="button" class="close">×</button>
-		<span class="author"><a href="https://luckyliang.github.io"><img src="/img/favicon.png" />Cheng Blog</a></span>
-        
-	        <p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
-		
- 
-	</div>
-	<div class="zs-modal-body">
-		<div class="zs-modal-btns">
-			<button class="btn btn-blink" data-num="2">2元</button>
-			<button class="btn btn-blink" data-num="5">5元</button>
-			<button class="btn btn-blink" data-num="10">10元</button>
-			<button class="btn btn-blink" data-num="50">50元</button>
-			<button class="btn btn-blink" data-num="100">100元</button>
-			<button class="btn btn-blink" data-num="1">任意金额</button>
-		</div>
-		<div class="zs-modal-pay">
-			<button class="btn btn-bred" id="pay-text">2元</button>
-			<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
-			<img src="/img/reward/wechat-2.png"  id="pay-image"/>
-		</div>
-	</div>
-	<div class="zs-modal-footer">
-		<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
-		<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
-	</div>
-</div>
-<script type="text/javascript" src="/js/reward.js"></script>
+</code></pre></div>
 
                 
 
@@ -901,6 +801,8 @@ public final class APIClient {
                         
                         
                         
+                        
+                        
                         <a href="/tags/go" title="go">
                             go
                         </a>
@@ -913,11 +815,11 @@ public final class APIClient {
                         
                         
                         
-                        <a href="/tags/java" title="java">
-                            java
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                            mysql
                         </a>
-                        
-                        
                         
                         
                         
@@ -928,6 +830,10 @@ public final class APIClient {
                         <a href="/tags/swift" title="swift">
                             swift
                         </a>
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -967,23 +873,23 @@ public final class APIClient {
                    <li>
                        <a href='' rel="alternate" type="application/rss+xml" title="Cheng Blog" >
                            <span class="fa-stack fa-lg">
-                               <i class="fa fa-circle fa-stack-2x"></i>
-                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
                            </span>
                        </a>
                    </li>
                    
                     
                     <li>
-                        <a href="mailto:401932941@qq.com">
+                        <a href="mailto:401932941@gmail.com">
                             <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
 		    
-                    
+
                     
                     
                     
@@ -994,10 +900,10 @@ public final class APIClient {
                     
                     
                     <li>
-                        <a target="_blank" href="https://github.com/LuckyLiang">
+                        <a target="_blank" href="https://github.com/luckyliang">
                             <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -1011,8 +917,19 @@ public final class APIClient {
                     
                     
             
+            
+            
                 </ul>
-		
+		<p class="copyright text-muted">
+                    Copyright &copy; Cheng Blog 2017
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
             </div>
         </div>
     </div>
@@ -1022,7 +939,7 @@ public final class APIClient {
 
 
 <script>
-    function async(u, c) {
+    function loadAsync(u, c) {
       var d = document, t = 'script',
           o = d.createElement(t),
           s = d.getElementsByTagName(t)[0];
@@ -1040,7 +957,7 @@ public final class APIClient {
 <script>
     
     if($('#tag_cloud').length !== 0){
-        async("/js/jquery.tagcloud.js",function(){
+        loadAsync("/js/jquery.tagcloud.js",function(){
             $.fn.tagcloud.defaults = {
                 
                 color: {start: '#bbbbee', end: '#0085a1'},
@@ -1052,7 +969,7 @@ public final class APIClient {
 
 
 <script>
-    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+    loadAsync("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
         var $nav = document.querySelector("nav");
         if($nav) FastClick.attach($nav);
     })

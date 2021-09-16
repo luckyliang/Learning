@@ -27,7 +27,7 @@ categories: [ web ]
 
 兼容浏览器的通用方法
 
-```
+```css
 <!--[if IE]>
       // 支持所有IE浏览器
 <![endif]-->
@@ -83,7 +83,7 @@ categories: [ web ]
 
 在实际开发中，考虑到兼容性往往需要把所有前缀都写上去
 
-```
+```css
   .transform{
       -webkit-transform: rotate(-3deg); /*带有Chrome、safari浏览器属性前缀*/
       -moz-transform: rotate(-3deg);/*带有Firefox浏览器的属性前缀*/
@@ -121,7 +121,7 @@ float属性有4个可选项：none、left、right、inherit。
 
 主要应用的是css中的clear属性，可选值：left、right、both
 
-```
+```css
 img{float:left; clear: both} /*左右两侧都不允许出现浮动元素*/
 ```
 
@@ -129,7 +129,7 @@ img{float:left; clear: both} /*左右两侧都不允许出现浮动元素*/
 
 1. 在需要的地方添加定义了`clear：both`的空标签
 
-   ```
+   ```css
      html body div.clear,
      html body span.clear {
          background: none;
@@ -150,7 +150,7 @@ img{float:left; clear: both} /*左右两侧都不允许出现浮动元素*/
 
      在需要清除浮动的元素后面添加<div class="clear"><div>即可
 
-   ```
+   ```css
    <!DOCTYPE html>
    <html lang="en">
    <head>
@@ -216,7 +216,7 @@ img{float:left; clear: both} /*左右两侧都不允许出现浮动元素*/
 
 2. 对父元素使用：after伪类
 
-   ```
+   ```css
    <!DOCTYPE html>
    <html lang="en">
    <head>
@@ -276,7 +276,7 @@ CSS使用`position`属性来定义元素的定位属性
 
 2. `relative`表现和默认值一样，只不过可以通过设置偏移量和z-index俩控制相对于其正常位置进行偏移
 
-   ```
+   ```css
    div {
      position: relative;
      top: 20px;
@@ -301,7 +301,7 @@ CSS使用`position`属性来定义元素的定位属性
 
 `absolute`表示相对于**不为`static`的上级元素**（一般是父元素）进行偏移，即定位基点是父元素，如果不指定父元素的position，absolute将相对于整个html文档进行绝对定位
 
-```
+```css
 /*
   HTML 代码如下
   <div id="father">

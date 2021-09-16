@@ -1,23 +1,37 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>MySQL on Cheng Blog</title>
-    <link>https://luckyliang.github.io/tags/mysql/</link>
+    <link>http://lruoheng.com/tags/mysql/</link>
     <description>Recent content in MySQL on Cheng Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Tue, 23 Oct 2018 23:32:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://luckyliang.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 23 Oct 2018 23:32:00 +0000</lastBuildDate><atom:link href="http://lruoheng.com/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>MySQL基本使用方法</title>
-      <link>https://luckyliang.github.io/2018/10/23/mysqlleaning/</link>
+      <title>MySQL(一) - 基本使用</title>
+      <link>http://lruoheng.com/2018/10/23/MySqlLeaning01/</link>
       <pubDate>Tue, 23 Oct 2018 23:32:00 +0000</pubDate>
       
-      <guid>https://luckyliang.github.io/2018/10/23/mysqlleaning/</guid>
-      <description>MySQL基本使用 安装就不介绍了，网上多的很，这里主要参考官方文档，记录简单用法 MySQL连接和断开 连接mysql mysql -h host -u user -p Enter password: ******** host 连接的</description>
+      <guid>http://lruoheng.com/2018/10/23/MySqlLeaning01/</guid>
+      <description>MySQL安装和连接 安装就不介绍了，网上多的很，这里主要参考官方文档，记录简单用法 连接mysql mysql -h host -u user -p Enter password: ******** host 连接的服务，我本地调式就</description>
+    </item>
+    
+    <item>
+      <title>MySQL(三) - 数据多表查询</title>
+      <link>http://lruoheng.com/2018/10/23/MySqlLeaning03/</link>
+      <pubDate>Tue, 23 Oct 2018 23:32:00 +0000</pubDate>
+      
+      <guid>http://lruoheng.com/2018/10/23/MySqlLeaning03/</guid>
+      <description>创建数据库Sql语句，数据就自己随填写了 DROP DATABASE IF EXISTS test; CREATE DATABASE test; USE test; DROP TABLE IF EXISTS student; #学生表 CREATE TABLE student( id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(10) NOT NULL, age INT, birthday DATE, phone VARCHAR(20), email VARCHAR(50), intro VARCHAR(100) ); DROP TABLE IF EXISTS company; #公司</description>
+    </item>
+    
+    <item>
+      <title>MySQL(二) - 数据基本操作</title>
+      <link>http://lruoheng.com/2018/10/23/MySqlLeaning02/</link>
+      <pubDate>Tue, 23 Oct 2018 23:32:00 +0000</pubDate>
+      
+      <guid>http://lruoheng.com/2018/10/23/MySqlLeaning02/</guid>
+      <description>显示当前数据库下所有表 mysql&amp;gt; SHOW TABLES; Empty set (0.00 sec) 创建表 mysql&amp;gt; CREATE TABLE pet (name VARCHAR(20), owner VARCHAR(20), species VARCHAR(20), sex CHAR(1), birth DATE, death DATE); mysql&amp;gt; SHOW TABLES; +---------------------+ | Tables_in_menagerie | +---------------------+ | pet | +---------------------+ 1 row in set (0.00 sec) mysql&amp;gt; 查看表详细信息 DESCRIBE tableName mysql&amp;gt; DESCRIBE pet; +---------+-------------+------+-----+---------+-------+ |</description>
     </item>
     
   </channel>

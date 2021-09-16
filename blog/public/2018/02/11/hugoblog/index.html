@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Cheng Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="http://lruoheng.com/img/home-bg-jeep.jpg">
+    <meta property="twitter:image" content="http://lruoheng.com/img/home-bg-jeep.jpg" />
+    
+
+    
+    <meta name="title" content="Hugo 搭建个人博客" />
+    <meta property="og:title" content="Hugo 搭建个人博客" />
+    <meta property="twitter:title" content="Hugo 搭建个人博客" />
+    
+
+    
+    <meta name="description" content="hugo 搭建静态博客">
+    <meta property="og:description" content="hugo 搭建静态博客" />
+    <meta property="twitter:description" content="hugo 搭建静态博客" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="cheng, ChengCheng, chengcheng , Cheng的网络日志, Cheng的博客, chengcheng Blog, 博客, 个人网站, 互联网, Web, 云原生, IOS, Go, Swift, Microservice">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Hugo 搭建个人博客-Cheng Cheng 的博客 | Cheng Cheng Blog</title>
+
+    <link rel="canonical" href="/2018/02/11/hugoblog/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Cheng Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/go">go</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/ios">ios</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/java">java</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/other">other</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/web">web</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E6%B1%87%E7%BC%96">汇编</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://img.zhaohuabing.com/in-post/2018-04-11-service-mesh-vs-api-gateway/background.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/blog" title="blog">
+                            blog
+                        </a>
+                        
+                    </div>
+                    <h1>Hugo 搭建个人博客</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                Cheng
+                             
+                            on 
+                            Sunday, February 11, 2018
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#创建">创建</a></li>
+        <li><a href="#安装主题">安装主题</a></li>
+        <li><a href="#部署">部署</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                
+                <p>Hugo是由Go语言实现的静态网站生成器。简单、易用、高效、易扩展、快速部署。使用的是go语言的模板语法</p>
+<h2 id="创建">创建</h2>
+<p>hugo的安装参考<a href="https://www.gohugo.org/">hugo中文文档</a>，<a href="https://gohugo.io/documentation/">官方文档</a></p>
+<p>新建站点，执行命令</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ hugo new site blog
+</code></pre></div><p>站点目录：</p>
+<pre><code>▸ archetypes/
+▸ content/
+▸ data/
+▸ layouts/
+▸ static/
+▸ themes/
+config.toml
+
+</code></pre><h3 id="archetypes-目录">archetypes 目录</h3>
+<p>默认，通过 <code>hugo new</code> 创建的内容会根据<code>archetypes</code>中的<code>default.md</code>的内容格式生成新的文章</p>
+<p>新建的.md文件会保存到content目录中，也可以在content目录中创建字目录，例如创建一个about目录，然后执行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ hugo new about/about.md
+</code></pre></div><p>就会在<code>content/about</code>目录中生成该文件</p>
+<h3 id="content-目录">content 目录</h3>
+<p>所有内容页面存放目录，content 下的一级子目录看作一个对应的 <strong>section</strong> 内容分类区 content section。比如，为博客设置一个 <code>blog</code> 目录，为文章设置一个 <code>articles</code> 目录，为教程设置一个 <code>tutorials</code> 目录等，Hugo 使用内容分类区分作为默认<strong>内容类型</strong> content type，如果在扉页 front matter 设置了 <code>type</code> 则以具体设置的类型为准。</p>
+<h3 id="layouts-目录">layouts 目录</h3>
+<p>布局模板文件目录，存放 <code>.html</code> 布局模板文件，对应不同的内容，模板有多种，data-templates、homepage、lists、menu-templates、partials、section-templates 等等。</p>
+<p>站点的首页模板在主题目录中 <strong>layouts/index.html</strong>，除首页外，Hugo 有两类基本页面：</p>
+<ul>
+<li>Single page 单体页面，如 <strong>hugo new demo.md</strong> 创建的 Post 页面；</li>
+<li>List page 列表页面，如 tags 或 categories 页面；</li>
+</ul>
+<h3 id="static-目录">static 目录</h3>
+<p>静态资源存放目录，比如想使用 Marmarid 画作模块，或者 jQuery 工具库，或者其它脚本、图像、CSS 等等，就可以将文件放到这里，在 Hugo 编译生成时会自动原样复制到 <strong>public</strong> 目录。注意，可以有多个静态资源目录。</p>
+<h3 id="resources-目录">resources 目录</h3>
+<p>资源缓冲目录，非默认创建，用于加速 Hugo 的生成过程，也可以用给模板作者分发构建好的 SASS 文件，因此不必安装预处理器。</p>
+<h3 id="public-目录">public 目录</h3>
+<p>生成静态站点的文件输出目录。</p>
+<h3 id="assets-目录">assets 目录</h3>
+<p>不是默认创建的资源目录，保存所有需要通过 <strong>Hugo Pipes</strong> 处理的资源，只有那些 <code>.Permalink</code> 和 <code>.RelPermalink</code> 引用的文件会发布到 <code>public</code> 目录中，参考 Hugo 管道处理。</p>
+<h3 id="config-目录">config 目录</h3>
+<p>配置目录，非默认创建，Hugo 有大量的配置指令，此目录用于保存 JSON, YAML, TOML 等配置文件。最简单的项目只需要一个根目录下的配置文件 <code>config.toml</code>。 Every root setting object can stand as its own file and structured by environments.</p>
+<p>内容目录结构与 URL 对应关系参考：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">.
+└── content
+    └── about
+    |   └── index.md       // &lt;- https://example.com/about/
+    ├── posts
+    |   ├── _index.md      // &lt;- https://example.com/posts/
+    |   ├── index.md       // &lt;- https://example.com/posts/
+    |   ├── firstpost.md   // &lt;- https://example.com/posts/firstpost/
+    |   ├── happy
+    |   |   └── ness.md    // &lt;- https://example.com/posts/happy/ness/
+    |   └── secondpost.md  // &lt;- https://example.com/posts/secondpost/
+    └── quote
+        ├── first.md       // &lt;- https://example.com/quote/first/
+        └── second.md      // &lt;- https://example.com/quote/second/
+</code></pre></div><p>每个目录下的 <strong>_index.md</strong> 和 <strong>index.md</strong> 是特殊的索引页面，二选一使用。可以在其扉页 front matter 为模板提供元数据，如 list templates, section templates, taxonomy templates, taxonomy terms templates, homepage template 等等。</p>
+<h3 id="data-目录">data 目录</h3>
+<p>数据模板目录，Hugo 静态网站不会连接像 MySQL 这样的数据库，而此目录保存的数据相当于 Hugo 使用的数据库，生成过程用到的配置数据，可以用 YAML, JSON, TOML 等格式文件。数据模板除了在此的文件定义，还可以从动态内容中生成。通过 <strong>getJSON</strong> 和 <strong>getCSV</strong> 两个函数是模板函数加载外部数据，或者访问数据接口，在外部数据加载完成以前，Hugo 会暂停渲染模板文件。</p>
+<h2 id="安装主题">安装主题</h2>
+<p>这里主题使用的是 <a href="https://github.com/zhaohuabing/hugo-theme-cleanwhite">hugo-theme-cleanwhite</a></p>
+<p>在themes文件中执行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/zhaohuabing/hugo-theme-cleanwhite.git
+</code></pre></div><p>该主题提供了例子安装github上教程可以轻松集成， 也可以根据<code>exampleSite</code>中的配置在自己的<code>config.toml</code>中配置</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mkdir <span style="color:#8be9fd;font-style:italic">test</span>		//创建测试站点
+$ <span style="color:#8be9fd;font-style:italic">cd</span> <span style="color:#8be9fd;font-style:italic">test</span>
+$ mkdir themes
+$ <span style="color:#8be9fd;font-style:italic">cd</span> themes
+$ git clone https://github.com/zhaohuabing/hugo-theme-cleanwhite.git
+$ cp -r hugo-theme-cleanwhite/exampleSite/** ../			//复制示例站点配置
+$ <span style="color:#8be9fd;font-style:italic">cd</span> ..
+$ hugo serve			
+</code></pre></div><p>hugo生成静态文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ hugo -D
+或者更详细的
+$ hugo --theme<span style="color:#ff79c6">=</span>hugo-theme-cleanwhite --buildDrafts --baseUrl<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;https://xxx.github.io/&#34;</span>
+</code></pre></div><p>会生成存放静态页面<code>public</code>目录</p>
+<p>将<code>public</code>静态文件上传到github上，这里不是用github来部署博客网站，只是将静态文件上传到github上，然后在服务端clone github上的静态文件再进行部署</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#8be9fd;font-style:italic">cd</span> public
+$ git git init --separate-git-dir ../blogGit	//实现源码和git厂库分离blogGit为public的同级目录
+$ git add .
+$ git commit -m <span style="color:#f1fa8c">&#34;first commit&#34;</span>
+$ git branch -M main
+$ git remote add origin github远程仓库
+$ git push -u origin main //注意在推送前查看config文件是否配置了user
+</code></pre></div><p>config文件中配置git用户</p>
+<pre><code>[user]
+	name = gitusername			//git用户名
+	email = xxxx@xx.com			//用户邮箱
+	password = xxxxxx				//密码，现在密码改为token了
+</code></pre><p><a href="https://www.cnblogs.com/leon-2016/p/9284837.html">github 生成token的方法</a></p>
+<h2 id="部署">部署</h2>
+<p>部署到自己的云服务器上，首先准备好服务器和域名，我这里用的是阿里的ES服务器</p>
+<h3 id="nginx配置">nginx配置</h3>
+<p>nginx安装就不说了网上一大堆</p>
+<p>nginx配置</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">server <span style="color:#ff79c6">{</span>
+    listen    <span style="color:#bd93f9">8080</span> default_server;		配置监听端口
+    listen    <span style="color:#ff79c6">[</span>::<span style="color:#ff79c6">]</span> default_server;
+    server_name   xxx.xx.xx.xx;				//服务器的ip地址
+    location / <span style="color:#ff79c6">{</span>
+           root /var/www/Blog;				//根目录
+           index index.html index.htm;		//入口
+        <span style="color:#ff79c6">}</span>
+<span style="color:#ff79c6">}</span>
+</code></pre></div><p>修改配置后刷新</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nginx -c /etc/nginx/nginx.conf
+nginx -s reload
+</code></pre></div><p>在<code>/var/www/</code>路径下<code>pull</code>之前推送到<code>github</code>上的仓库，最终静态文件存放在<code>/var/www/Blog</code>中</p>
+<p>nginx其他可能用到的命令</p>
+<p>重启服务： <code>service nginx restart</code></p>
+<p>快速停止或关闭Nginx：<code>nginx -s stop</code></p>
+<p>配置文件修改重装载命令：<code>nginx -s reload</code></p>
+<h3 id="配置安全组">配置安全组</h3>
+<p>配置安全组主要是对外开放端口，外界能访问，在阿里云安全组配置如下</p>
+<p>
+  <img src="/img/image-20210914190012656.png" alt="image-20210914190012656">
+
+</p>
+<p>参考链接</p>
+<p><a href="https://www.jianshu.com/p/c5297a8bb1e7">Hugo不完美系列教程</a></p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/02/11/nasminstall/" data-toggle="tooltip" data-placement="top" title="NASM 环境搭建">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/03/10/goNet/" data-toggle="tooltip" data-placement="top" title="go - net/http的简单使用">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/go" title="go">
+                            go
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ios" title="ios">
+                            ios
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                            mysql
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/swift" title="swift">
+                            swift
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+                <section>
+                    <hr>
+                    <h5>FRIENDS</h5>
+                    <ul class="list-inline">
+                        
+                    </ul>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Cheng Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:401932941@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/luckyliang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Cheng Blog 2017
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>

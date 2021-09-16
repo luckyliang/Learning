@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Cheng Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="http://lruoheng.com/img/home-bg-jeep.jpg">
+    <meta property="twitter:image" content="http://lruoheng.com/img/home-bg-jeep.jpg" />
+    
+
+    
+    <meta name="title" content="MySQL(二) - 数据基本操作" />
+    <meta property="og:title" content="MySQL(二) - 数据基本操作" />
+    <meta property="twitter:title" content="MySQL(二) - 数据基本操作" />
+    
+
+    
+    <meta name="description" content="这里主要参考官方文档，记录简单用法">
+    <meta property="og:description" content="这里主要参考官方文档，记录简单用法" />
+    <meta property="twitter:description" content="这里主要参考官方文档，记录简单用法" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="cheng, ChengCheng, chengcheng , Cheng的网络日志, Cheng的博客, chengcheng Blog, 博客, 个人网站, 互联网, Web, 云原生, IOS, Go, Swift, Microservice">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>MySQL(二) - 数据基本操作-Cheng Cheng 的博客 | Cheng Cheng Blog</title>
+
+    <link rel="canonical" href="/2018/10/23/MySqlLeaning02/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Cheng Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/go">go</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/ios">ios</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/java">java</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/other">other</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/web">web</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E6%B1%87%E7%BC%96">汇编</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://img.zhaohuabing.com/in-post/2018-04-11-service-mesh-vs-api-gateway/background.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/mysql" title="MySQL">
+                            MySQL
+                        </a>
+                        
+                    </div>
+                    <h1>MySQL(二) - 数据基本操作</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                Cheng
+                             
+                            on 
+                            Tuesday, October 23, 2018
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                
+                <h3 id="显示当前数据库下所有表"><strong>显示当前数据库下所有表</strong></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SHOW</span> <span style="color:#ff79c6">TABLES</span>;
+Empty <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+</code></pre></div><h3 id="创建表"><strong>创建表</strong></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">CREATE</span> <span style="color:#ff79c6">TABLE</span> <span style="color:#50fa7b">pet</span> (name <span style="color:#8be9fd">VARCHAR</span>(<span style="color:#bd93f9">20</span>), owner <span style="color:#8be9fd">VARCHAR</span>(<span style="color:#bd93f9">20</span>),
+       species <span style="color:#8be9fd">VARCHAR</span>(<span style="color:#bd93f9">20</span>), sex <span style="color:#8be9fd">CHAR</span>(<span style="color:#bd93f9">1</span>), birth <span style="color:#8be9fd">DATE</span>, death <span style="color:#8be9fd">DATE</span>);
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SHOW</span> <span style="color:#ff79c6">TABLES</span>;
+<span style="color:#ff79c6">+---------------------+</span>
+<span style="color:#ff79c6">|</span> Tables_in_menagerie <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+---------------------+</span>
+<span style="color:#ff79c6">|</span> pet                 <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+---------------------+</span>
+<span style="color:#bd93f9">1</span> row <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+</code></pre></div><h3 id="查看表详细信息-describe-tablename"><strong>查看表详细信息 <code>DESCRIBE tableName</code></strong></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">DESCRIBE</span> pet;
+<span style="color:#ff79c6">+---------+-------------+------+-----+---------+-------+</span>
+<span style="color:#ff79c6">|</span> Field   <span style="color:#ff79c6">|</span> Type        <span style="color:#ff79c6">|</span> Null <span style="color:#ff79c6">|</span> <span style="color:#ff79c6">Key</span> <span style="color:#ff79c6">|</span> <span style="color:#ff79c6">Default</span> <span style="color:#ff79c6">|</span> Extra <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+---------+-------------+------+-----+---------+-------+</span>
+<span style="color:#ff79c6">|</span> name    <span style="color:#ff79c6">|</span> <span style="color:#8be9fd">varchar</span>(<span style="color:#bd93f9">20</span>) <span style="color:#ff79c6">|</span> YES  <span style="color:#ff79c6">|</span>     <span style="color:#ff79c6">|</span> NULL    <span style="color:#ff79c6">|</span>       <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> owner   <span style="color:#ff79c6">|</span> <span style="color:#8be9fd">varchar</span>(<span style="color:#bd93f9">20</span>) <span style="color:#ff79c6">|</span> YES  <span style="color:#ff79c6">|</span>     <span style="color:#ff79c6">|</span> NULL    <span style="color:#ff79c6">|</span>       <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> species <span style="color:#ff79c6">|</span> <span style="color:#8be9fd">varchar</span>(<span style="color:#bd93f9">20</span>) <span style="color:#ff79c6">|</span> YES  <span style="color:#ff79c6">|</span>     <span style="color:#ff79c6">|</span> NULL    <span style="color:#ff79c6">|</span>       <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> sex     <span style="color:#ff79c6">|</span> <span style="color:#8be9fd">char</span>(<span style="color:#bd93f9">1</span>)     <span style="color:#ff79c6">|</span> YES  <span style="color:#ff79c6">|</span>     <span style="color:#ff79c6">|</span> NULL    <span style="color:#ff79c6">|</span>       <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> birth   <span style="color:#ff79c6">|</span> <span style="color:#8be9fd">date</span>        <span style="color:#ff79c6">|</span> YES  <span style="color:#ff79c6">|</span>     <span style="color:#ff79c6">|</span> NULL    <span style="color:#ff79c6">|</span>       <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> death   <span style="color:#ff79c6">|</span> <span style="color:#8be9fd">date</span>        <span style="color:#ff79c6">|</span> YES  <span style="color:#ff79c6">|</span>     <span style="color:#ff79c6">|</span> NULL    <span style="color:#ff79c6">|</span>       <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+---------+-------------+------+-----+---------+-------+</span>
+<span style="color:#bd93f9">6</span> rows <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">01</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+</code></pre></div><h3 id="插入数据"><strong>插入数据</strong></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">INSERT</span> <span style="color:#ff79c6">INTO</span> pet
+    <span style="color:#ff79c6">-&gt;</span>        <span style="color:#ff79c6">VALUES</span> (<span style="color:#f1fa8c">&#39;Puffball&#39;</span>,<span style="color:#f1fa8c">&#39;Diane&#39;</span>,<span style="color:#f1fa8c">&#39;hamster&#39;</span>,<span style="color:#f1fa8c">&#39;f&#39;</span>,<span style="color:#f1fa8c">&#39;1999-03-30&#39;</span>,NULL);
+Query OK, <span style="color:#bd93f9">1</span> row <span style="color:#50fa7b">affected</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+</code></pre></div><h3 id="检索表中所有数据-select--from-tablenmae"><strong>检索表中所有数据 <code>SELECT * FROM tableNmae</code></strong></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">FROM</span> pet;
+<span style="color:#ff79c6">+----------+-------+---------+------+------------+-------+</span>
+<span style="color:#ff79c6">|</span> name     <span style="color:#ff79c6">|</span> owner <span style="color:#ff79c6">|</span> species <span style="color:#ff79c6">|</span> sex  <span style="color:#ff79c6">|</span> birth      <span style="color:#ff79c6">|</span> death <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+----------+-------+---------+------+------------+-------+</span>
+<span style="color:#ff79c6">|</span> puffball <span style="color:#ff79c6">|</span> Diane <span style="color:#ff79c6">|</span> hamster <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1999</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">03</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">30</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Puffball <span style="color:#ff79c6">|</span> Diane <span style="color:#ff79c6">|</span> hamster <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1999</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">03</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">30</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+----------+-------+---------+------+------------+-------+</span>
+<span style="color:#bd93f9">2</span> rows <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+</code></pre></div><h3 id="修改数据update"><strong>修改数据<code>UPDATE</code></strong></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">UPDATE</span> pet <span style="color:#8be9fd">SET</span> birth <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;1993-08-23&#39;</span> <span style="color:#ff79c6">WHERE</span> name <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;Claws1&#39;</span>;
+Query OK, <span style="color:#bd93f9">0</span> rows <span style="color:#50fa7b">affected</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+Rows matched: <span style="color:#bd93f9">1</span>  Changed: <span style="color:#bd93f9">0</span>  Warnings: <span style="color:#bd93f9">0</span>
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+</code></pre></div><h3 id="选择特定行"><strong>选择特定行</strong></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">FROM</span> pet <span style="color:#ff79c6">WHERE</span> name <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;Bowserl&#39;</span>;
+<span style="color:#ff79c6">+---------+---------+---------+------+------------+-------+</span>
+<span style="color:#ff79c6">|</span> name    <span style="color:#ff79c6">|</span> owner   <span style="color:#ff79c6">|</span> species <span style="color:#ff79c6">|</span> sex  <span style="color:#ff79c6">|</span> birth      <span style="color:#ff79c6">|</span> death <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+---------+---------+---------+------+------------+-------+</span>
+<span style="color:#ff79c6">|</span> Bowserl <span style="color:#ff79c6">|</span> Difanea <span style="color:#ff79c6">|</span> hamster <span style="color:#ff79c6">|</span> m    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">03</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">30</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+---------+---------+---------+------+------------+-------+</span>
+<span style="color:#bd93f9">1</span> row <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">FROM</span> pet <span style="color:#ff79c6">WHERE</span> birth <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;1991-05-19&#39;</span>;
+<span style="color:#ff79c6">+--------+--------+---------+------+------------+-------+</span>
+<span style="color:#ff79c6">|</span> name   <span style="color:#ff79c6">|</span> owner  <span style="color:#ff79c6">|</span> species <span style="color:#ff79c6">|</span> sex  <span style="color:#ff79c6">|</span> birth      <span style="color:#ff79c6">|</span> death <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+--------+--------+---------+------+------------+-------+</span>
+<span style="color:#ff79c6">|</span> Claws2 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws3 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws4 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws5 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws6 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws7 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws8 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws9 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws  <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+--------+--------+---------+------+------------+-------+</span>
+<span style="color:#bd93f9">9</span> rows <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+</code></pre></div><h3 id="也可以用and和or操作符">也可以用and和or操作符</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">FROM</span> pet <span style="color:#ff79c6">WHERE</span> name <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;Bowserl&#39;</span> <span style="color:#ff79c6">OR</span> name <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;Puffball&#39;</span>
+    <span style="color:#ff79c6">-&gt;</span> ;
+<span style="color:#ff79c6">+----------+---------+---------+------+------------+-------+</span>
+<span style="color:#ff79c6">|</span> name     <span style="color:#ff79c6">|</span> owner   <span style="color:#ff79c6">|</span> species <span style="color:#ff79c6">|</span> sex  <span style="color:#ff79c6">|</span> birth      <span style="color:#ff79c6">|</span> death <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+----------+---------+---------+------+------------+-------+</span>
+<span style="color:#ff79c6">|</span> Bowserl  <span style="color:#ff79c6">|</span> Difanea <span style="color:#ff79c6">|</span> hamster <span style="color:#ff79c6">|</span> m    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">03</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">30</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Puffball <span style="color:#ff79c6">|</span> Diane   <span style="color:#ff79c6">|</span> hamster <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1999</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">03</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">30</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+----------+---------+---------+------+------------+-------+</span>
+<span style="color:#bd93f9">2</span> rows <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">FROM</span> pet <span style="color:#ff79c6">WHERE</span> species <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;cat&#39;</span> <span style="color:#ff79c6">AND</span> sex <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;m&#39;</span>;
+<span style="color:#ff79c6">+--------+--------+---------+------+------------+-------+</span>
+<span style="color:#ff79c6">|</span> name   <span style="color:#ff79c6">|</span> owner  <span style="color:#ff79c6">|</span> species <span style="color:#ff79c6">|</span> sex  <span style="color:#ff79c6">|</span> birth      <span style="color:#ff79c6">|</span> death <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+--------+--------+---------+------+------------+-------+</span>
+<span style="color:#ff79c6">|</span> Claws4 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> m    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws7 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> m    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+--------+--------+---------+------+------------+-------+</span>
+<span style="color:#bd93f9">2</span> rows <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">FROM</span> pet <span style="color:#ff79c6">WHERE</span> (species <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;cat&#39;</span> <span style="color:#ff79c6">AND</span> sex <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;f&#39;</span>) <span style="color:#ff79c6">OR</span> (species <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;dog&#39;</span> <span style="color:#ff79c6">and</span> sex <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;f&#39;</span>);
+<span style="color:#ff79c6">+--------+--------+---------+------+------------+-------+</span>
+<span style="color:#ff79c6">|</span> name   <span style="color:#ff79c6">|</span> owner  <span style="color:#ff79c6">|</span> species <span style="color:#ff79c6">|</span> sex  <span style="color:#ff79c6">|</span> birth      <span style="color:#ff79c6">|</span> death <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+--------+--------+---------+------+------------+-------+</span>
+<span style="color:#ff79c6">|</span> Claws3 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> dog     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws5 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws8 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws9 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> dog     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws  <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+--------+--------+---------+------+------------+-------+</span>
+<span style="color:#bd93f9">5</span> rows <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+
+</code></pre></div><h3 id="选择特定列"><strong>选择特定列</strong></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span> name , birth <span style="color:#ff79c6">FROM</span> pet;
+<span style="color:#ff79c6">+----------+------------+</span>
+<span style="color:#ff79c6">|</span> name     <span style="color:#ff79c6">|</span> birth      <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+----------+------------+</span>
+<span style="color:#ff79c6">|</span> Bowserl  <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">03</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">30</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Puffball <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1999</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">03</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">30</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws1   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1993</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">08</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">23</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws2   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws3   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws4   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws5   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws6   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws7   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws8   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws9   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+----------+------------+</span>
+<span style="color:#bd93f9">12</span> rows <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+</code></pre></div><h3 id="过滤相同的distinct"><strong>过滤相同的<code>DISTINCT</code></strong></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span> <span style="color:#ff79c6">DISTINCT</span> owner <span style="color:#ff79c6">FROM</span> pet;
+<span style="color:#ff79c6">+---------+</span>
+<span style="color:#ff79c6">|</span> owner   <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+---------+</span>
+<span style="color:#ff79c6">|</span> Difanea <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Diane   <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> louwer  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+---------+</span>
+<span style="color:#bd93f9">3</span> rows <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+</code></pre></div><h3 id="where条件筛选"><strong><code>WHERE</code>条件筛选</strong></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span> name, species, birth <span style="color:#ff79c6">FROM</span> pet <span style="color:#ff79c6">WHERE</span> species <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;dog&#39;</span> <span style="color:#ff79c6">OR</span> species <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;cat&#39;</span>;
+<span style="color:#ff79c6">+--------+---------+------------+</span>
+<span style="color:#ff79c6">|</span> name   <span style="color:#ff79c6">|</span> species <span style="color:#ff79c6">|</span> birth      <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+--------+---------+------------+</span>
+<span style="color:#ff79c6">|</span> Claws3 <span style="color:#ff79c6">|</span> dog     <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws4 <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws5 <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws7 <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws8 <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws9 <span style="color:#ff79c6">|</span> dog     <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws  <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+--------+---------+------------+</span>
+<span style="color:#bd93f9">7</span> rows <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+
+</code></pre></div><h3 id="排序"><strong>排序</strong></h3>
+<h4 id="根据日期排序">根据日期排序</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span> name, birth <span style="color:#ff79c6">FROM</span> pet <span style="color:#ff79c6">ORDER</span> <span style="color:#ff79c6">BY</span> birth;
+<span style="color:#ff79c6">+----------+------------+</span>
+<span style="color:#ff79c6">|</span> name     <span style="color:#ff79c6">|</span> birth      <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+----------+------------+</span>
+<span style="color:#ff79c6">|</span> Bowserl  <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">03</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">30</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws3   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws7   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws8   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1992</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws2   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1993</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws1   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1993</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">08</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">23</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws4   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1996</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws9   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1996</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws6   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1997</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Puffball <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1999</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">03</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">30</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws5   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1999</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+----------+------------+</span>
+<span style="color:#bd93f9">12</span> rows <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+</code></pre></div><h4 id="倒序desc">倒序<code>DESC</code></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span> name, birth <span style="color:#ff79c6">FROM</span> pet <span style="color:#ff79c6">ORDER</span> <span style="color:#ff79c6">BY</span> birth <span style="color:#ff79c6">DESC</span>;
+<span style="color:#ff79c6">+----------+------------+</span>
+<span style="color:#ff79c6">|</span> name     <span style="color:#ff79c6">|</span> birth      <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+----------+------------+</span>
+<span style="color:#ff79c6">|</span> Claws5   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1999</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Puffball <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1999</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">03</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">30</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws6   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1997</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws4   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1996</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws9   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1996</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws1   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1993</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">08</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">23</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws2   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1993</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws8   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1992</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws3   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws7   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Bowserl  <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">03</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">30</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+----------+------------+</span>
+<span style="color:#bd93f9">12</span> rows <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+</code></pre></div><h4 id="多条件排序">多条件排序</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span> name, species, birth <span style="color:#ff79c6">FROM</span> pet
+    <span style="color:#ff79c6">-&gt;</span>        <span style="color:#ff79c6">ORDER</span> <span style="color:#ff79c6">BY</span> species, birth <span style="color:#ff79c6">DESC</span>;
+<span style="color:#ff79c6">+----------+---------+------------+</span>
+<span style="color:#ff79c6">|</span> name     <span style="color:#ff79c6">|</span> species <span style="color:#ff79c6">|</span> birth      <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+----------+---------+------------+</span>
+<span style="color:#ff79c6">|</span> Claws5   <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1999</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws4   <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1996</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws8   <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1992</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws7   <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws    <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws9   <span style="color:#ff79c6">|</span> dog     <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1996</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws3   <span style="color:#ff79c6">|</span> dog     <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Puffball <span style="color:#ff79c6">|</span> hamster <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1999</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">03</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">30</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws6   <span style="color:#ff79c6">|</span> hamster <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1997</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws2   <span style="color:#ff79c6">|</span> hamster <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1993</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Bowserl  <span style="color:#ff79c6">|</span> hamster <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">03</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">30</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws1   <span style="color:#ff79c6">|</span> has     <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1993</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">08</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">23</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+----------+---------+------------+</span>
+<span style="color:#bd93f9">12</span> rows <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+
+</code></pre></div><h3 id="日期计算"><strong>日期计算</strong></h3>
+<p>使用<code>TIMESTAMPDIFF()</code>方法来计算时间差，<code>CURDATE()</code> 当前时间</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span> name, birth, <span style="color:#50fa7b">CURDATE</span>(),<span style="color:#50fa7b">TIMESTAMPDIFF</span>(<span style="color:#8be9fd">YEAR</span>,birth,<span style="color:#50fa7b">CURDATE</span>()) <span style="color:#ff79c6">AS</span> age <span style="color:#ff79c6">FROM</span> pet;
+<span style="color:#ff79c6">+----------+------------+------------+------+</span>
+<span style="color:#ff79c6">|</span> name     <span style="color:#ff79c6">|</span> birth      <span style="color:#ff79c6">|</span> <span style="color:#50fa7b">CURDATE</span>()  <span style="color:#ff79c6">|</span> age  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+----------+------------+------------+------+</span>
+<span style="color:#ff79c6">|</span> Bowserl  <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">03</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">30</span> <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">2018</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">10</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">23</span> <span style="color:#ff79c6">|</span>   <span style="color:#bd93f9">27</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Puffball <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1999</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">03</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">30</span> <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">2018</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">10</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">23</span> <span style="color:#ff79c6">|</span>   <span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws1   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1993</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">08</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">23</span> <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">2018</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">10</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">23</span> <span style="color:#ff79c6">|</span>   <span style="color:#bd93f9">25</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws2   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1993</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">2018</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">10</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">23</span> <span style="color:#ff79c6">|</span>   <span style="color:#bd93f9">25</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws3   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">2018</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">10</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">23</span> <span style="color:#ff79c6">|</span>   <span style="color:#bd93f9">27</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws4   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1996</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">2018</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">10</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">23</span> <span style="color:#ff79c6">|</span>   <span style="color:#bd93f9">22</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws5   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1999</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">2018</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">10</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">23</span> <span style="color:#ff79c6">|</span>   <span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws6   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1997</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">2018</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">10</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">23</span> <span style="color:#ff79c6">|</span>   <span style="color:#bd93f9">21</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws7   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">2018</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">10</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">23</span> <span style="color:#ff79c6">|</span>   <span style="color:#bd93f9">27</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws8   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1992</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">2018</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">10</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">23</span> <span style="color:#ff79c6">|</span>   <span style="color:#bd93f9">26</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws9   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1996</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">2018</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">10</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">23</span> <span style="color:#ff79c6">|</span>   <span style="color:#bd93f9">22</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">2018</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">10</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">23</span> <span style="color:#ff79c6">|</span>   <span style="color:#bd93f9">27</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+----------+------------+------------+------+</span>
+<span style="color:#bd93f9">12</span> rows <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+
+</code></pre></div><h3 id="结果筛选和排序">结果筛选和排序</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span>  <span style="color:#ff79c6">SELECT</span> name, birth, death,
+    <span style="color:#ff79c6">-&gt;</span>        <span style="color:#50fa7b">TIMESTAMPDIFF</span>(<span style="color:#8be9fd">YEAR</span>,birth,death) <span style="color:#ff79c6">AS</span> age
+    <span style="color:#ff79c6">-&gt;</span>        <span style="color:#ff79c6">FROM</span> pet <span style="color:#ff79c6">WHERE</span> death <span style="color:#ff79c6">IS</span> <span style="color:#ff79c6">NOT</span> NULL <span style="color:#ff79c6">ORDER</span> <span style="color:#ff79c6">BY</span> age;
+<span style="color:#ff79c6">+--------+------------+------------+------+</span>
+<span style="color:#ff79c6">|</span> name   <span style="color:#ff79c6">|</span> birth      <span style="color:#ff79c6">|</span> death      <span style="color:#ff79c6">|</span> age  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+--------+------------+------------+------+</span>
+<span style="color:#ff79c6">|</span> Claws2 <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1993</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">2001</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">12</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">20</span> <span style="color:#ff79c6">|</span>    <span style="color:#bd93f9">8</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+--------+------------+------------+------+</span>
+<span style="color:#bd93f9">1</span> row <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+</code></pre></div><p>可用<code>YEAR(),MONTH(),DAYOFMONTH()</code>,来获取日期相关信息</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span> name, birth, <span style="color:#50fa7b">MONTH</span>(birth) <span style="color:#ff79c6">FROM</span> pet;
+<span style="color:#ff79c6">+----------+------------+--------------+</span>
+<span style="color:#ff79c6">|</span> name     <span style="color:#ff79c6">|</span> birth      <span style="color:#ff79c6">|</span> <span style="color:#50fa7b">MONTH</span>(birth) <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+----------+------------+--------------+</span>
+<span style="color:#ff79c6">|</span> Bowserl  <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">03</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">30</span> <span style="color:#ff79c6">|</span>            <span style="color:#bd93f9">3</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Puffball <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1999</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">03</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">30</span> <span style="color:#ff79c6">|</span>            <span style="color:#bd93f9">3</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws1   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1993</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">08</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">23</span> <span style="color:#ff79c6">|</span>            <span style="color:#bd93f9">8</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws2   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1993</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>            <span style="color:#bd93f9">5</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws3   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>            <span style="color:#bd93f9">5</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws4   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1996</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>            <span style="color:#bd93f9">5</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws5   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1999</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>            <span style="color:#bd93f9">5</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws6   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1997</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>            <span style="color:#bd93f9">5</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws7   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>            <span style="color:#bd93f9">5</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws8   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1992</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>            <span style="color:#bd93f9">5</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws9   <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1996</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>            <span style="color:#bd93f9">5</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>            <span style="color:#bd93f9">5</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+----------+------------+--------------+</span>
+<span style="color:#bd93f9">12</span> rows <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+
+</code></pre></div><p>筛选</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span> name , birth, <span style="color:#50fa7b">MONTH</span>(birth) <span style="color:#ff79c6">FROM</span> pet <span style="color:#ff79c6">WHERE</span> <span style="color:#50fa7b">MONTH</span>(birth) <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;5&#39;</span>;
+<span style="color:#ff79c6">+--------+------------+--------------+</span>
+<span style="color:#ff79c6">|</span> name   <span style="color:#ff79c6">|</span> birth      <span style="color:#ff79c6">|</span> <span style="color:#50fa7b">MONTH</span>(birth) <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+--------+------------+--------------+</span>
+<span style="color:#ff79c6">|</span> Claws2 <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1993</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>            <span style="color:#bd93f9">5</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws3 <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>            <span style="color:#bd93f9">5</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws4 <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1996</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>            <span style="color:#bd93f9">5</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws5 <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1999</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>            <span style="color:#bd93f9">5</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws6 <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1997</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>            <span style="color:#bd93f9">5</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws7 <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>            <span style="color:#bd93f9">5</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws8 <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1992</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>            <span style="color:#bd93f9">5</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws9 <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1996</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>            <span style="color:#bd93f9">5</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws  <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span>            <span style="color:#bd93f9">5</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+--------+------------+--------------+</span>
+<span style="color:#bd93f9">9</span> rows <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+
+</code></pre></div><h3 id="null值"><strong>NULL值</strong></h3>
+<p>用<code>IS NULL</code> 和 <code>IS NOT NULL</code> 判断</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">IS</span> NULL, <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">IS</span> <span style="color:#ff79c6">NOT</span> NULL;
+<span style="color:#ff79c6">+-----------+---------------+</span>
+<span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">IS</span> NULL <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">IS</span> <span style="color:#ff79c6">NOT</span> NULL <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+-----------+---------------+</span>
+<span style="color:#ff79c6">|</span>         <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">|</span>             <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+-----------+---------------+</span>
+<span style="color:#bd93f9">1</span> row <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+</code></pre></div><h3 id="模式匹配"><strong>模式匹配</strong></h3>
+<p><code>WHERE name LIKE '_码_'</code>	#name是3个字符并且中间是‘码’字</p>
+<p><code>WHERE name LIKE '___'</code>	#name是3个字符</p>
+<p><code>WHERE name LIKE '李%'</code> #name以’李‘字开头</p>
+<p><code>WHERE name LIKE '_码%'</code>	#name的第二个字符是’码&rsquo;字</p>
+<p><code>WHERE name LIKE '%码%'</code>#name中包含‘码’字</p>
+<p>使用%加字符来进行匹配</p>
+<p>查找name以b开头的，字符写前面</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">FROM</span> pet <span style="color:#ff79c6">WHERE</span> name <span style="color:#ff79c6">LIKE</span> <span style="color:#f1fa8c">&#39;b%&#39;</span>;
+<span style="color:#ff79c6">+---------+---------+---------+------+------------+-------+</span>
+<span style="color:#ff79c6">|</span> name    <span style="color:#ff79c6">|</span> owner   <span style="color:#ff79c6">|</span> species <span style="color:#ff79c6">|</span> sex  <span style="color:#ff79c6">|</span> birth      <span style="color:#ff79c6">|</span> death <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+---------+---------+---------+------+------------+-------+</span>
+<span style="color:#ff79c6">|</span> Bowserl <span style="color:#ff79c6">|</span> Difanea <span style="color:#ff79c6">|</span> hamster <span style="color:#ff79c6">|</span> m    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">03</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">30</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Buffy   <span style="color:#ff79c6">|</span> louwer  <span style="color:#ff79c6">|</span> has     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1993</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">08</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">23</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+---------+---------+---------+------+------------+-------+</span>
+<span style="color:#bd93f9">2</span> rows <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+</code></pre></div><p>以fy结尾的，字符写后面</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">FROM</span> pet <span style="color:#ff79c6">WHERE</span> name <span style="color:#ff79c6">LIKE</span> <span style="color:#f1fa8c">&#39;%fy&#39;</span>;
+<span style="color:#ff79c6">+-------+--------+---------+------+------------+-------+</span>
+<span style="color:#ff79c6">|</span> name  <span style="color:#ff79c6">|</span> owner  <span style="color:#ff79c6">|</span> species <span style="color:#ff79c6">|</span> sex  <span style="color:#ff79c6">|</span> birth      <span style="color:#ff79c6">|</span> death <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+-------+--------+---------+------+------------+-------+</span>
+<span style="color:#ff79c6">|</span> Buffy <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> has     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1993</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">08</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">23</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+-------+--------+---------+------+------------+-------+</span>
+<span style="color:#bd93f9">1</span> row <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+</code></pre></div><p>包含aw的字符串 ，字符写中间</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">FROM</span> pet <span style="color:#ff79c6">WHERE</span> name <span style="color:#ff79c6">LIKE</span> <span style="color:#f1fa8c">&#39;%aw%&#39;</span>;
+<span style="color:#ff79c6">+--------+--------+---------+------+------------+------------+</span>
+<span style="color:#ff79c6">|</span> name   <span style="color:#ff79c6">|</span> owner  <span style="color:#ff79c6">|</span> species <span style="color:#ff79c6">|</span> sex  <span style="color:#ff79c6">|</span> birth      <span style="color:#ff79c6">|</span> death      <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+--------+--------+---------+------+------------+------------+</span>
+<span style="color:#ff79c6">|</span> Claws2 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> hamster <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1993</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">2001</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">12</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">20</span> <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws3 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> dog     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL       <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws4 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> m    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1996</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL       <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws5 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1999</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL       <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws6 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> hamster <span style="color:#ff79c6">|</span> m    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1997</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL       <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws7 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> m    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL       <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws8 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1992</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL       <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws9 <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> dog     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1996</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL       <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws  <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL       <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+--------+--------+---------+------+------------+------------+</span>
+<span style="color:#bd93f9">9</span> rows <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+</code></pre></div><p>找出名字包含5个字符的用五个<code>_</code>组成</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">FROM</span> pet <span style="color:#ff79c6">WHERE</span> name <span style="color:#ff79c6">LIKE</span> <span style="color:#f1fa8c">&#39;_____&#39;</span>;
+<span style="color:#ff79c6">+-------+--------+---------+------+------------+-------+</span>
+<span style="color:#ff79c6">|</span> name  <span style="color:#ff79c6">|</span> owner  <span style="color:#ff79c6">|</span> species <span style="color:#ff79c6">|</span> sex  <span style="color:#ff79c6">|</span> birth      <span style="color:#ff79c6">|</span> death <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+-------+--------+---------+------+------------+-------+</span>
+<span style="color:#ff79c6">|</span> Buffy <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> has     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1993</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">08</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">23</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> Claws <span style="color:#ff79c6">|</span> louwer <span style="color:#ff79c6">|</span> cat     <span style="color:#ff79c6">|</span> f    <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1991</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">05</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">19</span> <span style="color:#ff79c6">|</span> NULL  <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+-------+--------+---------+------+------------+-------+</span>
+<span style="color:#bd93f9">2</span> rows <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+</code></pre></div>
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/04/23/swiftRXSiwft1/" data-toggle="tooltip" data-placement="top" title="RXSwift - 原理分析">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/10/23/MySqlLeaning03/" data-toggle="tooltip" data-placement="top" title="MySQL(三) - 数据多表查询">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/go" title="go">
+                            go
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ios" title="ios">
+                            ios
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                            mysql
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/swift" title="swift">
+                            swift
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+                <section>
+                    <hr>
+                    <h5>FRIENDS</h5>
+                    <ul class="list-inline">
+                        
+                    </ul>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Cheng Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:401932941@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/luckyliang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Cheng Blog 2017
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>

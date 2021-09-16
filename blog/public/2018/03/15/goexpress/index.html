@@ -10,8 +10,8 @@
     <meta property="og:type" content="article">
 
     
-    <meta property="og:image" content="https://luckyliang.github.io/img/home-bg-jeep.jpg">
-    <meta property="twitter:image" content="https://luckyliang.github.io/img/home-bg-jeep.jpg" />
+    <meta property="og:image" content="http://lruoheng.com/img/home-bg-jeep.jpg">
+    <meta property="twitter:image" content="http://lruoheng.com/img/home-bg-jeep.jpg" />
     
 
     
@@ -39,45 +39,32 @@
     <link rel="canonical" href="/2018/03/15/goExpress/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
-	
+
     
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     
-    <link rel="stylesheet" href="/css/hux-blog.min.css">
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
 
-    
-    <link rel="stylesheet" href="/css/syntax.css">
-    
     
     <link rel="stylesheet" href="/css/zanshang.css">
-    
-    
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     
-    <link rel="stylesheet" href="https://luckyliang.github.io/css/tomorrow-night-eighties.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"><link rel="stylesheet" href="https://luckyliang.github.io/css/main.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+    
+    
 
     
     
     <script src="/js/jquery.min.js"></script>
-    
-    
-    <script src="/js/bootstrap.min.js"></script>
-    
-    
-    <script src="/js/hux-blog.min.js"></script>
-  
-    
-    
-    <script src="/js/preetyCode.js"></script>
 
     
+    <script src="/js/bootstrap.min.js"></script>
+
     
-    
-    
-    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-        
+    <script src="/js/hux-blog.min.js"></script>
+
     
     
 
@@ -85,7 +72,9 @@
 
 
 
+
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
     <div class="container-fluid">
         
         <div class="navbar-header page-scroll">
@@ -121,6 +110,14 @@
                         </li>
                         
                         <li>
+                            <a href="/categories/other">other</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
                             <a href="/categories/web">web</a>
                         </li>
                         
@@ -131,15 +128,9 @@
                     
                     
 		    
-                        <li><a href="/top/books/">BOOKS</a></li>
-                    
                         <li><a href="/top/about/">ABOUT</a></li>
                     
 
-                    
-		    <li>
-                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
-		    </li>
                     
                 </ul>
             </div>
@@ -185,7 +176,9 @@
         background-image: url('https://img.zhaohuabing.com/in-post/2018-04-11-service-mesh-vs-api-gateway/background.jpg')
     }
 </style>
-<header class="intro-header">
+
+<header class="intro-header" >
+
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -200,15 +193,17 @@
                     <h1>go - 正则表达式</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
-                        Posted by 
                         
-                            Cheng
-                         
-                        on 
-                        Thursday, March 15, 2018
-                        
-                        
-                        
+                            Posted by 
+                            
+                                Cheng
+                             
+                            on 
+                            Thursday, March 15, 2018
+                            
+                            
+                            
+                            
                     </span>
                 </div>
             </div>
@@ -234,33 +229,19 @@
                     <h2>TOC</h2>
                 </header>
                 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#正则的使用">正则的使用</a>
-<ul>
-<li><a href="#2-1-常用的方法以及说明">2.1 常用的方法以及说明</a></li>
-</ul></li>
-<li><a href="#正则的规则">正则的规则</a>
-<ul>
-<li><a href="#一般符号和特殊符号">一般符号和特殊符号</a></li>
-<li><a href="#数量词">数量词</a></li>
-<li><a href="#边界问题">边界问题</a></li>
-<li><a href="#分组">分组</a></li>
-<li><a href="#贪婪和非贪婪">贪婪和非贪婪</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#正则的使用">正则的使用</a></li>
+        <li><a href="#正则的规则">正则的规则</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                 
-                
-
-<h2 id="正则的使用">正则的使用</h2>
-
+                <h2 id="正则的使用">正则的使用</h2>
 <p>golang中的正则和其他语言的用法，没有太多的差别。只是方法上稍微不同。</p>
-
-<h3 id="2-1-常用的方法以及说明">2.1 常用的方法以及说明</h3>
-
+<h3 id="21-常用的方法以及说明">2.1 常用的方法以及说明</h3>
 <pre><code>//判断在 b（s、r）中能否找到 pattern 所匹配的字符串 
 func Match(pattern string, b []byte) (matched bool, err error)
 func MatchString(pattern string, s string) (matched bool, err error)
@@ -398,18 +379,16 @@ func (re *Regexp) Split(s string, n int) []string
 // 将当前正则对象复制一份。在多例程中使用同一正则对象时，给每个例程分配一个
 // 正则对象的副本，可以避免多例程对单个正则对象的争夺锁定。
 func (re *Regexp) Copy() *Regexp
-</code></pre>
-
-<p>操作步骤：</p>
-
+</code></pre><p>操作步骤：</p>
 <ol>
-<li><p>导入<code>regexp</code>包，获取<code>regexp</code>对象 <code>re,err := regexp.Compile(&quot;hanru723@163.com&quot;) re := regexp.MustCompile(&quot;hanru723@163.com&quot;)</code></p></li>
-
-<li><p>调用方法<code>match := re.FindString(text)</code>查找一个<code>match := re.FindAllString(text,-1)</code>-1代表查找所有</p></li>
+<li>
+<p>导入<code>regexp</code>包，获取<code>regexp</code>对象 <code>re,err := regexp.Compile(&quot;hanru723@163.com&quot;) re := regexp.MustCompile(&quot;hanru723@163.com&quot;)</code></p>
+</li>
+<li>
+<p>调用方法<code>match := re.FindString(text)</code>查找一个<code>match := re.FindAllString(text,-1)</code>-1代表查找所有</p>
+</li>
 </ol>
-
 <p>获取满足正则表达式的一个文本</p>
-
 <pre><code>package main
 
 import (
@@ -426,10 +405,7 @@ func main() {
 
     fmt.Println(match)
 }
-</code></pre>
-
-<p>获取所有满足正则表达式的文本</p>
-
+</code></pre><p>获取所有满足正则表达式的文本</p>
 <pre><code>package main
 
 import (
@@ -452,17 +428,11 @@ email is kongyixueyuan@cldy.org.cn
     fmt.Println(match)
 
 }
-</code></pre>
-
-<pre><code>注意：``使用这种定义方式，\等可能不会转义。使用&quot;&quot;，会被go语言转义。
+</code></pre><pre><code>注意：``使用这种定义方式，\等可能不会转义。使用&quot;&quot;，会被go语言转义。
 ``[a-zA-Z0-9]+@[a-zA-Z0-9.]+\.[a-zA-Z0-9]+``
 &quot;`[a-zA-Z0-9]+@[a-zA-Z0-9.]+\\.[a-zA-Z0-9]+`&quot;
-</code></pre>
-
-<h2 id="正则的规则">正则的规则</h2>
-
+</code></pre><h2 id="正则的规则">正则的规则</h2>
 <h3 id="一般符号和特殊符号">一般符号和特殊符号</h3>
-
 <pre><code>正则的规则：
 一.一般的符号
   1.字面量
@@ -479,10 +449,7 @@ email is kongyixueyuan@cldy.org.cn
     4.\W,与\w相反，非[a-zA-Z0-9_]
     5.\s,匹配空白字符。即空格，tab键,\n,\r等
     6.\b,单词边界
-</code></pre>
-
-<p>示例代码：</p>
-
+</code></pre><p>示例代码：</p>
 <pre><code>package main
 
 import (
@@ -552,20 +519,14 @@ func main() {
     fmt.Println(b19)
 }
 运行结果：
-</code></pre>
-
-<h3 id="数量词">数量词</h3>
-
+</code></pre><h3 id="数量词">数量词</h3>
 <pre><code>1.*，出现的次数是0次或多次
 2.+,出现的次数是1次或多次
 3.?,出现的次数是0次或1次
 4.{M}，出现的次数刚好是m次
 5.{M,},至少M次
 6.{M,N},至少m次，至多n次
-</code></pre>
-
-<p>示例代码：</p>
-
+</code></pre><p>示例代码：</p>
 <pre><code>package main
 import (
     &quot;regexp&quot;
@@ -674,16 +635,10 @@ true
     \\--&gt;\
     \.--&gt;.
     \w,\d,\s,\b....--&gt;正则中规定的字符
-</code></pre>
-
-<h3 id="边界问题">边界问题</h3>
-
+</code></pre><h3 id="边界问题">边界问题</h3>
 <pre><code>1.^,表示匹配的起始位置
 2.$,表示结束的位置
-</code></pre>
-
-<p>示例代码：</p>
-
+</code></pre><p>示例代码：</p>
 <pre><code>package main
 
 import (
@@ -717,10 +672,7 @@ func main() {
     fmt.Println(regexp.MustCompile(`^\w+\sve\b`).FindString(`ho ve r`))    //ho ve
 
 }
-</code></pre>
-
-<h3 id="分组">分组</h3>
-
+</code></pre><h3 id="分组">分组</h3>
 <pre><code>    1.|,或者的意思
         a|b,a或者b
     2.(),代表了分组
@@ -731,10 +683,7 @@ func main() {
     4.(?P&lt;name&gt;),给分组起别名
     5.(?P=name),引用分组
         P字母大写
-</code></pre>
-
-<p>示例代码：</p>
-
+</code></pre><p>示例代码：</p>
 <pre><code>package main
 
 import (
@@ -800,22 +749,14 @@ func main() {
     fmt.Println(res2)
 
 }
-</code></pre>
-
-<blockquote>
+</code></pre><blockquote>
 <p>golang的正则表达式不支持backreference。所以我们在写的时候不能反向引用分组，据说是golang牺牲了性能保证效率。</p>
 </blockquote>
-
 <h3 id="贪婪和非贪婪">贪婪和非贪婪</h3>
-
 <p>贪婪和非贪婪 1.贪婪：在使用数量词的时候，默认的就是贪婪模式 贪婪模式：意思是说，匹配的时候，尽可能多匹配。，不行再少</p>
-
 <p>2.非贪婪：也叫懒惰模式 非贪婪，尽可能少的匹配，不满足规则再增加</p>
-
 <p>启动费贪婪：数量词后加？</p>
-
 <p>示例代码：</p>
-
 <pre><code>package main
 
 import (
@@ -854,47 +795,6 @@ func main() {
 
 }
 </code></pre>
-
-
-                
-                
-<div class="entry-shang text-center">
-    
-	    <p>「真诚赞赏，手留余香」</p>
-	
-	<button class="zs show-zs btn btn-bred">赞赏支持</button>
-</div>
-<div class="zs-modal-bg"></div>
-<div class="zs-modal-box">
-	<div class="zs-modal-head">
-		<button type="button" class="close">×</button>
-		<span class="author"><a href="https://luckyliang.github.io"><img src="/img/favicon.png" />Cheng Blog</a></span>
-        
-	        <p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
-		
- 
-	</div>
-	<div class="zs-modal-body">
-		<div class="zs-modal-btns">
-			<button class="btn btn-blink" data-num="2">2元</button>
-			<button class="btn btn-blink" data-num="5">5元</button>
-			<button class="btn btn-blink" data-num="10">10元</button>
-			<button class="btn btn-blink" data-num="50">50元</button>
-			<button class="btn btn-blink" data-num="100">100元</button>
-			<button class="btn btn-blink" data-num="1">任意金额</button>
-		</div>
-		<div class="zs-modal-pay">
-			<button class="btn btn-bred" id="pay-text">2元</button>
-			<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
-			<img src="/img/reward/wechat-2.png"  id="pay-image"/>
-		</div>
-	</div>
-	<div class="zs-modal-footer">
-		<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
-		<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
-	</div>
-</div>
-<script type="text/javascript" src="/js/reward.js"></script>
 
                 
 
@@ -935,6 +835,8 @@ func main() {
                         
                         
                         
+                        
+                        
                         <a href="/tags/go" title="go">
                             go
                         </a>
@@ -947,11 +849,11 @@ func main() {
                         
                         
                         
-                        <a href="/tags/java" title="java">
-                            java
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                            mysql
                         </a>
-                        
-                        
                         
                         
                         
@@ -962,6 +864,10 @@ func main() {
                         <a href="/tags/swift" title="swift">
                             swift
                         </a>
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -1001,23 +907,23 @@ func main() {
                    <li>
                        <a href='' rel="alternate" type="application/rss+xml" title="Cheng Blog" >
                            <span class="fa-stack fa-lg">
-                               <i class="fa fa-circle fa-stack-2x"></i>
-                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
                            </span>
                        </a>
                    </li>
                    
                     
                     <li>
-                        <a href="mailto:401932941@qq.com">
+                        <a href="mailto:401932941@gmail.com">
                             <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
 		    
-                    
+
                     
                     
                     
@@ -1028,10 +934,10 @@ func main() {
                     
                     
                     <li>
-                        <a target="_blank" href="https://github.com/LuckyLiang">
+                        <a target="_blank" href="https://github.com/luckyliang">
                             <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -1045,8 +951,19 @@ func main() {
                     
                     
             
+            
+            
                 </ul>
-		
+		<p class="copyright text-muted">
+                    Copyright &copy; Cheng Blog 2017
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
             </div>
         </div>
     </div>
@@ -1056,7 +973,7 @@ func main() {
 
 
 <script>
-    function async(u, c) {
+    function loadAsync(u, c) {
       var d = document, t = 'script',
           o = d.createElement(t),
           s = d.getElementsByTagName(t)[0];
@@ -1074,7 +991,7 @@ func main() {
 <script>
     
     if($('#tag_cloud').length !== 0){
-        async("/js/jquery.tagcloud.js",function(){
+        loadAsync("/js/jquery.tagcloud.js",function(){
             $.fn.tagcloud.defaults = {
                 
                 color: {start: '#bbbbee', end: '#0085a1'},
@@ -1086,7 +1003,7 @@ func main() {
 
 
 <script>
-    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+    loadAsync("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
         var $nav = document.querySelector("nav");
         if($nav) FastClick.attach($nav);
     })

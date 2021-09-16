@@ -10,8 +10,8 @@
     <meta property="og:type" content="article">
 
     
-    <meta property="og:image" content="https://luckyliang.github.io/img/home-bg-jeep.jpg">
-    <meta property="twitter:image" content="https://luckyliang.github.io/img/home-bg-jeep.jpg" />
+    <meta property="og:image" content="http://lruoheng.com/img/home-bg-jeep.jpg">
+    <meta property="twitter:image" content="http://lruoheng.com/img/home-bg-jeep.jpg" />
     
 
     
@@ -39,45 +39,32 @@
     <link rel="canonical" href="/2018/02/08/goInterface/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
-	
+
     
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     
-    <link rel="stylesheet" href="/css/hux-blog.min.css">
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
 
-    
-    <link rel="stylesheet" href="/css/syntax.css">
-    
     
     <link rel="stylesheet" href="/css/zanshang.css">
-    
-    
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     
-    <link rel="stylesheet" href="https://luckyliang.github.io/css/tomorrow-night-eighties.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"><link rel="stylesheet" href="https://luckyliang.github.io/css/main.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+    
+    
 
     
     
     <script src="/js/jquery.min.js"></script>
-    
-    
-    <script src="/js/bootstrap.min.js"></script>
-    
-    
-    <script src="/js/hux-blog.min.js"></script>
-  
-    
-    
-    <script src="/js/preetyCode.js"></script>
 
     
+    <script src="/js/bootstrap.min.js"></script>
+
     
-    
-    
-    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-        
+    <script src="/js/hux-blog.min.js"></script>
+
     
     
 
@@ -85,7 +72,9 @@
 
 
 
+
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
     <div class="container-fluid">
         
         <div class="navbar-header page-scroll">
@@ -121,6 +110,14 @@
                         </li>
                         
                         <li>
+                            <a href="/categories/other">other</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
                             <a href="/categories/web">web</a>
                         </li>
                         
@@ -131,15 +128,9 @@
                     
                     
 		    
-                        <li><a href="/top/books/">BOOKS</a></li>
-                    
                         <li><a href="/top/about/">ABOUT</a></li>
                     
 
-                    
-		    <li>
-                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
-		    </li>
                     
                 </ul>
             </div>
@@ -185,7 +176,9 @@
         background-image: url('https://img.zhaohuabing.com/in-post/2018-04-11-service-mesh-vs-api-gateway/background.jpg')
     }
 </style>
-<header class="intro-header">
+
+<header class="intro-header" >
+
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -200,15 +193,17 @@
                     <h1>Go 学习笔记（六） - 接口</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
-                        Posted by 
                         
-                            Cheng
-                         
-                        on 
-                        Thursday, February 8, 2018
-                        
-                        
-                        
+                            Posted by 
+                            
+                                Cheng
+                             
+                            on 
+                            Thursday, February 8, 2018
+                            
+                            
+                            
+                            
                     </span>
                 </div>
             </div>
@@ -234,484 +229,382 @@
                     <h2>TOC</h2>
                 </header>
                 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#接口的定义语法">接口的定义语法</a></li>
-<li><a href="#实现接口的条件">实现接口的条件</a></li>
-<li><a href="#空接口">空接口</a></li>
-<li><a href="#interface值">interface值</a></li>
-<li><a href="#警告-一个包含nil指针的接口不是nil接口">警告：一个包含nil指针的接口不是nil接口</a></li>
-<li><a href="#判断接口的实际类型">判断接口的实际类型</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                 
-                
-
-<p>在Go中，接口是一组方法签名。当类型为接口中的所有方法提供定义时，它被称为实现接口。</p>
-
+                <p>在Go中，接口是一组方法签名。当类型为接口中的所有方法提供定义时，它被称为实现接口。</p>
 <h3 id="接口的定义语法">接口的定义语法</h3>
-
 <p>定义接口</p>
-
-<pre><code class="language-go">/* 定义接口 */
-type interface_name interface {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#6272a4">/* 定义接口 */</span>
+<span style="color:#8be9fd;font-style:italic">type</span> interface_name <span style="color:#8be9fd;font-style:italic">interface</span> {
    method_name1 [return_type]
    method_name2 [return_type]
    method_name3 [return_type]
-   ...
+   <span style="color:#ff79c6">...</span>
    method_namen [return_type]
 }
 
-/* 定义结构体 */
-type struct_name struct {
-   /* variables */
+<span style="color:#6272a4">/* 定义结构体 */</span>
+<span style="color:#8be9fd;font-style:italic">type</span> struct_name <span style="color:#8be9fd;font-style:italic">struct</span> {
+   <span style="color:#6272a4">/* variables */</span>
 }
 
-/* 实现接口方法 */
-func (struct_name_variable struct_name) method_name1() [return_type] {
-   /* 方法实现 */
+<span style="color:#6272a4">/* 实现接口方法 */</span>
+<span style="color:#8be9fd;font-style:italic">func</span> (struct_name_variable struct_name) <span style="color:#50fa7b">method_name1</span>() [return_type] {
+   <span style="color:#6272a4">/* 方法实现 */</span>
 }
-...
-func (struct_name_variable struct_name) method_namen() [return_type] {
-   /* 方法实现*/
+<span style="color:#ff79c6">...</span>
+<span style="color:#8be9fd;font-style:italic">func</span> (struct_name_variable struct_name) <span style="color:#50fa7b">method_namen</span>() [return_type] {
+   <span style="color:#6272a4">/* 方法实现*/</span>
 }
-</code></pre>
+</code></pre></div><p>示例代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">package</span> main
 
-<p>示例代码：</p>
-
-<pre><code class="language-go">package main
-
-import (
-    &quot;fmt&quot;
+<span style="color:#ff79c6">import</span> (
+    <span style="color:#f1fa8c">&#34;fmt&#34;</span>
 )
 
-type Phone interface {
-    call()
+<span style="color:#8be9fd;font-style:italic">type</span> Phone <span style="color:#8be9fd;font-style:italic">interface</span> {
+    <span style="color:#50fa7b">call</span>()
 }
 
-type NokiaPhone struct {
+<span style="color:#8be9fd;font-style:italic">type</span> NokiaPhone <span style="color:#8be9fd;font-style:italic">struct</span> {
 }
 
-func (nokiaPhone NokiaPhone) call() {
-    fmt.Println(&quot;I am Nokia, I can call you!&quot;)
+<span style="color:#8be9fd;font-style:italic">func</span> (nokiaPhone NokiaPhone) <span style="color:#50fa7b">call</span>() {
+    fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;I am Nokia, I can call you!&#34;</span>)
 }
 
-type IPhone struct {
+<span style="color:#8be9fd;font-style:italic">type</span> IPhone <span style="color:#8be9fd;font-style:italic">struct</span> {
 }
 
-func (iPhone IPhone) call() {
-    fmt.Println(&quot;I am iPhone, I can call you!&quot;)
+<span style="color:#8be9fd;font-style:italic">func</span> (iPhone IPhone) <span style="color:#50fa7b">call</span>() {
+    fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;I am iPhone, I can call you!&#34;</span>)
 }
 
-func main() {
-    var phone Phone
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>() {
+    <span style="color:#8be9fd;font-style:italic">var</span> phone Phone
 
-    phone = new(NokiaPhone)
-    phone.call()
+    phone = <span style="color:#8be9fd;font-style:italic">new</span>(NokiaPhone)
+    phone.<span style="color:#50fa7b">call</span>()
 
-    phone = new(IPhone)
-    phone.call()
+    phone = <span style="color:#8be9fd;font-style:italic">new</span>(IPhone)
+    phone.<span style="color:#50fa7b">call</span>()
 
 }
-</code></pre>
-
-<p>运行结果：</p>
-
-<pre><code class="language-go">I am Nokia, I can call you!
+</code></pre></div><p>运行结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">I am Nokia, I can call you!
 I am iPhone, I can call you!
-</code></pre>
-
-<h3 id="实现接口的条件">实现接口的条件</h3>
-
+</code></pre></div><h3 id="实现接口的条件">实现接口的条件</h3>
 <p>一个类型如果拥有一个接口需要的<strong>所有方法</strong>，那么这个类型就实现了这个接口。</p>
-
 <p>例如，<code>*os.File</code>类型实现了<code>io.Reader</code>，<code>Writer</code>，<code>Closer</code>，和<code>ReadWriter</code>接口。<code>*bytes.Buffer</code>实现了<code>Reader</code>，<code>Writer</code>, 和<code>ReadWriter</code>这些接口</p>
-
 <p>接口指定的规则非常简单：表达一个类型属于某个接口只要这个类型实现这个接口。所以：</p>
-
-<pre><code class="language-go">var w io.Writer
-w = os.Stdout           // OK: *os.File has Write method
-w = new(bytes.Buffer)   // OK: *bytes.Buffer has Write method
-w = time.Second         // compile error: time.Duration lacks Write method
-
-var rwc io.ReadWriteCloser
-rwc = os.Stdout         // OK: *os.File has Read, Write, Close methods
-rwc = new(bytes.Buffer) // compile error: *bytes.Buffer lacks Close meth
-</code></pre>
-
-<p>这个规则甚至适用于等式右边本身也是一个接口类型</p>
-
-<pre><code class="language-go">w = rwc                 // OK: io.ReadWriteCloser has Write method
-rwc = w                 // compile error: io.Writer lacks Close method
-</code></pre>
-
-<h3 id="空接口">空接口</h3>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">var</span> w io.Writer
+w = os.Stdout           <span style="color:#6272a4">// OK: *os.File has Write method
+</span><span style="color:#6272a4"></span>w = <span style="color:#8be9fd;font-style:italic">new</span>(bytes.Buffer)   <span style="color:#6272a4">// OK: *bytes.Buffer has Write method
+</span><span style="color:#6272a4"></span>w = time.Second         <span style="color:#6272a4">// compile error: time.Duration lacks Write method
+</span><span style="color:#6272a4"></span>
+<span style="color:#8be9fd;font-style:italic">var</span> rwc io.ReadWriteCloser
+rwc = os.Stdout         <span style="color:#6272a4">// OK: *os.File has Read, Write, Close methods
+</span><span style="color:#6272a4"></span>rwc = <span style="color:#8be9fd;font-style:italic">new</span>(bytes.Buffer) <span style="color:#6272a4">// compile error: *bytes.Buffer lacks Close meth
+</span></code></pre></div><p>这个规则甚至适用于等式右边本身也是一个接口类型</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">w = rwc                 <span style="color:#6272a4">// OK: io.ReadWriteCloser has Write method
+</span><span style="color:#6272a4"></span>rwc = w                 <span style="color:#6272a4">// compile error: io.Writer lacks Close method
+</span></code></pre></div><h3 id="空接口">空接口</h3>
 <p>使用空接口，可以实现各种类型的对象存储。</p>
-
 <p>使用空接口，接收任意类型作为参数。也就是任意类型都可实现空接口</p>
-
-<pre><code class="language-go">
-type Dog struct {
-    age int
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">
+<span style="color:#8be9fd;font-style:italic">type</span> Dog <span style="color:#8be9fd;font-style:italic">struct</span> {
+    age <span style="color:#8be9fd">int</span>
 }
 
-type Cat struct{
-    weigh float64
+<span style="color:#8be9fd;font-style:italic">type</span> Cat <span style="color:#8be9fd;font-style:italic">struct</span>{
+    weigh <span style="color:#8be9fd">float64</span>
 }
 
-type Animal1 interface {
+<span style="color:#8be9fd;font-style:italic">type</span> Animal1 <span style="color:#8be9fd;font-style:italic">interface</span> {
 
 }
 
-//使用空接口，接收任意类型作为参数
-func info(v interface{})  {
-    fmt.Println(v)
+<span style="color:#6272a4">//使用空接口，接收任意类型作为参数
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">info</span>(v <span style="color:#8be9fd;font-style:italic">interface</span>{})  {
+    fmt.<span style="color:#50fa7b">Println</span>(v)
 }
 
 
-func main()  {
-    /*
-    使用空接口，可以实现各种类型的对象存储。
-     */
-    d1:= Dog{1}
-    d2 := Dog{2}
-    c1 :=Cat{3.2}
-    c2:=Cat{3.5}
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>()  {
+    <span style="color:#6272a4">/*
+</span><span style="color:#6272a4">    使用空接口，可以实现各种类型的对象存储。
+</span><span style="color:#6272a4">     */</span>
+    d1<span style="color:#ff79c6">:=</span> Dog{<span style="color:#bd93f9">1</span>}
+    d2 <span style="color:#ff79c6">:=</span> Dog{<span style="color:#bd93f9">2</span>}
+    c1 <span style="color:#ff79c6">:=</span>Cat{<span style="color:#bd93f9">3.2</span>}
+    c2<span style="color:#ff79c6">:=</span>Cat{<span style="color:#bd93f9">3.5</span>}
 
-    animals:=[4] Animal1{d1,d2,c1,c2}
-    fmt.Println(animals)
+    animals<span style="color:#ff79c6">:=</span>[<span style="color:#bd93f9">4</span>] Animal1{d1,d2,c1,c2}
+    fmt.<span style="color:#50fa7b">Println</span>(animals)
 
 
-    info(d1)
-    info(c1)
-    info(&quot;aaa&quot;)
-    info(100)
+    <span style="color:#50fa7b">info</span>(d1)
+    <span style="color:#50fa7b">info</span>(c1)
+    <span style="color:#50fa7b">info</span>(<span style="color:#f1fa8c">&#34;aaa&#34;</span>)
+    <span style="color:#50fa7b">info</span>(<span style="color:#bd93f9">100</span>)
 
-    var i Animal1
+    <span style="color:#8be9fd;font-style:italic">var</span> i Animal1
     i = d1
-    switch m:=i.(type) {
-    case Dog:
-        fmt.Println(m.age)
-    case Cat:
-        fmt.Println(m.weigh)
+    <span style="color:#ff79c6">switch</span> m<span style="color:#ff79c6">:=</span>i.(<span style="color:#8be9fd;font-style:italic">type</span>) {
+    <span style="color:#ff79c6">case</span> Dog:
+        fmt.<span style="color:#50fa7b">Println</span>(m.age)
+    <span style="color:#ff79c6">case</span> Cat:
+        fmt.<span style="color:#50fa7b">Println</span>(m.weigh)
 
     }
 }
-</code></pre>
+</code></pre></div><h3 id="interface值">interface值</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">package</span> main
 
-<h3 id="interface值">interface值</h3>
+<span style="color:#ff79c6">import</span> <span style="color:#f1fa8c">&#34;fmt&#34;</span>
 
-<pre><code class="language-go">package main
-
-import &quot;fmt&quot;
-
-type Human struct {
-    name  string
-    age   int
-    phone string
+<span style="color:#8be9fd;font-style:italic">type</span> Human <span style="color:#8be9fd;font-style:italic">struct</span> {
+    name  <span style="color:#8be9fd">string</span>
+    age   <span style="color:#8be9fd">int</span>
+    phone <span style="color:#8be9fd">string</span>
 }
-type Student struct {
-    Human  //匿名字段
-    school string
-    loan   float32
+<span style="color:#8be9fd;font-style:italic">type</span> Student <span style="color:#8be9fd;font-style:italic">struct</span> {
+    Human  <span style="color:#6272a4">//匿名字段
+</span><span style="color:#6272a4"></span>    school <span style="color:#8be9fd">string</span>
+    loan   <span style="color:#8be9fd">float32</span>
 }
-type Employee struct {
-    Human   //匿名字段
-    company string
-    money   float32
-} //Human实现Sayhi方法
-func (h Human) SayHi() {
-    fmt.Printf(&quot;Hi, I am %s you can call me on %s\n&quot;, h.name, h.phone)
-} //Human实现Sing方法
-func (h Human) Sing(lyrics string) {
-    fmt.Println(&quot;La la la la...&quot;, lyrics)
-} //Employee重写Human的SayHi方法
-func (e Employee) SayHi() {
-    fmt.Printf(&quot;Hi, I am %s, I work at %s. Call me on %s\n&quot;, e.name,
-        e.company, e.phone) //Yes you can split into 2 lines here.
-}
+<span style="color:#8be9fd;font-style:italic">type</span> Employee <span style="color:#8be9fd;font-style:italic">struct</span> {
+    Human   <span style="color:#6272a4">//匿名字段
+</span><span style="color:#6272a4"></span>    company <span style="color:#8be9fd">string</span>
+    money   <span style="color:#8be9fd">float32</span>
+} <span style="color:#6272a4">//Human实现Sayhi方法
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">func</span> (h Human) <span style="color:#50fa7b">SayHi</span>() {
+    fmt.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;Hi, I am %s you can call me on %s\n&#34;</span>, h.name, h.phone)
+} <span style="color:#6272a4">//Human实现Sing方法
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">func</span> (h Human) <span style="color:#50fa7b">Sing</span>(lyrics <span style="color:#8be9fd">string</span>) {
+    fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;La la la la...&#34;</span>, lyrics)
+} <span style="color:#6272a4">//Employee重写Human的SayHi方法
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">func</span> (e Employee) <span style="color:#50fa7b">SayHi</span>() {
+    fmt.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;Hi, I am %s, I work at %s. Call me on %s\n&#34;</span>, e.name,
+        e.company, e.phone) <span style="color:#6272a4">//Yes you can split into 2 lines here.
+</span><span style="color:#6272a4"></span>}
 
-// Interface Men被Human,Student和Employee实现
-// 因为这三个类型都实现了这两个方法
-type Men interface {
-    SayHi()
-    Sing(lyrics string)
+<span style="color:#6272a4">// Interface Men被Human,Student和Employee实现
+</span><span style="color:#6272a4">// 因为这三个类型都实现了这两个方法
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">type</span> Men <span style="color:#8be9fd;font-style:italic">interface</span> {
+    <span style="color:#50fa7b">SayHi</span>()
+    <span style="color:#50fa7b">Sing</span>(lyrics <span style="color:#8be9fd">string</span>)
 }
 
-func main() {
-    mike := Student{Human{&quot;Mike&quot;, 25, &quot;222-222-XXX&quot;}, &quot;MIT&quot;, 0.00}
-    paul := Student{Human{&quot;Paul&quot;, 26, &quot;111-222-XXX&quot;}, &quot;Harvard&quot;, 100}
-    sam := Employee{Human{&quot;Sam&quot;, 36, &quot;444-222-XXX&quot;}, &quot;Golang Inc.&quot;, 1000}
-    Tom := Employee{Human{&quot;Sam&quot;, 36, &quot;444-222-XXX&quot;}, &quot;Things Ltd.&quot;, 5000}
-    //定义Men类型的变量i
-    var i Men
-    //i能存储Student
-    i = mike
-    fmt.Println(&quot;This is Mike, a Student:&quot;)
-    i.SayHi()
-    i.Sing(&quot;November rain&quot;)
-    //i也能存储Employee
-    i = Tom
-    fmt.Println(&quot;This is Tom, an Employee:&quot;)
-    i.SayHi()
-    i.Sing(&quot;Born to be wild&quot;)
-    //定义了slice Men
-    fmt.Println(&quot;Let's use a slice of Men and see what happens&quot;)
-    x := make([]Men, 3)
-    //T这三个都是不同类型的元素，但是他们实现了interface同一个接口
-    x[0], x[1], x[2] = paul, sam, mike
-    for _, value := range x {
-        value.SayHi()
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>() {
+    mike <span style="color:#ff79c6">:=</span> Student{Human{<span style="color:#f1fa8c">&#34;Mike&#34;</span>, <span style="color:#bd93f9">25</span>, <span style="color:#f1fa8c">&#34;222-222-XXX&#34;</span>}, <span style="color:#f1fa8c">&#34;MIT&#34;</span>, <span style="color:#bd93f9">0.00</span>}
+    paul <span style="color:#ff79c6">:=</span> Student{Human{<span style="color:#f1fa8c">&#34;Paul&#34;</span>, <span style="color:#bd93f9">26</span>, <span style="color:#f1fa8c">&#34;111-222-XXX&#34;</span>}, <span style="color:#f1fa8c">&#34;Harvard&#34;</span>, <span style="color:#bd93f9">100</span>}
+    sam <span style="color:#ff79c6">:=</span> Employee{Human{<span style="color:#f1fa8c">&#34;Sam&#34;</span>, <span style="color:#bd93f9">36</span>, <span style="color:#f1fa8c">&#34;444-222-XXX&#34;</span>}, <span style="color:#f1fa8c">&#34;Golang Inc.&#34;</span>, <span style="color:#bd93f9">1000</span>}
+    Tom <span style="color:#ff79c6">:=</span> Employee{Human{<span style="color:#f1fa8c">&#34;Sam&#34;</span>, <span style="color:#bd93f9">36</span>, <span style="color:#f1fa8c">&#34;444-222-XXX&#34;</span>}, <span style="color:#f1fa8c">&#34;Things Ltd.&#34;</span>, <span style="color:#bd93f9">5000</span>}
+    <span style="color:#6272a4">//定义Men类型的变量i
+</span><span style="color:#6272a4"></span>    <span style="color:#8be9fd;font-style:italic">var</span> i Men
+    <span style="color:#6272a4">//i能存储Student
+</span><span style="color:#6272a4"></span>    i = mike
+    fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;This is Mike, a Student:&#34;</span>)
+    i.<span style="color:#50fa7b">SayHi</span>()
+    i.<span style="color:#50fa7b">Sing</span>(<span style="color:#f1fa8c">&#34;November rain&#34;</span>)
+    <span style="color:#6272a4">//i也能存储Employee
+</span><span style="color:#6272a4"></span>    i = Tom
+    fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;This is Tom, an Employee:&#34;</span>)
+    i.<span style="color:#50fa7b">SayHi</span>()
+    i.<span style="color:#50fa7b">Sing</span>(<span style="color:#f1fa8c">&#34;Born to be wild&#34;</span>)
+    <span style="color:#6272a4">//定义了slice Men
+</span><span style="color:#6272a4"></span>    fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;Let&#39;s use a slice of Men and see what happens&#34;</span>)
+    x <span style="color:#ff79c6">:=</span> <span style="color:#8be9fd;font-style:italic">make</span>([]Men, <span style="color:#bd93f9">3</span>)
+    <span style="color:#6272a4">//T这三个都是不同类型的元素，但是他们实现了interface同一个接口
+</span><span style="color:#6272a4"></span>    x[<span style="color:#bd93f9">0</span>], x[<span style="color:#bd93f9">1</span>], x[<span style="color:#bd93f9">2</span>] = paul, sam, mike
+    <span style="color:#ff79c6">for</span> _, value <span style="color:#ff79c6">:=</span> <span style="color:#ff79c6">range</span> x {
+        value.<span style="color:#50fa7b">SayHi</span>()
     }
 }
-</code></pre>
-
-<p>运行结果</p>
-
-<pre><code class="language-go">    This is Mike, a Student:
-    Hi, I am Mike you can call me on 222-222-XXX
-    La la la la... November rain
+</code></pre></div><p>运行结果</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">    This is Mike, a Student:
+    Hi, I am Mike you can call me on <span style="color:#bd93f9">222</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">222</span><span style="color:#ff79c6">-</span>XXX
+    La la la la<span style="color:#ff79c6">...</span> November rain
     This is Tom, an Employee:
-    Hi, I am Sam, I work at Things Ltd.. Call me on 444-222-XXX
-    La la la la... Born to be wild
-    Let's use a slice of Men and see what happens
-    Hi, I am Paul you can call me on 111-222-XXX
-    Hi, I am Sam, I work at Golang Inc.. Call me on 444-222-XXX
-    Hi, I am Mike you can call me on 222-222-XXX
-</code></pre>
-
-<p>那么interface里面到底能存什么值呢？如果我们定义了一个interface的变量，那么这个变量里面可以存实现这个interface的任意类型的对象。例如上面例子中，我们定义了一个Men interface类型的变量m，那么m里面可以存Human、Student或者Employee值</p>
-
-<h3 id="警告-一个包含nil指针的接口不是nil接口">警告：一个包含nil指针的接口不是nil接口</h3>
-
+    Hi, I am Sam, I work at Things Ltd.. Call me on <span style="color:#bd93f9">444</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">222</span><span style="color:#ff79c6">-</span>XXX
+    La la la la<span style="color:#ff79c6">...</span> Born to be wild
+    Let&#39;s use a slice of Men and see what happens
+    Hi, I am Paul you can call me on <span style="color:#bd93f9">111</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">222</span><span style="color:#ff79c6">-</span>XXX
+    Hi, I am Sam, I work at Golang Inc.. Call me on <span style="color:#bd93f9">444</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">222</span><span style="color:#ff79c6">-</span>XXX
+    Hi, I am Mike you can call me on <span style="color:#bd93f9">222</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">222</span><span style="color:#ff79c6">-</span>XXX
+</code></pre></div><p>那么interface里面到底能存什么值呢？如果我们定义了一个interface的变量，那么这个变量里面可以存实现这个interface的任意类型的对象。例如上面例子中，我们定义了一个Men interface类型的变量m，那么m里面可以存Human、Student或者Employee值</p>
+<h3 id="警告一个包含nil指针的接口不是nil接口">警告：一个包含nil指针的接口不是nil接口</h3>
 <p>一个不包含任何值的nil接口值和一个刚好包含nil指针的接口值是不同的。这个细微区别产生了一个容易绊倒每个Go程序员的陷阱。</p>
-
 <p>思考下面的程序。当debug变量设置为true时，main函数会将f函数的输出收集到一个bytes.Buffer类型中。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">const</span> debug = <span style="color:#ff79c6">true</span>
 
-<pre><code class="language-go">const debug = true
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>() {
+    <span style="color:#8be9fd;font-style:italic">var</span> buf <span style="color:#ff79c6">*</span>bytes.Buffer
+    <span style="color:#ff79c6">if</span> debug {
+        buf = <span style="color:#8be9fd;font-style:italic">new</span>(bytes.Buffer) <span style="color:#6272a4">// enable collection of output
+</span><span style="color:#6272a4"></span>    }
+    <span style="color:#50fa7b">f</span>(buf) <span style="color:#6272a4">// NOTE: subtly incorrect!
+</span><span style="color:#6272a4"></span>    
+}
 
-func main() {
-    var buf *bytes.Buffer
-    if debug {
-        buf = new(bytes.Buffer) // enable collection of output
+<span style="color:#6272a4">// If out is non-nil, output will be written to it.
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">f</span>(out io.Writer) {
+    <span style="color:#ff79c6">if</span> out <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+        out.<span style="color:#50fa7b">Write</span>([]<span style="color:#8be9fd;font-style:italic">byte</span>(<span style="color:#f1fa8c">&#34;done!\n&#34;</span>))
     }
-    f(buf) // NOTE: subtly incorrect!
-    
 }
-
-// If out is non-nil, output will be written to it.
-func f(out io.Writer) {
-    if out != nil {
-        out.Write([]byte(&quot;done!\n&quot;))
-    }
-}
-</code></pre>
-
-<p>当把变量debug设置为false时， 在out.Write方法调用时程序发生了panic：</p>
-
-<pre><code class="language-go">if out != nil {
-    out.Write([]byte(&quot;done!\n&quot;)) // panic: nil pointer dereference
-}
-</code></pre>
-
-<p>当main函数调用函数f时，它给f函数的out参数赋了一个*bytes.Buffer的空指针，所以out的动态值是nil。</p>
-
+</code></pre></div><p>当把变量debug设置为false时， 在out.Write方法调用时程序发生了panic：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">if</span> out <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+    out.<span style="color:#50fa7b">Write</span>([]<span style="color:#8be9fd;font-style:italic">byte</span>(<span style="color:#f1fa8c">&#34;done!\n&#34;</span>)) <span style="color:#6272a4">// panic: nil pointer dereference
+</span><span style="color:#6272a4"></span>}
+</code></pre></div><p>当main函数调用函数f时，它给f函数的out参数赋了一个*bytes.Buffer的空指针，所以out的动态值是nil。</p>
 <p>然而，它的动态类型是*bytes.Buffer，意思就是out变量是一个包含空指针值的非空接口</p>
-
 <p>所以检查<code>out!=nil</code>的结果依然是<code>true</code>。</p>
-
 <p>解决方法</p>
-
-<pre><code class="language-go">var buf io.Writer
-if debug {
-    buf = new(bytes.Buffer) // enable collection of output
-}
-f(buf) // OK
-</code></pre>
-
-<h3 id="判断接口的实际类型">判断接口的实际类型</h3>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">var</span> buf io.Writer
+<span style="color:#ff79c6">if</span> debug {
+    buf = <span style="color:#8be9fd;font-style:italic">new</span>(bytes.Buffer) <span style="color:#6272a4">// enable collection of output
+</span><span style="color:#6272a4"></span>}
+<span style="color:#50fa7b">f</span>(buf) <span style="color:#6272a4">// OK
+</span></code></pre></div><h3 id="判断接口的实际类型">判断接口的实际类型</h3>
 <ol>
 <li>a可能是任意类型
 a.(某个类型) 返回两个值 inst 和 ok ，ok代表是否是这个类型，Ok如果是 inst 就是转换后的类型。</li>
+<li>a.(type) type是关键字 结合switch case使用
+TypeA(a) 是强制转换。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">package</span> main
 
-<li><p>a.(type) type是关键字 结合switch case使用
-TypeA(a) 是强制转换。</p>
-
-<pre><code class="language-go">package main
-
-import (
-&quot;math&quot;
-&quot;fmt&quot;
+<span style="color:#ff79c6">import</span> (
+    <span style="color:#f1fa8c">&#34;math&#34;</span>
+    <span style="color:#f1fa8c">&#34;fmt&#34;</span>
 )
 
-type Shape interface {
-area() float64
-peri() float64
+<span style="color:#8be9fd;font-style:italic">type</span> Shape <span style="color:#8be9fd;font-style:italic">interface</span> {
+    <span style="color:#50fa7b">area</span>() <span style="color:#8be9fd">float64</span>
+    <span style="color:#50fa7b">peri</span>() <span style="color:#8be9fd">float64</span>
 }
-type Triangle struct {
-a float64
-b float64
-c float64
-}
-
-func (t Triangle) peri() float64 {
-return t.a + t.b + t.c
-}
-func (t Triangle) area() float64 {
-p := t.peri() / 2
-area := math.Sqrt(p * (p - t.a) * (p - t.b) * (p - t.c))
-return area
+<span style="color:#8be9fd;font-style:italic">type</span> Triangle <span style="color:#8be9fd;font-style:italic">struct</span> {
+    a <span style="color:#8be9fd">float64</span>
+    b <span style="color:#8be9fd">float64</span>
+    c <span style="color:#8be9fd">float64</span>
 }
 
-type Circle struct {
-r float64
+<span style="color:#8be9fd;font-style:italic">func</span> (t Triangle) <span style="color:#50fa7b">peri</span>() <span style="color:#8be9fd">float64</span> {
+    <span style="color:#ff79c6">return</span> t.a <span style="color:#ff79c6">+</span> t.b <span style="color:#ff79c6">+</span> t.c
+}
+<span style="color:#8be9fd;font-style:italic">func</span> (t Triangle) <span style="color:#50fa7b">area</span>() <span style="color:#8be9fd">float64</span> {
+    p <span style="color:#ff79c6">:=</span> t.<span style="color:#50fa7b">peri</span>() <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span>
+    area <span style="color:#ff79c6">:=</span> math.<span style="color:#50fa7b">Sqrt</span>(p <span style="color:#ff79c6">*</span> (p <span style="color:#ff79c6">-</span> t.a) <span style="color:#ff79c6">*</span> (p <span style="color:#ff79c6">-</span> t.b) <span style="color:#ff79c6">*</span> (p <span style="color:#ff79c6">-</span> t.c))
+    <span style="color:#ff79c6">return</span> area
 }
 
-func (c Circle) peri() float64 {
-return 2 * math.Pi * c.r
-}
-func (c Circle) area() float64 {
-return math.Pi * c.r * c.r
+<span style="color:#8be9fd;font-style:italic">type</span> Circle <span style="color:#8be9fd;font-style:italic">struct</span> {
+    r <span style="color:#8be9fd">float64</span>
 }
 
-
-//测试函数
-func testArea(s Shape){ //s = t
-fmt.Println(&quot;面积：&quot;,s.area())
+<span style="color:#8be9fd;font-style:italic">func</span> (c Circle) <span style="color:#50fa7b">peri</span>() <span style="color:#8be9fd">float64</span> {
+    <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">*</span> math.Pi <span style="color:#ff79c6">*</span> c.r
 }
-func testPeri(s Shape){
-fmt.Printf(&quot;周长：%.2f\n&quot;,s.peri())
-}
-
-//判断类型
-func getType(s Shape){
-/*
-a可能是任意类型
-a.(某个类型) 返回两个值 inst 和 ok ，ok代表是否是这个类型，Ok如果是 inst 就是转换后的类型。
- */
-if inst,ok := s.(Triangle);ok{
-    fmt.Println(&quot;是Triangle类型。。三边是：&quot;,inst.a,inst.b,inst.c)
-}else if inst,ok:=s.(Circle);ok{
-    fmt.Println(&quot;是Circle类型，半径是：&quot;,inst.r)
-}else{
-    fmt.Println(&quot;以上都不对。。&quot;)
-}
-}
-//
-func getType2(s Shape){
-/*
-a.(type)    type是关键字 结合switch case使用
-TypeA(a) 是强制转换
- */
-switch inst:=s.(type) {
-case Triangle:
-    fmt.Println(&quot;三角形啊。。&quot;,inst.a,inst.b,inst.c)
-case Circle:
-    fmt.Println(&quot;圆形啊。。&quot;,inst.r)
-}
+<span style="color:#8be9fd;font-style:italic">func</span> (c Circle) <span style="color:#50fa7b">area</span>() <span style="color:#8be9fd">float64</span> {
+    <span style="color:#ff79c6">return</span> math.Pi <span style="color:#ff79c6">*</span> c.r <span style="color:#ff79c6">*</span> c.r
 }
 
 
-func main() {
-t := Triangle{3,4,5}
+<span style="color:#6272a4">//测试函数
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">testArea</span>(s Shape){ <span style="color:#6272a4">//s = t
+</span><span style="color:#6272a4"></span>    fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;面积：&#34;</span>,s.<span style="color:#50fa7b">area</span>())
+}
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">testPeri</span>(s Shape){
+    fmt.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;周长：%.2f\n&#34;</span>,s.<span style="color:#50fa7b">peri</span>())
+}
 
-testArea(t)
-c := Circle{2.5}
-testPeri(c)
+<span style="color:#6272a4">//判断类型
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">getType</span>(s Shape){
+    <span style="color:#6272a4">/*
+</span><span style="color:#6272a4">    a可能是任意类型
+</span><span style="color:#6272a4">    a.(某个类型) 返回两个值 inst 和 ok ，ok代表是否是这个类型，Ok如果是 inst 就是转换后的类型。
+</span><span style="color:#6272a4">     */</span>
+    <span style="color:#ff79c6">if</span> inst,ok <span style="color:#ff79c6">:=</span> s.(Triangle);ok{
+        fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;是Triangle类型。。三边是：&#34;</span>,inst.a,inst.b,inst.c)
+    }<span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> inst,ok<span style="color:#ff79c6">:=</span>s.(Circle);ok{
+        fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;是Circle类型，半径是：&#34;</span>,inst.r)
+    }<span style="color:#ff79c6">else</span>{
+        fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;以上都不对。。&#34;</span>)
+    }
+}
+<span style="color:#6272a4">//
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">getType2</span>(s Shape){
+    <span style="color:#6272a4">/*
+</span><span style="color:#6272a4">    a.(type)    type是关键字 结合switch case使用
+</span><span style="color:#6272a4">    TypeA(a) 是强制转换
+</span><span style="color:#6272a4">     */</span>
+    <span style="color:#ff79c6">switch</span> inst<span style="color:#ff79c6">:=</span>s.(<span style="color:#8be9fd;font-style:italic">type</span>) {
+    <span style="color:#ff79c6">case</span> Triangle:
+        fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;三角形啊。。&#34;</span>,inst.a,inst.b,inst.c)
+    <span style="color:#ff79c6">case</span> Circle:
+        fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;圆形啊。。&#34;</span>,inst.r)
+    }
+}
 
-//定义一个接口类型的数组：Shape类型，可以存储该接口的任意实现类的对象作为数据。
-var arr[4] Shape
-arr[0] = t
-arr[1] = c
-arr[2] = Triangle{1,2,3}
-arr[3] = Circle{5}
-//判断类型
-getType(t)
-getType2(c)
+
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>() {
+    t <span style="color:#ff79c6">:=</span> Triangle{<span style="color:#bd93f9">3</span>,<span style="color:#bd93f9">4</span>,<span style="color:#bd93f9">5</span>}
+
+    <span style="color:#50fa7b">testArea</span>(t)
+    c <span style="color:#ff79c6">:=</span> Circle{<span style="color:#bd93f9">2.5</span>}
+    <span style="color:#50fa7b">testPeri</span>(c)
+
+    <span style="color:#6272a4">//定义一个接口类型的数组：Shape类型，可以存储该接口的任意实现类的对象作为数据。
+</span><span style="color:#6272a4"></span>  <span style="color:#8be9fd;font-style:italic">var</span> arr[<span style="color:#bd93f9">4</span>] Shape
+  arr[<span style="color:#bd93f9">0</span>] = t
+  arr[<span style="color:#bd93f9">1</span>] = c
+  arr[<span style="color:#bd93f9">2</span>] = Triangle{<span style="color:#bd93f9">1</span>,<span style="color:#bd93f9">2</span>,<span style="color:#bd93f9">3</span>}
+  arr[<span style="color:#bd93f9">3</span>] = Circle{<span style="color:#bd93f9">5</span>}
+  <span style="color:#6272a4">//判断类型
+</span><span style="color:#6272a4"></span>  <span style="color:#50fa7b">getType</span>(t)
+  <span style="color:#50fa7b">getType2</span>(c)
 
 }
 
-/*
-课堂练习题：
-定义一个接口：形状
-定义两个方法：
-    周长()
-    面积()
-
-定义三个结构体分别实现该接口：
-三角形：周长()，面积()
-    海伦公式：
-a,b,c
-p = (a+b+c)/2
-area = (p-a)*(p-b)*(p-c)开平方
-math.Sqrt()
-矩形：周长()，面积()
-圆形：周长()，面积()
-
-在主函数中：分别创建三种形状的对象，并调用对应的周长和面积的方法
-
-增加一个测试的的函数：
-testArea(接口形状)--&gt;三角形，原型，矩形
-testPeri()--&gt;三角形，圆形，矩形
-*/
-</code></pre></li>
-</ol>
-
-<p>运行结果：</p>
-
-<pre><code class="language-go">面积： 6
-周长：15.71
-是Triangle类型。。三边是： 3 4 5
-圆形啊。。 2.5
-</code></pre>
-
-
-                
-                
-<div class="entry-shang text-center">
-    
-	    <p>「真诚赞赏，手留余香」</p>
-	
-	<button class="zs show-zs btn btn-bred">赞赏支持</button>
-</div>
-<div class="zs-modal-bg"></div>
-<div class="zs-modal-box">
-	<div class="zs-modal-head">
-		<button type="button" class="close">×</button>
-		<span class="author"><a href="https://luckyliang.github.io"><img src="/img/favicon.png" />Cheng Blog</a></span>
-        
-	        <p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
-		
- 
-	</div>
-	<div class="zs-modal-body">
-		<div class="zs-modal-btns">
-			<button class="btn btn-blink" data-num="2">2元</button>
-			<button class="btn btn-blink" data-num="5">5元</button>
-			<button class="btn btn-blink" data-num="10">10元</button>
-			<button class="btn btn-blink" data-num="50">50元</button>
-			<button class="btn btn-blink" data-num="100">100元</button>
-			<button class="btn btn-blink" data-num="1">任意金额</button>
-		</div>
-		<div class="zs-modal-pay">
-			<button class="btn btn-bred" id="pay-text">2元</button>
-			<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
-			<img src="/img/reward/wechat-2.png"  id="pay-image"/>
-		</div>
-	</div>
-	<div class="zs-modal-footer">
-		<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
-		<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
-	</div>
-</div>
-<script type="text/javascript" src="/js/reward.js"></script>
+<span style="color:#6272a4">/*
+</span><span style="color:#6272a4">课堂练习题：
+</span><span style="color:#6272a4">定义一个接口：形状
+</span><span style="color:#6272a4">    定义两个方法：
+</span><span style="color:#6272a4">        周长()
+</span><span style="color:#6272a4">        面积()
+</span><span style="color:#6272a4">
+</span><span style="color:#6272a4">定义三个结构体分别实现该接口：
+</span><span style="color:#6272a4">    三角形：周长()，面积()
+</span><span style="color:#6272a4">        海伦公式：
+</span><span style="color:#6272a4">a,b,c
+</span><span style="color:#6272a4">p = (a+b+c)/2
+</span><span style="color:#6272a4">area = (p-a)*(p-b)*(p-c)开平方
+</span><span style="color:#6272a4">    math.Sqrt()
+</span><span style="color:#6272a4">    矩形：周长()，面积()
+</span><span style="color:#6272a4">    圆形：周长()，面积()
+</span><span style="color:#6272a4">
+</span><span style="color:#6272a4">在主函数中：分别创建三种形状的对象，并调用对应的周长和面积的方法
+</span><span style="color:#6272a4">
+</span><span style="color:#6272a4">增加一个测试的的函数：
+</span><span style="color:#6272a4">    testArea(接口形状)--&gt;三角形，原型，矩形
+</span><span style="color:#6272a4">    testPeri()--&gt;三角形，圆形，矩形
+</span><span style="color:#6272a4"> */</span>
+</code></pre></div><p>运行结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">面积： <span style="color:#bd93f9">6</span>
+周长：<span style="color:#bd93f9">15.71</span>
+是Triangle类型。。三边是： <span style="color:#bd93f9">3</span> <span style="color:#bd93f9">4</span> <span style="color:#bd93f9">5</span>
+圆形啊。。 <span style="color:#bd93f9">2.5</span>
+</code></pre></div>
 
                 
 
@@ -752,6 +645,8 @@ testPeri()--&gt;三角形，圆形，矩形
                         
                         
                         
+                        
+                        
                         <a href="/tags/go" title="go">
                             go
                         </a>
@@ -764,11 +659,11 @@ testPeri()--&gt;三角形，圆形，矩形
                         
                         
                         
-                        <a href="/tags/java" title="java">
-                            java
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                            mysql
                         </a>
-                        
-                        
                         
                         
                         
@@ -779,6 +674,10 @@ testPeri()--&gt;三角形，圆形，矩形
                         <a href="/tags/swift" title="swift">
                             swift
                         </a>
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -818,23 +717,23 @@ testPeri()--&gt;三角形，圆形，矩形
                    <li>
                        <a href='' rel="alternate" type="application/rss+xml" title="Cheng Blog" >
                            <span class="fa-stack fa-lg">
-                               <i class="fa fa-circle fa-stack-2x"></i>
-                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
                            </span>
                        </a>
                    </li>
                    
                     
                     <li>
-                        <a href="mailto:401932941@qq.com">
+                        <a href="mailto:401932941@gmail.com">
                             <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
 		    
-                    
+
                     
                     
                     
@@ -845,10 +744,10 @@ testPeri()--&gt;三角形，圆形，矩形
                     
                     
                     <li>
-                        <a target="_blank" href="https://github.com/LuckyLiang">
+                        <a target="_blank" href="https://github.com/luckyliang">
                             <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -862,8 +761,19 @@ testPeri()--&gt;三角形，圆形，矩形
                     
                     
             
+            
+            
                 </ul>
-		
+		<p class="copyright text-muted">
+                    Copyright &copy; Cheng Blog 2017
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
             </div>
         </div>
     </div>
@@ -873,7 +783,7 @@ testPeri()--&gt;三角形，圆形，矩形
 
 
 <script>
-    function async(u, c) {
+    function loadAsync(u, c) {
       var d = document, t = 'script',
           o = d.createElement(t),
           s = d.getElementsByTagName(t)[0];
@@ -891,7 +801,7 @@ testPeri()--&gt;三角形，圆形，矩形
 <script>
     
     if($('#tag_cloud').length !== 0){
-        async("/js/jquery.tagcloud.js",function(){
+        loadAsync("/js/jquery.tagcloud.js",function(){
             $.fn.tagcloud.defaults = {
                 
                 color: {start: '#bbbbee', end: '#0085a1'},
@@ -903,7 +813,7 @@ testPeri()--&gt;三角形，圆形，矩形
 
 
 <script>
-    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+    loadAsync("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
         var $nav = document.querySelector("nav");
         if($nav) FastClick.attach($nav);
     })

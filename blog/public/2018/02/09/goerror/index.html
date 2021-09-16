@@ -10,8 +10,8 @@
     <meta property="og:type" content="article">
 
     
-    <meta property="og:image" content="https://luckyliang.github.io/img/home-bg-jeep.jpg">
-    <meta property="twitter:image" content="https://luckyliang.github.io/img/home-bg-jeep.jpg" />
+    <meta property="og:image" content="http://lruoheng.com/img/home-bg-jeep.jpg">
+    <meta property="twitter:image" content="http://lruoheng.com/img/home-bg-jeep.jpg" />
     
 
     
@@ -39,45 +39,32 @@
     <link rel="canonical" href="/2018/02/09/goError/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
-	
+
     
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     
-    <link rel="stylesheet" href="/css/hux-blog.min.css">
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
 
-    
-    <link rel="stylesheet" href="/css/syntax.css">
-    
     
     <link rel="stylesheet" href="/css/zanshang.css">
-    
-    
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     
-    <link rel="stylesheet" href="https://luckyliang.github.io/css/tomorrow-night-eighties.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"><link rel="stylesheet" href="https://luckyliang.github.io/css/main.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+    
+    
 
     
     
     <script src="/js/jquery.min.js"></script>
-    
-    
-    <script src="/js/bootstrap.min.js"></script>
-    
-    
-    <script src="/js/hux-blog.min.js"></script>
-  
-    
-    
-    <script src="/js/preetyCode.js"></script>
 
     
+    <script src="/js/bootstrap.min.js"></script>
+
     
-    
-    
-    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-        
+    <script src="/js/hux-blog.min.js"></script>
+
     
     
 
@@ -85,7 +72,9 @@
 
 
 
+
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
     <div class="container-fluid">
         
         <div class="navbar-header page-scroll">
@@ -121,6 +110,14 @@
                         </li>
                         
                         <li>
+                            <a href="/categories/other">other</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
                             <a href="/categories/web">web</a>
                         </li>
                         
@@ -131,15 +128,9 @@
                     
                     
 		    
-                        <li><a href="/top/books/">BOOKS</a></li>
-                    
                         <li><a href="/top/about/">ABOUT</a></li>
                     
 
-                    
-		    <li>
-                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
-		    </li>
                     
                 </ul>
             </div>
@@ -185,7 +176,9 @@
         background-image: url('https://img.zhaohuabing.com/in-post/2018-04-11-service-mesh-vs-api-gateway/background.jpg')
     }
 </style>
-<header class="intro-header">
+
+<header class="intro-header" >
+
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -200,15 +193,17 @@
                     <h1>Go 学习笔记（七） - 错误处理</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
-                        Posted by 
                         
-                            Cheng
-                         
-                        on 
-                        Friday, February 9, 2018
-                        
-                        
-                        
+                            Posted by 
+                            
+                                Cheng
+                             
+                            on 
+                            Friday, February 9, 2018
+                            
+                            
+                            
+                            
                     </span>
                 </div>
             </div>
@@ -234,34 +229,126 @@
                     <h2>TOC</h2>
                 </header>
                 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#如何使用错误">如何使用错误</a></li>
-<li><a href="#错误类型表示">错误类型表示</a>
-<ul>
-<li><a href="#从错误中提取更多信息的不同方法">从错误中提取更多信息的不同方法</a></li>
-</ul></li>
-<li><a href="#自定义错误">自定义错误</a></li>
-<li><a href="#panic和recover">Panic和Recover</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                 
-                
-
-<p>错误指出程序中的异常情况。假设我们正在尝试打开一个文件，文件系统中不存在这个文件。这是一个异常情况，它表示为一个错误。</p>
-
+                <p>错误指出程序中的异常情况。假设我们正在尝试打开一个文件，文件系统中不存在这个文件。这是一个异常情况，它表示为一个错误。</p>
 <p>Go中的错误也是一种类型。错误用内置的<code>error</code> 类型表示。就像其他类型的，如int，float64，。错误值可以存储在变量中，从函数中返回，等等</p>
-
 <h3 id="如何使用错误">如何使用错误</h3>
-
 <p>示例代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">package</span> main
+<span style="color:#ff79c6">import</span> (  
+    <span style="color:#f1fa8c">&#34;fmt&#34;</span>
+    <span style="color:#f1fa8c">&#34;os&#34;</span>
+)
 
-<pre><code class="language-go">package main
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>() {  
+    f, err <span style="color:#ff79c6">:=</span> os.<span style="color:#50fa7b">Open</span>(<span style="color:#f1fa8c">&#34;/test.txt&#34;</span>)
+    <span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+        fmt.<span style="color:#50fa7b">Println</span>(err)
+        <span style="color:#ff79c6">return</span>
+    }
+  <span style="color:#6272a4">//根据f进行文件的读或写
+</span><span style="color:#6272a4"></span>    fmt.<span style="color:#50fa7b">Println</span>(f.<span style="color:#50fa7b">Name</span>(), <span style="color:#f1fa8c">&#34;opened successfully&#34;</span>)
+}
+</code></pre></div><p>处理错误的惯用方法是将返回的错误与nil进行比较。nil值表示没有发生错误，而非nil值表示出现错误。在我们的例子中，我们检查错误是否为nil。如果它不是nil，我们只需打印错误并从主函数返回。</p>
+<p>运行结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">open <span style="color:#ff79c6">/</span>test.txt: No such file or directory
+</code></pre></div><p>我们得到一个错误，说明该文件不存在。</p>
+<p>示例代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">package</span> main
+
+<span style="color:#ff79c6">import</span> (
+    <span style="color:#f1fa8c">&#34;fmt&#34;</span>
+    <span style="color:#f1fa8c">&#34;errors&#34;</span>
+)
+
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">checkAge</span>(age <span style="color:#8be9fd">int</span>) <span style="color:#8be9fd">error</span> {
+    <span style="color:#ff79c6">if</span> age &lt; <span style="color:#bd93f9">0</span> {
+        <span style="color:#6272a4">//return errors.New(&#34;年龄不能为负数&#34;)
+</span><span style="color:#6272a4"></span>        <span style="color:#6272a4">// fmt包的Errorf函数的用武之地。这个函数根据一个格式说明器格式化错误，并返回一个字符串作为值来满足错误。
+</span><span style="color:#6272a4"></span>        <span style="color:#ff79c6">return</span> fmt.<span style="color:#50fa7b">Errorf</span>(<span style="color:#f1fa8c">&#34;age是：%d，年龄不能为负数&#34;</span>, age)
+
+    }
+    fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;年龄无误，&#34;</span>, age)
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">nil</span>
+
+}
+
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">test</span>()(<span style="color:#8be9fd">int</span>, <span style="color:#8be9fd">int</span>, <span style="color:#8be9fd">error</span>)  {
+    <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, errors.<span style="color:#50fa7b">New</span>(<span style="color:#f1fa8c">&#34;啦啦啦&#34;</span>)
+}
+
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>() {
+    <span style="color:#6272a4">/*
+</span><span style="color:#6272a4">    在go中并不是像Java语言那样，有直接的异常处理机制。而是使用error.
+</span><span style="color:#6272a4">    go中的error也是一种类型，内置接口类型的错误是表示错误条件的常规接口，nil值表示没有错误。
+</span><span style="color:#6272a4">
+</span><span style="color:#6272a4">     */</span>
+    <span style="color:#8be9fd;font-style:italic">var</span> e1 <span style="color:#8be9fd">error</span> <span style="color:#6272a4">// &lt;nil&gt;
+</span><span style="color:#6272a4"></span>    fmt.<span style="color:#50fa7b">Println</span>(e1)
+    fmt.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;%T\n&#34;</span>, e1) <span style="color:#6272a4">// &lt;nil&gt;
+</span><span style="color:#6272a4"></span>
+    <span style="color:#6272a4">//创建一个错误对象
+</span><span style="color:#6272a4"></span>    e2 <span style="color:#ff79c6">:=</span> errors.<span style="color:#50fa7b">New</span>(<span style="color:#f1fa8c">&#34;错误了&#34;</span>)
+    fmt.<span style="color:#50fa7b">Println</span>(e2)        <span style="color:#6272a4">// 错误了
+</span><span style="color:#6272a4"></span>    fmt.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;%T\n&#34;</span>, e2) <span style="color:#6272a4">// *errors.errorString
+</span><span style="color:#6272a4"></span>
+
+    err<span style="color:#ff79c6">:=</span><span style="color:#50fa7b">checkAge</span>(<span style="color:#ff79c6">-</span><span style="color:#bd93f9">30</span>)
+    <span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">==</span> <span style="color:#ff79c6">nil</span>{
+        fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;ok。。。&#34;</span>)
+    }<span style="color:#ff79c6">else</span>{
+        fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;失败，，&#34;</span>, err)
+    }
+
+    a, b, err<span style="color:#ff79c6">:=</span> <span style="color:#50fa7b">test</span>()
+    fmt.<span style="color:#50fa7b">Println</span>(a, b, err)
+
+
+    p1<span style="color:#ff79c6">:=</span> <span style="color:#8be9fd;font-style:italic">new</span>(<span style="color:#8be9fd">int</span>)
+    fmt.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;%T,\n&#34;</span>,p1)
+    fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#ff79c6">*</span>p1)
+
+    p2<span style="color:#ff79c6">:=</span><span style="color:#8be9fd;font-style:italic">new</span>(<span style="color:#8be9fd">string</span>)
+    fmt.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;%T\n&#34;</span>,p2)
+    fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#ff79c6">*</span>p2)
+
+}
+</code></pre></div><h3 id="错误类型表示">错误类型表示</h3>
+<p>Go 语言通过内置的错误接口提供了非常简单的错误处理机制。</p>
+<p>让我们再深入一点，看看如何定义错误类型的构建。错误是一个带有以下定义的接口类型，</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">type</span> <span style="color:#8be9fd">error</span> <span style="color:#8be9fd;font-style:italic">interface</span> {
+    <span style="color:#50fa7b">Error</span>() <span style="color:#8be9fd">string</span>
+}
+</code></pre></div><p>它包含一个带有Error（）字符串的方法。任何实现这个接口的类型都可以作为一个错误使用。这个方法提供了对错误的描述。</p>
+<h4 id="从错误中提取更多信息的不同方法">从错误中提取更多信息的不同方法</h4>
+<p>如果我们想要的是导致错误的文件的实际路径。一种可能的方法是解析错误字符串。这是我们程序的输出，</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">open <span style="color:#ff79c6">/</span>test.txt: No such file or directory
+</code></pre></div><p>我们可以解析这个错误消息并从中获取文件路径&quot;/test.txt&quot;。但这是一个糟糕的方法。在新版本的语言中，错误描述可以随时更改，我们的代码将会中断。</p>
+<p>标准Go库使用不同的方式提供更多关于错误的信息。让我们一看一看。</p>
+<ol>
+<li>
+<p>断言底层结构类型并从结构字段获取更多信息</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">type</span> PathError <span style="color:#8be9fd;font-style:italic">struct</span> {  
+    Op   <span style="color:#8be9fd">string</span>
+    Path <span style="color:#8be9fd">string</span>
+    Err  <span style="color:#8be9fd">error</span>
+}
+
+<span style="color:#8be9fd;font-style:italic">func</span> (e <span style="color:#ff79c6">*</span>PathError) <span style="color:#50fa7b">Error</span>() <span style="color:#8be9fd">string</span> { <span style="color:#ff79c6">return</span> e.Op <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34; &#34;</span> <span style="color:#ff79c6">+</span> e.Path <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;: &#34;</span> <span style="color:#ff79c6">+</span> e.Err.<span style="color:#50fa7b">Error</span>() }
+</code></pre></div><p>从上面的代码中，您可以理解PathError通过声明错误（）string方法实现了错误接口。该方法连接操作、路径和实际错误并返回它。这样我们就得到了错误信息，</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">open <span style="color:#ff79c6">/</span>test.txt: No such file or directory
+</code></pre></div><p>PathError结构的路径字段包含导致错误的文件的路径。让我们修改上面写的程序，并打印出路径。</p>
+<p>修改代码：</p>
+<pre><code>package main
+
 import (  
     &quot;fmt&quot;
     &quot;os&quot;
@@ -269,559 +356,330 @@ import (
 
 func main() {  
     f, err := os.Open(&quot;/test.txt&quot;)
-    if err != nil {
-        fmt.Println(err)
+    if err, ok := err.(*os.PathError); ok {
+        fmt.Println(&quot;File at path&quot;, err.Path, &quot;failed to open&quot;)
         return
     }
-  //根据f进行文件的读或写
     fmt.Println(f.Name(), &quot;opened successfully&quot;)
 }
-</code></pre>
-
-<p>处理错误的惯用方法是将返回的错误与nil进行比较。nil值表示没有发生错误，而非nil值表示出现错误。在我们的例子中，我们检查错误是否为nil。如果它不是nil，我们只需打印错误并从主函数返回。</p>
-
-<p>运行结果：</p>
-
-<pre><code class="language-go">open /test.txt: No such file or directory
-</code></pre>
-
-<p>我们得到一个错误，说明该文件不存在。</p>
-
-<p>示例代码：</p>
-
-<pre><code class="language-go">package main
-
-import (
-    &quot;fmt&quot;
-    &quot;errors&quot;
-)
-
-func checkAge(age int) error {
-    if age &lt; 0 {
-        //return errors.New(&quot;年龄不能为负数&quot;)
-        // fmt包的Errorf函数的用武之地。这个函数根据一个格式说明器格式化错误，并返回一个字符串作为值来满足错误。
-        return fmt.Errorf(&quot;age是：%d，年龄不能为负数&quot;, age)
-
-    }
-    fmt.Println(&quot;年龄无误，&quot;, age)
-    return nil
-
-}
-
-func test()(int, int, error)  {
-    return 1, 2, errors.New(&quot;啦啦啦&quot;)
-}
-
-func main() {
-    /*
-    在go中并不是像Java语言那样，有直接的异常处理机制。而是使用error.
-    go中的error也是一种类型，内置接口类型的错误是表示错误条件的常规接口，nil值表示没有错误。
-
-     */
-    var e1 error // &lt;nil&gt;
-    fmt.Println(e1)
-    fmt.Printf(&quot;%T\n&quot;, e1) // &lt;nil&gt;
-
-    //创建一个错误对象
-    e2 := errors.New(&quot;错误了&quot;)
-    fmt.Println(e2)        // 错误了
-    fmt.Printf(&quot;%T\n&quot;, e2) // *errors.errorString
-
-
-    err:=checkAge(-30)
-    if err == nil{
-        fmt.Println(&quot;ok。。。&quot;)
-    }else{
-        fmt.Println(&quot;失败，，&quot;, err)
-    }
-
-    a, b, err:= test()
-    fmt.Println(a, b, err)
-
-
-    p1:= new(int)
-    fmt.Printf(&quot;%T,\n&quot;,p1)
-    fmt.Println(*p1)
-
-    p2:=new(string)
-    fmt.Printf(&quot;%T\n&quot;,p2)
-    fmt.Println(*p2)
-
-}
-</code></pre>
-
-<h3 id="错误类型表示">错误类型表示</h3>
-
-<p>Go 语言通过内置的错误接口提供了非常简单的错误处理机制。</p>
-
-<p>让我们再深入一点，看看如何定义错误类型的构建。错误是一个带有以下定义的接口类型，</p>
-
-<pre><code class="language-go">type error interface {
-    Error() string
-}
-</code></pre>
-
-<p>它包含一个带有Error（）字符串的方法。任何实现这个接口的类型都可以作为一个错误使用。这个方法提供了对错误的描述。</p>
-
-<h4 id="从错误中提取更多信息的不同方法">从错误中提取更多信息的不同方法</h4>
-
-<p>如果我们想要的是导致错误的文件的实际路径。一种可能的方法是解析错误字符串。这是我们程序的输出，</p>
-
-<pre><code class="language-go">open /test.txt: No such file or directory
-</code></pre>
-
-<p>我们可以解析这个错误消息并从中获取文件路径&rdquo;/test.txt&rdquo;。但这是一个糟糕的方法。在新版本的语言中，错误描述可以随时更改，我们的代码将会中断。</p>
-
-<p>标准Go库使用不同的方式提供更多关于错误的信息。让我们一看一看。</p>
-
-<ol>
-<li><p>断言底层结构类型并从结构字段获取更多信息</p>
-
-<pre><code class="language-go">type PathError struct {  
-   Op   string
-   Path string
-   Err  error
-}
-   
-func (e *PathError) Error() string { return e.Op + &quot; &quot; + e.Path + &quot;: &quot; + e.Err.Error() }
-</code></pre></li>
-</ol>
-
-<p>从上面的代码中，您可以理解PathError通过声明错误（）string方法实现了错误接口。该方法连接操作、路径和实际错误并返回它。这样我们就得到了错误信息，</p>
-
-<pre><code class="language-go">   open /test.txt: No such file or directory
-</code></pre>
-
-<p>PathError结构的路径字段包含导致错误的文件的路径。让我们修改上面写的程序，并打印出路径。</p>
-
-<p>修改代码：</p>
-
-<pre><code>   package main
-   
-   import (  
-       &quot;fmt&quot;
-       &quot;os&quot;
-   )
-   
-   func main() {  
-       f, err := os.Open(&quot;/test.txt&quot;)
-       if err, ok := err.(*os.PathError); ok {
-           fmt.Println(&quot;File at path&quot;, err.Path, &quot;failed to open&quot;)
-           return
-       }
-       fmt.Println(f.Name(), &quot;opened successfully&quot;)
-   }
-</code></pre>
-
-<p>在上面的程序中，我们使用类型断言获得错误接口的基本值。然后我们用错误来打印路径.这个程序输出,</p>
-
-<pre><code class="language-go">   File at path /test.txt failed to open
-</code></pre>
-
-<ol>
-<li>断言底层结构类型，并使用方法获取更多信息</li>
-</ol>
-
+</code></pre><p>在上面的程序中，我们使用类型断言获得错误接口的基本值。然后我们用错误来打印路径.这个程序输出,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">File at path <span style="color:#ff79c6">/</span>test.txt failed to open
+</code></pre></div></li>
+<li>
+<p>断言底层结构类型，并使用方法获取更多信息</p>
 <p>获得更多信息的第二种方法是断言底层类型，并通过调用struct类型的方法获取更多信息。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">type</span> DNSError <span style="color:#8be9fd;font-style:italic">struct</span> {  
+    <span style="color:#ff79c6">...</span>
+}
 
-<pre><code class="language-go">   type DNSError struct {  
-       ...
-   }
-   
-   func (e *DNSError) Error() string {  
-       ...
-   }
-   func (e *DNSError) Timeout() bool {  
-       ... 
-   }
-   func (e *DNSError) Temporary() bool {  
-       ... 
-   }
-</code></pre>
-
-<p>从上面的代码中可以看到，<code>DNSError struct</code>有两个方法<code>Timeout() bool</code>和<code>Temporary() bool</code>，它们返回一个布尔值，表示错误是由于超时还是临时的。</p>
-
+<span style="color:#8be9fd;font-style:italic">func</span> (e <span style="color:#ff79c6">*</span>DNSError) <span style="color:#50fa7b">Error</span>() <span style="color:#8be9fd">string</span> {  
+    <span style="color:#ff79c6">...</span>
+}
+<span style="color:#8be9fd;font-style:italic">func</span> (e <span style="color:#ff79c6">*</span>DNSError) <span style="color:#50fa7b">Timeout</span>() <span style="color:#8be9fd">bool</span> {  
+    <span style="color:#ff79c6">...</span> 
+}
+<span style="color:#8be9fd;font-style:italic">func</span> (e <span style="color:#ff79c6">*</span>DNSError) <span style="color:#50fa7b">Temporary</span>() <span style="color:#8be9fd">bool</span> {  
+    <span style="color:#ff79c6">...</span> 
+}
+</code></pre></div><p>从上面的代码中可以看到，<code>DNSError struct</code>有两个方法<code>Timeout() bool</code>和<code>Temporary() bool</code>，它们返回一个布尔值，表示错误是由于超时还是临时的。</p>
 <p>让我们编写一个断言*DNSError类型的程序，并调用这些方法来确定错误是临时的还是超时的。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">package</span> main
 
-<pre><code class="language-go">   package main
-   
-   import (  
-       &quot;fmt&quot;
-       &quot;net&quot;
-   )
-   
-   func main() {  
-       addr, err := net.LookupHost(&quot;golangbot123.com&quot;)
-       if err, ok := err.(*net.DNSError); ok {
-           if err.Timeout() {
-               fmt.Println(&quot;operation timed out&quot;)
-           } else if err.Temporary() {
-               fmt.Println(&quot;temporary error&quot;)
-           } else {
-               fmt.Println(&quot;generic error: &quot;, err)
-           }
-           return
-       }
-       fmt.Println(addr)
-   }
-</code></pre>
+<span style="color:#ff79c6">import</span> (  
+    <span style="color:#f1fa8c">&#34;fmt&#34;</span>
+    <span style="color:#f1fa8c">&#34;net&#34;</span>
+)
 
-<p>在上面的程序中，我们正在尝试获取一个无效域名的ip地址，这是一个无效的域名。golangbot123.com。我们通过声明它来输入<code>*net.DNSError</code>来获得错误的潜在价值。</p>
-
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>() {  
+    addr, err <span style="color:#ff79c6">:=</span> net.<span style="color:#50fa7b">LookupHost</span>(<span style="color:#f1fa8c">&#34;golangbot123.com&#34;</span>)
+    <span style="color:#ff79c6">if</span> err, ok <span style="color:#ff79c6">:=</span> err.(<span style="color:#ff79c6">*</span>net.DNSError); ok {
+        <span style="color:#ff79c6">if</span> err.<span style="color:#50fa7b">Timeout</span>() {
+            fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;operation timed out&#34;</span>)
+        } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> err.<span style="color:#50fa7b">Temporary</span>() {
+            fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;temporary error&#34;</span>)
+        } <span style="color:#ff79c6">else</span> {
+            fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;generic error: &#34;</span>, err)
+        }
+        <span style="color:#ff79c6">return</span>
+    }
+    fmt.<span style="color:#50fa7b">Println</span>(addr)
+}
+</code></pre></div><p>在上面的程序中，我们正在尝试获取一个无效域名的ip地址，这是一个无效的域名。golangbot123.com。我们通过声明它来输入<code>*net.DNSError</code>来获得错误的潜在价值。</p>
 <p>在我们的例子中，错误既不是暂时的，也不是由于超时，因此程序会打印出来，</p>
-
-<pre><code class="language-go">   generic error:  lookup golangbot123.com: no such host
-</code></pre>
-
-<p>如果错误是临时的或超时的，那么相应的If语句就会执行，我们可以适当地处理它。</p>
-
-<ol>
-<li>直接比较</li>
-</ol>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">generic <span style="color:#8be9fd">error</span>:  lookup golangbot123.com: no such host
+</code></pre></div><p>如果错误是临时的或超时的，那么相应的If语句就会执行，我们可以适当地处理它。</p>
+</li>
+<li>
+<p>直接比较</p>
 <p>直接与类型错误的变量进行比较。让我们通过一个例子来理解这个问题。</p>
-
 <p><code>filepath</code>包的<code>Glob</code>函数用于返回与模式匹配的所有文件的名称。当模式出现错误时，该函数将返回一个错误<code>ErrBadPattern</code>。</p>
-
 <p>在filepath包中定义了ErrBadPattern，如下所述：</p>
-
-<pre><code class="language-go">   var ErrBadPattern = errors.New(&quot;syntax error in pattern&quot;)
-</code></pre>
-
-<p><code>errors.New()</code>用于创建新的错误。</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">var</span> ErrBadPattern = errors.<span style="color:#50fa7b">New</span>(<span style="color:#f1fa8c">&#34;syntax error in pattern&#34;</span>)
+</code></pre></div><p><code>errors.New()</code>用于创建新的错误。</p>
 <p>当模式出现错误时，由<code>Glob</code>函数返回<code>ErrBadPattern</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">package</span> main
 
-<pre><code class="language-go">   package main
-   
-   import (  
-       &quot;fmt&quot;
-       &quot;path/filepath&quot;
-   )
-   
-   func main() {  
-       files, error := filepath.Glob(&quot;[&quot;)
-       if error != nil &amp;&amp; error == filepath.ErrBadPattern {
-           fmt.Println(error)
-           return
-       }
-       fmt.Println(&quot;matched files&quot;, files)
-   }
-</code></pre>
+<span style="color:#ff79c6">import</span> (  
+    <span style="color:#f1fa8c">&#34;fmt&#34;</span>
+    <span style="color:#f1fa8c">&#34;path/filepath&#34;</span>
+)
 
-<p>运行结果：</p>
-
-<pre><code class="language-go">   syntax error in pattern
-</code></pre>
-
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>() {  
+    files, <span style="color:#8be9fd">error</span> <span style="color:#ff79c6">:=</span> filepath.<span style="color:#50fa7b">Glob</span>(<span style="color:#f1fa8c">&#34;[&#34;</span>)
+    <span style="color:#ff79c6">if</span> <span style="color:#8be9fd">error</span> <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> <span style="color:#ff79c6">&amp;&amp;</span> <span style="color:#8be9fd">error</span> <span style="color:#ff79c6">==</span> filepath.ErrBadPattern {
+        fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#8be9fd">error</span>)
+        <span style="color:#ff79c6">return</span>
+    }
+    fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;matched files&#34;</span>, files)
+}
+</code></pre></div><p>运行结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">syntax <span style="color:#8be9fd">error</span> in pattern
+</code></pre></div></li>
+</ol>
 <h3 id="自定义错误">自定义错误</h3>
-
 <p>创建自定义错误的最简单方法是使用错误包的新功能。</p>
-
 <p>在使用新函数创建自定义错误之前，让我们了解它是如何实现的。下面提供了错误包中的新功能的实现。</p>
-
-<pre><code class="language-go">  package errors
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">  <span style="color:#ff79c6">package</span> errors
   
-  func New(text string) error {
-      return &amp;errorString{text}
+  <span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">New</span>(text <span style="color:#8be9fd">string</span>) <span style="color:#8be9fd">error</span> {
+      <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">&amp;</span>errorString{text}
   }
-  // 错误描述
-  type errorString struct {
-      s string
+  <span style="color:#6272a4">// 错误描述
+</span><span style="color:#6272a4"></span>  <span style="color:#8be9fd;font-style:italic">type</span> errorString <span style="color:#8be9fd;font-style:italic">struct</span> {
+      s <span style="color:#8be9fd">string</span>
   }
- // 实现接口
-  func (e *errorString) Error() string {
-      return e.s
+ <span style="color:#6272a4">// 实现接口
+</span><span style="color:#6272a4"></span>  <span style="color:#8be9fd;font-style:italic">func</span> (e <span style="color:#ff79c6">*</span>errorString) <span style="color:#50fa7b">Error</span>() <span style="color:#8be9fd">string</span> {
+      <span style="color:#ff79c6">return</span> e.s
   }
-</code></pre>
+</code></pre></div><p>我们将创建一个简单的程序，计算一个圆的面积，如果半径为负，将返回一个错误。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">package</span> main
 
-<p>我们将创建一个简单的程序，计算一个圆的面积，如果半径为负，将返回一个错误。</p>
-
-<pre><code class="language-go">package main
-
-import (  
-    &quot;errors&quot;
-    &quot;fmt&quot;
-    &quot;math&quot;
+<span style="color:#ff79c6">import</span> (  
+    <span style="color:#f1fa8c">&#34;errors&#34;</span>
+    <span style="color:#f1fa8c">&#34;fmt&#34;</span>
+    <span style="color:#f1fa8c">&#34;math&#34;</span>
 )
 
-func circleArea(radius float64) (float64, error) {  
-    if radius &lt; 0 {
-        return 0, errors.New(&quot;Area calculation failed, radius is less than zero&quot;)
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">circleArea</span>(radius <span style="color:#8be9fd">float64</span>) (<span style="color:#8be9fd">float64</span>, <span style="color:#8be9fd">error</span>) {  
+    <span style="color:#ff79c6">if</span> radius &lt; <span style="color:#bd93f9">0</span> {
+        <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">0</span>, errors.<span style="color:#50fa7b">New</span>(<span style="color:#f1fa8c">&#34;Area calculation failed, radius is less than zero&#34;</span>)
     }
-    return math.Pi * radius * radius, nil
+    <span style="color:#ff79c6">return</span> math.Pi <span style="color:#ff79c6">*</span> radius <span style="color:#ff79c6">*</span> radius, <span style="color:#ff79c6">nil</span>
 }
 
-func main() {  
-    radius := -20.0
-    area, err := circleArea(radius)
-    if err != nil {
-        fmt.Println(err)
-        return
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>() {  
+    radius <span style="color:#ff79c6">:=</span> <span style="color:#ff79c6">-</span><span style="color:#bd93f9">20.0</span>
+    area, err <span style="color:#ff79c6">:=</span> <span style="color:#50fa7b">circleArea</span>(radius)
+    <span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+        fmt.<span style="color:#50fa7b">Println</span>(err)
+        <span style="color:#ff79c6">return</span>
     }
-    fmt.Printf(&quot;Area of circle %0.2f&quot;, area)
+    fmt.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;Area of circle %0.2f&#34;</span>, area)
 }
-</code></pre>
-
-<p>运行结果：</p>
-
-<pre><code class="language-go">Area calculation failed, radius is less than zero
-</code></pre>
-
-<p><strong>使用Errorf向错误添加更多信息</strong></p>
-
+</code></pre></div><p>运行结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">Area calculation failed, radius is less than zero
+</code></pre></div><p><strong>使用Errorf向错误添加更多信息</strong></p>
 <p>上面的程序运行得很好，但是如果我们打印出导致错误的实际半径，那就好了。这就是fmt包的Errorf函数的用武之地。这个函数根据一个格式说明器格式化错误，并返回一个字符串作为值来满足错误。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">package</span> main
 
-<pre><code class="language-go">package main
-
-import (  
-    &quot;fmt&quot;
-    &quot;math&quot;
+<span style="color:#ff79c6">import</span> (  
+    <span style="color:#f1fa8c">&#34;fmt&#34;</span>
+    <span style="color:#f1fa8c">&#34;math&#34;</span>
 )
 
-func circleArea(radius float64) (float64, error) {  
-    if radius &lt; 0 {
-    	//	格式化错误
-        return 0, fmt.Errorf(&quot;Area calculation failed, radius %0.2f is less than zero&quot;, radius)
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">circleArea</span>(radius <span style="color:#8be9fd">float64</span>) (<span style="color:#8be9fd">float64</span>, <span style="color:#8be9fd">error</span>) {  
+    <span style="color:#ff79c6">if</span> radius &lt; <span style="color:#bd93f9">0</span> {
+    	<span style="color:#6272a4">//	格式化错误
+</span><span style="color:#6272a4"></span>        <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">0</span>, fmt.<span style="color:#50fa7b">Errorf</span>(<span style="color:#f1fa8c">&#34;Area calculation failed, radius %0.2f is less than zero&#34;</span>, radius)
     }
-    return math.Pi * radius * radius, nil
+    <span style="color:#ff79c6">return</span> math.Pi <span style="color:#ff79c6">*</span> radius <span style="color:#ff79c6">*</span> radius, <span style="color:#ff79c6">nil</span>
 }
 
-func main() {  
-    radius := -20.0
-    area, err := circleArea(radius)
-    if err != nil {
-        fmt.Println(err)
-        return
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>() {  
+    radius <span style="color:#ff79c6">:=</span> <span style="color:#ff79c6">-</span><span style="color:#bd93f9">20.0</span>
+    area, err <span style="color:#ff79c6">:=</span> <span style="color:#50fa7b">circleArea</span>(radius)
+    <span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+        fmt.<span style="color:#50fa7b">Println</span>(err)
+        <span style="color:#ff79c6">return</span>
     }
-    fmt.Printf(&quot;Area of circle %0.2f&quot;, area)
+    fmt.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;Area of circle %0.2f&#34;</span>, area)
 }
-</code></pre>
-
-<p>运行结果：</p>
-
-<pre><code class="language-go">Area calculation failed, radius -20.00 is less than zero
-</code></pre>
-
-<p><strong>使用<code>struct</code>类型和字段提供关于错误的更多信息</strong></p>
-
+</code></pre></div><p>运行结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">Area calculation failed, radius <span style="color:#ff79c6">-</span><span style="color:#bd93f9">20.00</span> is less than zero
+</code></pre></div><p><strong>使用<code>struct</code>类型和字段提供关于错误的更多信息</strong></p>
 <p>第一步是创建一个struct类型来表示错误。错误类型的命名约定是，名称应该以文本Error结束。让我们把struct类型命名为areaError</p>
-
-<pre><code class="language-go">type areaError struct {  
-    err    string
-    radius float64
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">type</span> areaError <span style="color:#8be9fd;font-style:italic">struct</span> {  
+    err    <span style="color:#8be9fd">string</span>
+    radius <span style="color:#8be9fd">float64</span>
 }
-</code></pre>
-
-<p>上面的struct类型有一个字段半径，它存储了为错误负责的半径的值，并且错误字段存储了实际的错误消息。</p>
-
+</code></pre></div><p>上面的struct类型有一个字段半径，它存储了为错误负责的半径的值，并且错误字段存储了实际的错误消息。</p>
 <p>下一步，是实现error 接口</p>
-
-<pre><code class="language-go">func (e *areaError) Error() string {  
-    return fmt.Sprintf(&quot;radius %0.2f: %s&quot;, e.radius, e.err)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">func</span> (e <span style="color:#ff79c6">*</span>areaError) <span style="color:#50fa7b">Error</span>() <span style="color:#8be9fd">string</span> {  
+    <span style="color:#ff79c6">return</span> fmt.<span style="color:#50fa7b">Sprintf</span>(<span style="color:#f1fa8c">&#34;radius %0.2f: %s&#34;</span>, e.radius, e.err)
 }
-</code></pre>
+</code></pre></div><p>在上面的代码片段中，我们使用一个指针接收器区域错误来实现错误接口的Error() string方法。这个方法打印出半径和错误描述。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">package</span> main
 
-<p>在上面的代码片段中，我们使用一个指针接收器区域错误来实现错误接口的Error() string方法。这个方法打印出半径和错误描述。</p>
-
-<pre><code class="language-go">package main
-
-import (  
-    &quot;fmt&quot;
-    &quot;math&quot;
+<span style="color:#ff79c6">import</span> (  
+    <span style="color:#f1fa8c">&#34;fmt&#34;</span>
+    <span style="color:#f1fa8c">&#34;math&#34;</span>
 )
 
-type areaError struct {  
-    err    string
-    radius float64
+<span style="color:#8be9fd;font-style:italic">type</span> areaError <span style="color:#8be9fd;font-style:italic">struct</span> {  
+    err    <span style="color:#8be9fd">string</span>
+    radius <span style="color:#8be9fd">float64</span>
 }
 
-func (e *areaError) Error() string {  
-    return fmt.Sprintf(&quot;radius %0.2f: %s&quot;, e.radius, e.err)
+<span style="color:#8be9fd;font-style:italic">func</span> (e <span style="color:#ff79c6">*</span>areaError) <span style="color:#50fa7b">Error</span>() <span style="color:#8be9fd">string</span> {  
+    <span style="color:#ff79c6">return</span> fmt.<span style="color:#50fa7b">Sprintf</span>(<span style="color:#f1fa8c">&#34;radius %0.2f: %s&#34;</span>, e.radius, e.err)
 }
 
-func circleArea(radius float64) (float64, error) {  
-    if radius &lt; 0 {
-        return 0, &amp;areaError{&quot;radius is negative&quot;, radius}
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">circleArea</span>(radius <span style="color:#8be9fd">float64</span>) (<span style="color:#8be9fd">float64</span>, <span style="color:#8be9fd">error</span>) {  
+    <span style="color:#ff79c6">if</span> radius &lt; <span style="color:#bd93f9">0</span> {
+        <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">0</span>, <span style="color:#ff79c6">&amp;</span>areaError{<span style="color:#f1fa8c">&#34;radius is negative&#34;</span>, radius}
     }
-    return math.Pi * radius * radius, nil
+    <span style="color:#ff79c6">return</span> math.Pi <span style="color:#ff79c6">*</span> radius <span style="color:#ff79c6">*</span> radius, <span style="color:#ff79c6">nil</span>
 }
 
-func main() {  
-    radius := -20.0
-    area, err := circleArea(radius)
-    if err != nil {
-        if err, ok := err.(*areaError); ok {
-            fmt.Printf(&quot;Radius %0.2f is less than zero&quot;, err.radius)
-            return
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>() {  
+    radius <span style="color:#ff79c6">:=</span> <span style="color:#ff79c6">-</span><span style="color:#bd93f9">20.0</span>
+    area, err <span style="color:#ff79c6">:=</span> <span style="color:#50fa7b">circleArea</span>(radius)
+    <span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+        <span style="color:#ff79c6">if</span> err, ok <span style="color:#ff79c6">:=</span> err.(<span style="color:#ff79c6">*</span>areaError); ok {
+            fmt.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;Radius %0.2f is less than zero&#34;</span>, err.radius)
+            <span style="color:#ff79c6">return</span>
         }
-        fmt.Println(err)
-        return
+        fmt.<span style="color:#50fa7b">Println</span>(err)
+        <span style="color:#ff79c6">return</span>
     }
-    fmt.Printf(&quot;Area of rectangle1 %0.2f&quot;, area)
+    fmt.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;Area of rectangle1 %0.2f&#34;</span>, area)
 }
 
-</code></pre>
-
-<p>程序输出：</p>
-
+</code></pre></div><p>程序输出：</p>
 <pre><code>Radius -20.00 is less than zero
-</code></pre>
-
-<p><strong>使用结构类型的方法提供关于错误的更多信息</strong></p>
-
+</code></pre><p><strong>使用结构类型的方法提供关于错误的更多信息</strong></p>
 <p>我们将编写一个程序来计算矩形的面积。如果长度或宽度小于0，这个程序将输出一个错误。</p>
-
 <p>第一步是创建一个结构来表示错误。</p>
-
-<pre><code class="language-go">type areaError struct {  
-    err    string //error description
-    length float64 //length which caused the error
-    width  float64 //width which caused the error
-}
-</code></pre>
-
-<p>上面的错误结构类型包含一个错误描述字段，以及导致错误的长度和宽度。</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">type</span> areaError <span style="color:#8be9fd;font-style:italic">struct</span> {  
+    err    <span style="color:#8be9fd">string</span> <span style="color:#6272a4">//error description
+</span><span style="color:#6272a4"></span>    length <span style="color:#8be9fd">float64</span> <span style="color:#6272a4">//length which caused the error
+</span><span style="color:#6272a4"></span>    width  <span style="color:#8be9fd">float64</span> <span style="color:#6272a4">//width which caused the error
+</span><span style="color:#6272a4"></span>}
+</code></pre></div><p>上面的错误结构类型包含一个错误描述字段，以及导致错误的长度和宽度。</p>
 <p>现在我们有了错误类型，让我们实现错误接口，并在错误类型上添加一些方法来提供关于错误的更多信息。</p>
-
-<pre><code class="language-go">func (e *areaError) Error() string {  
-    return e.err
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">func</span> (e <span style="color:#ff79c6">*</span>areaError) <span style="color:#50fa7b">Error</span>() <span style="color:#8be9fd">string</span> {  
+    <span style="color:#ff79c6">return</span> e.err
 }
 
-func (e *areaError) lengthNegative() bool {  
-    return e.length &lt; 0
+<span style="color:#8be9fd;font-style:italic">func</span> (e <span style="color:#ff79c6">*</span>areaError) <span style="color:#50fa7b">lengthNegative</span>() <span style="color:#8be9fd">bool</span> {  
+    <span style="color:#ff79c6">return</span> e.length &lt; <span style="color:#bd93f9">0</span>
 }
 
-func (e *areaError) widthNegative() bool {  
-    return e.width &lt; 0
+<span style="color:#8be9fd;font-style:italic">func</span> (e <span style="color:#ff79c6">*</span>areaError) <span style="color:#50fa7b">widthNegative</span>() <span style="color:#8be9fd">bool</span> {  
+    <span style="color:#ff79c6">return</span> e.width &lt; <span style="color:#bd93f9">0</span>
 }
-</code></pre>
-
-<p>下一步是写出面积计算函数。</p>
-
-<pre><code class="language-go">func rectArea(length, width float64) (float64, error) {  
-    err := &quot;&quot;
-    if length &lt; 0 {
-        err += &quot;length is less than zero&quot;
+</code></pre></div><p>下一步是写出面积计算函数。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">rectArea</span>(length, width <span style="color:#8be9fd">float64</span>) (<span style="color:#8be9fd">float64</span>, <span style="color:#8be9fd">error</span>) {  
+    err <span style="color:#ff79c6">:=</span> <span style="color:#f1fa8c">&#34;&#34;</span>
+    <span style="color:#ff79c6">if</span> length &lt; <span style="color:#bd93f9">0</span> {
+        err <span style="color:#ff79c6">+=</span> <span style="color:#f1fa8c">&#34;length is less than zero&#34;</span>
     }
-    if width &lt; 0 {
-        if err == &quot;&quot; {
-            err = &quot;width is less than zero&quot;
-        } else {
-            err += &quot;, width is less than zero&quot;
+    <span style="color:#ff79c6">if</span> width &lt; <span style="color:#bd93f9">0</span> {
+        <span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">==</span> <span style="color:#f1fa8c">&#34;&#34;</span> {
+            err = <span style="color:#f1fa8c">&#34;width is less than zero&#34;</span>
+        } <span style="color:#ff79c6">else</span> {
+            err <span style="color:#ff79c6">+=</span> <span style="color:#f1fa8c">&#34;, width is less than zero&#34;</span>
         }
     }
-    if err != &quot;&quot; {
-        return 0, &amp;areaError{err, length, width}
+    <span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">!=</span> <span style="color:#f1fa8c">&#34;&#34;</span> {
+        <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">0</span>, <span style="color:#ff79c6">&amp;</span>areaError{err, length, width}
     }
-    return length * width, nil
+    <span style="color:#ff79c6">return</span> length <span style="color:#ff79c6">*</span> width, <span style="color:#ff79c6">nil</span>
 }
-</code></pre>
-
-<p>主函数：</p>
-
-<pre><code class="language-go">func main() {  
-    length, width := -5.0, -9.0
-    area, err := rectArea(length, width)
-    if err != nil {
-        if err, ok := err.(*areaError); ok {
-            if err.lengthNegative() {
-                fmt.Printf(&quot;error: length %0.2f is less than zero\n&quot;, err.length)
+</code></pre></div><p>主函数：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>() {  
+    length, width <span style="color:#ff79c6">:=</span> <span style="color:#ff79c6">-</span><span style="color:#bd93f9">5.0</span>, <span style="color:#ff79c6">-</span><span style="color:#bd93f9">9.0</span>
+    area, err <span style="color:#ff79c6">:=</span> <span style="color:#50fa7b">rectArea</span>(length, width)
+    <span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+        <span style="color:#ff79c6">if</span> err, ok <span style="color:#ff79c6">:=</span> err.(<span style="color:#ff79c6">*</span>areaError); ok {
+            <span style="color:#ff79c6">if</span> err.<span style="color:#50fa7b">lengthNegative</span>() {
+                fmt.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;error: length %0.2f is less than zero\n&#34;</span>, err.length)
 
             }
-            if err.widthNegative() {
-                fmt.Printf(&quot;error: width %0.2f is less than zero\n&quot;, err.width)
+            <span style="color:#ff79c6">if</span> err.<span style="color:#50fa7b">widthNegative</span>() {
+                fmt.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;error: width %0.2f is less than zero\n&#34;</span>, err.width)
 
             }
-            return
+            <span style="color:#ff79c6">return</span>
         }
-        fmt.Println(err)
-        return
+        fmt.<span style="color:#50fa7b">Println</span>(err)
+        <span style="color:#ff79c6">return</span>
     }
-    fmt.Println(&quot;area of rect&quot;, area)
+    fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;area of rect&#34;</span>, area)
 }
-</code></pre>
-
-<p>运行结果：</p>
-
-<pre><code class="language-go">error: length -5.00 is less than zero  
-error: width -9.00 is less than zero
-</code></pre>
-
-<h3 id="panic和recover">Panic和Recover</h3>
-
+</code></pre></div><p>运行结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd">error</span>: length <span style="color:#ff79c6">-</span><span style="color:#bd93f9">5.00</span> is less than zero  
+<span style="color:#8be9fd">error</span>: width <span style="color:#ff79c6">-</span><span style="color:#bd93f9">9.00</span> is less than zero
+</code></pre></div><h3 id="panic和recover">Panic和Recover</h3>
 <p>go不支持传统的 <code>try...catch...finally</code>这种异常，在go中使用多值返回来返回错误，不要用异常代替错误，更不要用来控制流程。</p>
-
 <p>也就是说，遇到真正的异常的情况下（比如除数为0了）。 才使用Go中引入的Exception处理：<code>defer</code>, <code>panic</code>, <code>recover</code>。</p>
-
 <p><strong>Panic和Recover</strong></p>
-
 <p>Go没有像Java那样的异常机制，它不能抛出异常，而是使用了<code>panic</code>和<code>recover</code>机制。一定要记住，你应当把它作为最后的手段来使用，也就是说，你的代码中应当没有，或者很少有<code>panic</code>的东西。这是个强大的工具，请明智地使用它。那么，我们应该如何使用它呢？</p>
-
 <p><code>Panic</code>是一个内建函数，可以中断原有的控制流程，进入一个令人恐慌的流程中。当函数F调用<code>panic</code>，函数F的执行被中断，但是F中的延迟函数会正常执行，然后F返回到调用它的地方。在调用的地方，F的行为就像调用了<code>panic</code>。这一过程继续向上，直到发生<code>panic</code>的<code>goroutine</code>中所有调用的函数返回，此时程序退出。恐慌可以直接调用<code>panic</code>产生。也可以由运行时错误产生，例如访问越界的数组。</p>
-
 <p><code>Recover</code>是一个内建的函数，可以让进入令人恐慌的流程中的<code>goroutine</code>恢复过来。<code>recover</code>仅在延迟函数中有效。<strong>在正常的执行过程中，调用recover会返回nil，并且没有其它任何效果。如果当前的goroutine陷入恐慌，调用recover可以捕获到panic的输入值，并且恢复正常的执行。</strong></p>
-
 <p>下面这个函数演示了如何在过程中使用<code>panic</code></p>
-
-<pre><code class="language-go">var user = os.Getenv(&quot;USER&quot;)
-  func init() {
-    if user == &quot;&quot; {
-        panic(&quot;no value for $USER&quot;)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">var</span> user = os.<span style="color:#50fa7b">Getenv</span>(<span style="color:#f1fa8c">&#34;USER&#34;</span>)
+  <span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">init</span>() {
+    <span style="color:#ff79c6">if</span> user <span style="color:#ff79c6">==</span> <span style="color:#f1fa8c">&#34;&#34;</span> {
+        <span style="color:#8be9fd;font-style:italic">panic</span>(<span style="color:#f1fa8c">&#34;no value for $USER&#34;</span>)
     }
 }
-</code></pre>
-
-<p>下面这个函数检查作为其参数的函数在执行时是否会产生panic：</p>
-
-<pre><code class="language-go">func throwsPanic(f func()) (b bool) {
-  defer func() {
-    if x := recover(); x != nil {
-       b = true
+</code></pre></div><p>下面这个函数检查作为其参数的函数在执行时是否会产生panic：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">throwsPanic</span>(f <span style="color:#8be9fd;font-style:italic">func</span>()) (b <span style="color:#8be9fd">bool</span>) {
+  <span style="color:#ff79c6">defer</span> <span style="color:#8be9fd;font-style:italic">func</span>() {
+    <span style="color:#ff79c6">if</span> x <span style="color:#ff79c6">:=</span> <span style="color:#8be9fd;font-style:italic">recover</span>(); x <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+       b = <span style="color:#ff79c6">true</span>
     }
   }()
-    f() //执行函数f，如果f中出现了panic，那么就可以恢复回来
-    return
+    <span style="color:#50fa7b">f</span>() <span style="color:#6272a4">//执行函数f，如果f中出现了panic，那么就可以恢复回来
+</span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">return</span>
 }
-</code></pre>
+</code></pre></div><p>示例代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">package</span> main
 
-<p>示例代码：</p>
+<span style="color:#ff79c6">import</span> <span style="color:#f1fa8c">&#34;fmt&#34;</span>
 
-<pre><code class="language-go">package main
-
-import &quot;fmt&quot;
-
-func main()  {
-    /*
-    panic:词意&quot;恐慌&quot;
-        内建函数，可以中断原有的控制流程。进入一个恐慌中。
-    recover:词意&quot;恢复&quot;
-        通过恢复正常的执行并检索传递给panic的调用的错误值来停止恐慌序列
-
-    注意：panic可以在任何地方引发，但是recover只能在defer函数中有效
-
-     */
-     testA()
-     testB()
-     testC()
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>()  {
+    <span style="color:#6272a4">/*
+</span><span style="color:#6272a4">    panic:词意&#34;恐慌&#34;
+</span><span style="color:#6272a4">        内建函数，可以中断原有的控制流程。进入一个恐慌中。
+</span><span style="color:#6272a4">    recover:词意&#34;恢复&#34;
+</span><span style="color:#6272a4">        通过恢复正常的执行并检索传递给panic的调用的错误值来停止恐慌序列
+</span><span style="color:#6272a4">
+</span><span style="color:#6272a4">    注意：panic可以在任何地方引发，但是recover只能在defer函数中有效
+</span><span style="color:#6272a4">
+</span><span style="color:#6272a4">     */</span>
+     <span style="color:#50fa7b">testA</span>()
+     <span style="color:#50fa7b">testB</span>()
+     <span style="color:#50fa7b">testC</span>()
 
 }
 
-func testA()  {
-    fmt.Println(&quot;\t函数A。。。&quot;)
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">testA</span>()  {
+    fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;\t函数A。。。&#34;</span>)
 }
 
-func testB()  {
-    defer func() { // 必须是要先声明defer，否则不能捕获到panic异常
-        if r:= recover(); r != nil{ // 这里的err其实就是panic传入的内容
-            fmt.Println(r,&quot;revocer....&quot;)
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">testB</span>()  {
+    <span style="color:#ff79c6">defer</span> <span style="color:#8be9fd;font-style:italic">func</span>() { <span style="color:#6272a4">// 必须是要先声明defer，否则不能捕获到panic异常
+</span><span style="color:#6272a4"></span>        <span style="color:#ff79c6">if</span> r<span style="color:#ff79c6">:=</span> <span style="color:#8be9fd;font-style:italic">recover</span>(); r <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span>{ <span style="color:#6272a4">// 这里的err其实就是panic传入的内容
+</span><span style="color:#6272a4"></span>            fmt.<span style="color:#50fa7b">Println</span>(r,<span style="color:#f1fa8c">&#34;revocer....&#34;</span>)
         }
     }()
-    for i:=0;i&lt;10;i++{
-        fmt.Println(&quot;函数B。。。&quot;, i)
-        if i == 5{
-            panic(&quot;panic....&quot;)
+    <span style="color:#ff79c6">for</span> i<span style="color:#ff79c6">:=</span><span style="color:#bd93f9">0</span>;i&lt;<span style="color:#bd93f9">10</span>;i<span style="color:#ff79c6">++</span>{
+        fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;函数B。。。&#34;</span>, i)
+        <span style="color:#ff79c6">if</span> i <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">5</span>{
+            <span style="color:#8be9fd;font-style:italic">panic</span>(<span style="color:#f1fa8c">&#34;panic....&#34;</span>)
 
         }
 
@@ -829,66 +687,22 @@ func testB()  {
 
 }
 
-func testC()  {
-    fmt.Println(&quot;\t函数C...&quot;)
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">testC</span>()  {
+    fmt.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;\t函数C...&#34;</span>)
 }
-</code></pre>
+</code></pre></div><p>运行结果:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">	函数A。。。
+函数B。。。 <span style="color:#bd93f9">0</span>
+函数B。。。 <span style="color:#bd93f9">1</span>
+函数B。。。 <span style="color:#bd93f9">2</span>
+函数B。。。 <span style="color:#bd93f9">3</span>
+函数B。。。 <span style="color:#bd93f9">4</span>
+函数B。。。 <span style="color:#bd93f9">5</span>
+panic<span style="color:#ff79c6">...</span>. revocer<span style="color:#ff79c6">...</span>.
+	函数C<span style="color:#ff79c6">...</span>
 
-<p>运行结果:</p>
-
-<pre><code class="language-go">	函数A。。。
-函数B。。。 0
-函数B。。。 1
-函数B。。。 2
-函数B。。。 3
-函数B。。。 4
-函数B。。。 5
-panic.... revocer....
-	函数C...
-
-Process finished with exit code 0
-</code></pre>
-
-
-                
-                
-<div class="entry-shang text-center">
-    
-	    <p>「真诚赞赏，手留余香」</p>
-	
-	<button class="zs show-zs btn btn-bred">赞赏支持</button>
-</div>
-<div class="zs-modal-bg"></div>
-<div class="zs-modal-box">
-	<div class="zs-modal-head">
-		<button type="button" class="close">×</button>
-		<span class="author"><a href="https://luckyliang.github.io"><img src="/img/favicon.png" />Cheng Blog</a></span>
-        
-	        <p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
-		
- 
-	</div>
-	<div class="zs-modal-body">
-		<div class="zs-modal-btns">
-			<button class="btn btn-blink" data-num="2">2元</button>
-			<button class="btn btn-blink" data-num="5">5元</button>
-			<button class="btn btn-blink" data-num="10">10元</button>
-			<button class="btn btn-blink" data-num="50">50元</button>
-			<button class="btn btn-blink" data-num="100">100元</button>
-			<button class="btn btn-blink" data-num="1">任意金额</button>
-		</div>
-		<div class="zs-modal-pay">
-			<button class="btn btn-bred" id="pay-text">2元</button>
-			<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
-			<img src="/img/reward/wechat-2.png"  id="pay-image"/>
-		</div>
-	</div>
-	<div class="zs-modal-footer">
-		<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
-		<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
-	</div>
-</div>
-<script type="text/javascript" src="/js/reward.js"></script>
+Process finished with exit code <span style="color:#bd93f9">0</span>
+</code></pre></div>
 
                 
 
@@ -929,6 +743,8 @@ Process finished with exit code 0
                         
                         
                         
+                        
+                        
                         <a href="/tags/go" title="go">
                             go
                         </a>
@@ -941,11 +757,11 @@ Process finished with exit code 0
                         
                         
                         
-                        <a href="/tags/java" title="java">
-                            java
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                            mysql
                         </a>
-                        
-                        
                         
                         
                         
@@ -956,6 +772,10 @@ Process finished with exit code 0
                         <a href="/tags/swift" title="swift">
                             swift
                         </a>
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -995,23 +815,23 @@ Process finished with exit code 0
                    <li>
                        <a href='' rel="alternate" type="application/rss+xml" title="Cheng Blog" >
                            <span class="fa-stack fa-lg">
-                               <i class="fa fa-circle fa-stack-2x"></i>
-                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
                            </span>
                        </a>
                    </li>
                    
                     
                     <li>
-                        <a href="mailto:401932941@qq.com">
+                        <a href="mailto:401932941@gmail.com">
                             <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
 		    
-                    
+
                     
                     
                     
@@ -1022,10 +842,10 @@ Process finished with exit code 0
                     
                     
                     <li>
-                        <a target="_blank" href="https://github.com/LuckyLiang">
+                        <a target="_blank" href="https://github.com/luckyliang">
                             <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -1039,8 +859,19 @@ Process finished with exit code 0
                     
                     
             
+            
+            
                 </ul>
-		
+		<p class="copyright text-muted">
+                    Copyright &copy; Cheng Blog 2017
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
             </div>
         </div>
     </div>
@@ -1050,7 +881,7 @@ Process finished with exit code 0
 
 
 <script>
-    function async(u, c) {
+    function loadAsync(u, c) {
       var d = document, t = 'script',
           o = d.createElement(t),
           s = d.getElementsByTagName(t)[0];
@@ -1068,7 +899,7 @@ Process finished with exit code 0
 <script>
     
     if($('#tag_cloud').length !== 0){
-        async("/js/jquery.tagcloud.js",function(){
+        loadAsync("/js/jquery.tagcloud.js",function(){
             $.fn.tagcloud.defaults = {
                 
                 color: {start: '#bbbbee', end: '#0085a1'},
@@ -1080,7 +911,7 @@ Process finished with exit code 0
 
 
 <script>
-    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+    loadAsync("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
         var $nav = document.querySelector("nav");
         if($nav) FastClick.attach($nav);
     })

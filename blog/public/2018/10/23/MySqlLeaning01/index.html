@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Cheng Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="http://lruoheng.com/img/home-bg-jeep.jpg">
+    <meta property="twitter:image" content="http://lruoheng.com/img/home-bg-jeep.jpg" />
+    
+
+    
+    <meta name="title" content="MySQL(一) - 基本使用" />
+    <meta property="og:title" content="MySQL(一) - 基本使用" />
+    <meta property="twitter:title" content="MySQL(一) - 基本使用" />
+    
+
+    
+    <meta name="description" content="这里主要参考官方文档，记录简单用法">
+    <meta property="og:description" content="这里主要参考官方文档，记录简单用法" />
+    <meta property="twitter:description" content="这里主要参考官方文档，记录简单用法" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="cheng, ChengCheng, chengcheng , Cheng的网络日志, Cheng的博客, chengcheng Blog, 博客, 个人网站, 互联网, Web, 云原生, IOS, Go, Swift, Microservice">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>MySQL(一) - 基本使用-Cheng Cheng 的博客 | Cheng Cheng Blog</title>
+
+    <link rel="canonical" href="/2018/10/23/MySqlLeaning01/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Cheng Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/go">go</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/ios">ios</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/java">java</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/other">other</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/web">web</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E6%B1%87%E7%BC%96">汇编</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://img.zhaohuabing.com/in-post/2018-04-11-service-mesh-vs-api-gateway/background.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/mysql" title="MySQL">
+                            MySQL
+                        </a>
+                        
+                    </div>
+                    <h1>MySQL(一) - 基本使用</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                Cheng
+                             
+                            on 
+                            Tuesday, October 23, 2018
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+        <li><a href="#mysql安装和连接">MySQL安装和连接</a></li>
+        <li><a href="#sql语句">SQL语句</a></li>
+        <li><a href="#常用数据类型">常用数据类型</a></li>
+        <li><a href="#列的常用属性">列的常用属性</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                
+                <h3 id="heading"></h3>
+<h2 id="mysql安装和连接">MySQL安装和连接</h2>
+<p>安装就不介绍了，网上多的很，这里主要参考<a href="https://dev.mysql.com/doc/refman/8.0/en/">官方文档</a>，记录简单用法</p>
+<h3 id="连接mysql"><strong>连接mysql</strong></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql <span style="color:#ff79c6">-</span>h host <span style="color:#ff79c6">-</span>u <span style="color:#ff79c6">user</span> <span style="color:#ff79c6">-</span>p
+Enter password: <span style="color:#ff79c6">********</span>
+</code></pre></div><p>host 连接的服务，我本地调式就是localhost，user：用户名，安装的时候默认用的是root, 然后输入密连接</p>
+<p>在同一台机器上使用可以省略host直接使用下面命令连接</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql <span style="color:#ff79c6">-</span>u <span style="color:#ff79c6">user</span> <span style="color:#ff79c6">-</span>p
+Enter password: <span style="color:#ff79c6">********</span>
+</code></pre></div><h3 id="断开连接"><strong>断开连接</strong></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> QUIT
+Bye
+</code></pre></div><p>在mac上使用 <code>control + D</code>快捷键也可退出</p>
+<p><strong>换行和返回上一步</strong></p>
+<p>sql语句使用<code>；</code>分号结束，如果不写；直接回车只是换行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span>
+    <span style="color:#ff79c6">-&gt;</span> <span style="color:#ff79c6">USER</span>()
+</code></pre></div><p>返回上一步<code>\c</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SELECT</span>
+    <span style="color:#ff79c6">-&gt;</span> <span style="color:#ff79c6">USER</span>()
+    <span style="color:#ff79c6">-&gt;</span> \c <span style="color:#ff79c6">//</span>直接返回上一行
+mysql<span style="color:#ff79c6">&gt;</span>
+</code></pre></div><h3 id="创建数据库">创建数据库</h3>
+<p><strong>显示所有数据库<code>SHOW DATABASES;</code></strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">SHOW</span> <span style="color:#ff79c6">DATABASES</span>;
+<span style="color:#ff79c6">+--------------------+</span>
+<span style="color:#ff79c6">|</span> <span style="color:#ff79c6">Database</span>           <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+--------------------+</span>
+<span style="color:#ff79c6">|</span> classicmodels      <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> information_schema <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> menagerie          <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> mysql              <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> performance_schema <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">|</span> sys                <span style="color:#ff79c6">|</span>
+<span style="color:#ff79c6">+--------------------+</span>
+<span style="color:#bd93f9">6</span> rows <span style="color:#ff79c6">in</span> <span style="color:#8be9fd">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+
+mysql<span style="color:#ff79c6">&gt;</span> 
+</code></pre></div><p><strong>使用某个数据库 `USE classicmodels</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">use</span> classicmodels
+Reading <span style="color:#ff79c6">table</span> information <span style="color:#ff79c6">for</span> completion of <span style="color:#ff79c6">table</span> <span style="color:#ff79c6">and</span> <span style="color:#ff79c6">column</span> names
+You can turn off this feature <span style="color:#ff79c6">to</span> get a quicker startup <span style="color:#ff79c6">with</span> <span style="color:#ff79c6">-</span>A
+
+<span style="color:#ff79c6">Database</span> changed
+mysql<span style="color:#ff79c6">&gt;</span> 
+</code></pre></div><p><strong>创建和选择一个数据库</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">CREATE</span> <span style="color:#ff79c6">DATABASE</span> menagerie;
+</code></pre></div><p><strong>使用刚刚创建的这个数据库</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">USE</span> menagerie
+<span style="color:#ff79c6">Database</span> changed
+</code></pre></div><h2 id="sql语句">SQL语句</h2>
+<h3 id="sql语句主要可以分为4大类">SQL语句主要可以分为4大类</h3>
+<ul>
+<li>DDL（<code>Data Definition Lauguage</code>）
+<ul>
+<li>数据定义语言</li>
+<li>创建（<code>CREATE</code>）、修改（<code>ALTER</code>）、删除（<code>DROP</code>）<strong>数据库\表</strong></li>
+</ul>
+</li>
+<li>DQL （<code>Data Query Language</code>）
+<ul>
+<li>数据查询语句</li>
+<li>查询记录（<code>SELECT</code>）</li>
+</ul>
+</li>
+<li>DML （<code>Data Manipilation Language</code> ）
+<ul>
+<li>数据库操纵语言</li>
+<li>增加（<code>INSERT</code>）、删除（<code>DELETE</code>）、修改（<code>UPDATE</code>） <strong>记录</strong></li>
+</ul>
+</li>
+<li>DCL （<code>Data Control Language</code>）
+<ul>
+<li>数据库控制语言</li>
+<li>控制访问权限（<code>GRANT、REVOKE</code>）</li>
+</ul>
+</li>
+</ul>
+<p>每一条语句是分号（<code>;</code>）结束</p>
+<p>不区分大小写，建议：关键字使用的大写，其他使用小写，单词之间用下划线连接，比如<code>my_firstname</code></p>
+<p>单行注释</p>
+<ul>
+<li><code>--</code> 注释内容（后面要预留至少一个空格）</li>
+<li><code>#</code> 注释内容</li>
+</ul>
+<p>多行注释</p>
+<ul>
+<li><code>/*注释内容*/</code></li>
+</ul>
+<h3 id="ddl语句---数据库">DDL语句 - 数据库</h3>
+<h4 id="创建">创建</h4>
+<p><code>CREATE DATABASE</code> <strong>数据库名</strong>   	#创建数据库（使用默认的字符编码）</p>
+<p><code>CREATE DATABASE</code> <strong>数据库名</strong> CHARACTER SET <strong>字符编码</strong>  	#创建数据库（使用指定的字符编码）</p>
+<p><code>CREATE DATABASE IF NOT EXISTS</code> <strong>数据库名</strong> 	#如果这个数据库不存在，才创建</p>
+<p><code>CREATE DATABASE IF NOT EXISTS</code>  <strong>数据库名</strong> <code>CHARACTER SET</code> <strong>字符编码</strong></p>
+<h4 id="查询">查询</h4>
+<p><code>SHOW DATABASE</code> 	查询所有的数据库</p>
+<p><code>SHOW CREATE DATABASE</code> <strong>数据库名</strong>	#查询数据库的创建语句</p>
+<p><code>USE</code> <strong>数据库名</strong> 	#使用数据库</p>
+<p><code>SELECT DATABASE()</code> 	#查询正在使用的数据库</p>
+<h4 id="修改">修改</h4>
+<p><code>ALTER DATABASE</code> <strong>数据库名</strong> <code>CHARACTER SET</code> <strong>字符编码</strong>	#修改数据库的字符编码</p>
+<h4 id="删除">删除</h4>
+<p><code>DROP DATABAS</code> <strong>数据库名</strong></p>
+<p><code>DROP DATABASE IF EXISTS</code> <strong>数据库名</strong>  #如果这个数据库存在，才删除</p>
+<h3 id="ddl-语句---表">DDL 语句 - 表</h3>
+<h5 id="创建基本语法">创建（基本语法）</h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#ff79c6">CREATE</span> <span style="color:#ff79c6">TABLE</span> 表名 {
+	列名<span style="color:#bd93f9">1</span> 数据类型<span style="color:#bd93f9">1</span>，
+	...
+	列名n 数据类型n
+}
+</code></pre></div><h4 id="查询-1">查询</h4>
+<p><code>SHOW TABLES</code>	#查询当前数据库的所有表</p>
+<p><code>DESC</code> <strong>表名</strong>		#查看表结构</p>
+<h4 id="删除-1">删除</h4>
+<p><code>DROP TABLE</code> <strong>表名</strong></p>
+<p><code>DROP TABLE IF EXISTS</code> <strong>表名</strong></p>
+<h4 id="修改-1">修改</h4>
+<p><code>ALTER TABLE</code> <strong>表名</strong> <code>RENAME TO</code> <strong>新表名</strong></p>
+<p><code>ALTER TABLE</code> <strong>表名</strong>  <code>CHARACTER SET</code> <strong>字符集</strong></p>
+<p><code>ALTER TABLE</code> <strong>表名</strong> <code>ADD</code> <strong>列名</strong>	#增加新的一列</p>
+<p><code>ALTER TABLE</code> <strong>表名</strong> <code>MODIFY</code> <strong>列名</strong>	<strong>新数据类型</strong>	#修改某一列的数据类型</p>
+<p><code>ALTER TABLE</code> <strong>表名</strong> <code>CHANGE</code> <strong>列名</strong> <strong>新列名</strong> <strong>新数据类型</strong>  #修改某一列的列名、数据类型</p>
+<p><code>ALTER TABLE</code> <strong>表名</strong> <code>DROP</code> <strong>列名</strong>  #删除某一列</p>
+<h3 id="dml语句">DML语句</h3>
+<h4 id="增加">增加</h4>
+<p><code>INSERT INTO</code> <strong>表名</strong> （列名1，列名2, &hellip;, 列名n） <code>VALUES</code> (值1，值2，&hellip;, 值n)</p>
+<p>非数字类型的值，一般需要用引号括住（单引号或双引号，建议使用单引号）</p>
+<p><code>INSERT INTO</code> <strong>表名</strong> <code>VALUES</code> （值1，值2，&hellip;，值n）	#从左至右按顺序给所有列添加值</p>
+<h4 id="修改-2">修改</h4>
+<p><code>UPDATE</code> <strong>表名</strong> <code>SET</code> 列名1 = 值1， 列名2 = 值2，&hellip;，列名n = 值n   <code>WHERE</code> <strong>条件</strong></p>
+<p>如果没有添加条件，将会修改表中说有记录</p>
+<h4 id="删除-2">删除</h4>
+<p><code>DELETE FROM</code> <strong>表名</strong>  <code>WHERE</code> <strong>条件</strong></p>
+<p>如果没有添加条件将会删除表中所有记录</p>
+<h4 id="truncate">TRUNCATE</h4>
+<p>如果要删除表的所有数据（保留表结构），有2种常见做法</p>
+<p><code>DELETE FROM</code> <strong>表名</strong> 	#逐行删每一条记录</p>
+<p><code>TRUNCATE</code> <strong>表名</strong>	#先删除后重新创建表（效率高）</p>
+<p>为了实现高性能，他绕过了删除数据的<code>DML</code>方法，因此他不能被回滚，不会导致<code>ON DELETE</code>触发器触发，并且不能对<code>InnoDB</code>具有父子外键关系的表执行</p>
+<h3 id="dql语句">DQL语句</h3>
+<h4 id="select-语句">SELECT 语句</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#ff79c6">SELECT</span> <span style="color:#ff79c6">DISTINCT</span>	列名<span style="color:#bd93f9">1</span>，列名<span style="color:#bd93f9">2</span>，... 列名n
+<span style="color:#ff79c6">FROM</span> 表名
+<span style="color:#ff79c6">WHERE</span>...
+<span style="color:#ff79c6">GROUP</span> <span style="color:#ff79c6">BY</span> ...
+<span style="color:#ff79c6">HAVING</span> ...
+<span style="color:#ff79c6">ORDER</span> <span style="color:#ff79c6">BY</span> ...
+<span style="color:#ff79c6">LIMIT</span>	...
+</code></pre></div><p><code>SELECT * FROM customer</code>	#查询表中所有的记录</p>
+<p><code>SELECT DISTINCT * FROM customer</code>	#查询表中的所有记录（去除了重复的记录）</p>
+<h4 id="聚合函数">聚合函数</h4>
+<p><code>SELECT COUNT(*) FROM customer</code>	#查询表中记录总数</p>
+<p><code>SELECT COUNT（phone）FROM customer</code> 	#查询表中phone的总数 （不包括NULL）</p>
+<p><code>SELECT COUNT (DISTINCT phone) FROM customer</code>	#不包括NULL， 去除了重复的记</p>
+<p><code>SELECT SUM (salary) FROM customer</code> #计算所有的salary总和</p>
+<p><code>SELECT MIN (age) FROM customer</code>	#查询最小的age</p>
+<p><code>SELECT MAX (age) FROM customer</code> 	#查询最大的age</p>
+<p><code>SELECT AVG (salary) FROM  customer</code>	#计算所有的salary的平均值</p>
+<h4 id="常见的where子句">常见的<code>WHERE</code>子句</h4>
+<h5 id="比较运算"><strong>比较运算</strong></h5>
+<p><code>WHERE age &gt; 18</code></p>
+<p><code>WHERE age &lt;= 30</code></p>
+<p><code>WHERE age = 20</code></p>
+<p><code>WHERE name = '张三'</code></p>
+<p><code>WHERE age != 25</code></p>
+<p><code>WHERE age &lt;&gt; 25</code> #不等于25</p>
+<h5 id="null值判断不能用-"><strong>NULL值判断（不能用=、!= 、&lt;&gt;）</strong></h5>
+<p><code>WHERE phone IS NULL</code>	#phone的值为NULL</p>
+<p><code>WHERE phone IS NOT NULL</code> 	#phone的值不为NULL</p>
+<h5 id="逻辑运算"><strong>逻辑运算</strong></h5>
+<p><code>WHERE age &gt; 18 AND age &lt;= 30</code></p>
+<p><code>WHERE age &gt; 18 &amp;&amp; age &lt;= 30</code></p>
+<p><code>WHERE age BETWEEN 20 and 30</code> #age大于等于20且小于等于30</p>
+<p><code>WHERE age = 18 or age = 20 or age = 22</code></p>
+<p><code>WHERE age IN (18, 20, 22)</code>	#age等于18或20或22</p>
+<p><code>WHERE NOT (age &lt; 18)</code>	#age大于等于18</p>
+<p><code>WHERE ! (age &lt; 18)</code>	#age 大于等于18</p>
+<h5 id="模式匹配"><strong>模式匹配</strong></h5>
+<p><code>WHERE name LIKE '_码_'</code>	#name是3个字符并且中间是‘码’字</p>
+<p><code>WHERE name LIKE '___'</code>	#name是3个字符</p>
+<p><code>WHERE name LIKE '李%'</code> #name以’李‘字开头</p>
+<p><code>WHERE name LIKE '_码%'</code>	#name的第二个字符是’码&rsquo;字</p>
+<p><code>WHERE name LIKE '%码%'</code>#name中包含‘码’字</p>
+<h2 id="常用数据类型">常用数据类型</h2>
+<h3 id="数字类型">数字类型</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">字节</th>
+<th style="text-align:center">有符号取值范围</th>
+<th style="text-align:center">无符号取值范围</th>
+<th style="text-align:center">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">TINYINT\BOOL\BOOLEAN</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">-128 ~ 127</td>
+<td style="text-align:center">0 ~ 255</td>
+<td style="text-align:center">小整数值</td>
+</tr>
+<tr>
+<td style="text-align:center">SMALLINT</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">-32 768 ~ 32 767</td>
+<td style="text-align:center">0 ~ 65 535</td>
+<td style="text-align:center">大整数值</td>
+</tr>
+<tr>
+<td style="text-align:center">MEDIUMINT</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">-8 388 608 ~ 8 388 607</td>
+<td style="text-align:center">0 ~ 16 777 215</td>
+<td style="text-align:center">大整数值</td>
+</tr>
+<tr>
+<td style="text-align:center">INT或INTEGER</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">-2 147 483 648 ~ 2 147 483 647</td>
+<td style="text-align:center">0 ~ 4294 967 295</td>
+<td style="text-align:center">大整数值</td>
+</tr>
+<tr>
+<td style="text-align:center">BIGINT</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">-9 233 372 036 854 775 808 ~ 9 223 372 036 854 775 807</td>
+<td style="text-align:center">0 ~ 18 446 744 073 709 551 615</td>
+<td style="text-align:center">极大整数值</td>
+</tr>
+<tr>
+<td style="text-align:center">FLOAT</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">储存的小数是近似值</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">DOUBLE</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">储存的小数是近似值</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">DECIMAL\DEC\NUMERIC\FIXED</td>
+<td style="text-align:center">看情况</td>
+<td style="text-align:center">存储的小数可以更加精确</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="字符串类型">字符串类型</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">CHAR</td>
+<td style="text-align:center">长度可以指定为0 ~ 255，查询数据时，会省略后面的空白字符</td>
+</tr>
+<tr>
+<td style="text-align:center">VARCHAR</td>
+<td style="text-align:center">长度可以指定为0~65535（较常使用）查询数据时，不会省略后面的空白字符</td>
+</tr>
+<tr>
+<td style="text-align:center">BLOB</td>
+<td style="text-align:center">用于储存二进制数据（照片、文件、大文本等）</td>
+</tr>
+<tr>
+<td style="text-align:center">TEXT</td>
+<td style="text-align:center">用于储大文本</td>
+</tr>
+</tbody>
+</table>
+<h3 id="日期和时间类型">日期和时间类型</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">字节（MySQL 5.6.4之前）</th>
+<th style="text-align:center">字节（MySQL 5.6.4开始）</th>
+<th style="text-align:center">显示格式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">YEAR</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">YYYY</td>
+</tr>
+<tr>
+<td style="text-align:center">DATE</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">YYYY-MM-DD</td>
+</tr>
+<tr>
+<td style="text-align:center">TIME</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3 + 小数秒存储</td>
+<td style="text-align:center">HH:MM:SS [ .fraction ]</td>
+</tr>
+<tr>
+<td style="text-align:center">DATETIME</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">5 + 小数秒储存</td>
+<td style="text-align:center">YYYY-MM-DD HH:MM:SS [.fraction]</td>
+</tr>
+<tr>
+<td style="text-align:center">TIMESTAMP</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">4 + 小数秒储存</td>
+<td style="text-align:center">YYYY-MM-DD HH:MM:SS [.fraction]</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意</strong>：从<code>MySQL 5.6.4</code>开始，允许<code>TIME/DATETIME/TIMESTAMP</code>有小数部分。需要0~3字节储存</p>
+<p><code>DATETIME</code> 支持范围：1000-01-01 00:00:00.000000 到 9999-12-31 23:59:59.999999</p>
+<p><code>TIMESTAMP</code>支持范围：1970-01-01 00:00:01.000000 到 2038-01-19 03:14:07.999999</p>
+<h3 id="datetimetimestamp-的自动设置">DATETIME\TIMESTAMP 的自动设置</h3>
+<ul>
+<li>
+<p><code>DEFAULT CURRENT_TIMESTAMP</code></p>
+<p>当<strong>插入</strong>记录时，如果没有指定时间值，就设置时间为当前的系统时间</p>
+</li>
+<li>
+<p><code>ON UPDATE CURRENT_TIMESTAMP</code></p>
+<p>当<strong>修改</strong>记录时，如果没有指定时间值，就设置时间为当前系统时间</p>
+</li>
+</ul>
+<h3 id="表的复制">表的复制</h3>
+<ul>
+<li>
+<p>创建一张拥有相同表结构的空表（只复制表结构，不复记录）</p>
+<p><code>CREATE TABLE new_table LIKE old_table</code></p>
+</li>
+<li>
+<p>创建一张拥有相同表结构，相同记录的表（复制表结构、复制记录）</p>
+<p><code>CREATE TABLE new_table AS (SELECT * FROM old_table)</code></p>
+</li>
+</ul>
+<h2 id="列的常用属性">列的常用属性</h2>
+<ul>
+<li>
+<p><code>NOT NULL</code>: 不能设置为NULL值</p>
+</li>
+<li>
+<p><code>COMMENT</code>： 注释</p>
+</li>
+<li>
+<p><code>DEFALUT</code>： 默认值（<code>BLOB、TEXT、GEOMETRY、JSON</code>类型不能有默认值）</p>
+</li>
+<li>
+<p><code>AUTO_INCREMENT</code>: 自动增长</p>
+<ul>
+<li>适用于<code>INT、FLOAT、DOUBLE</code> 类型</li>
+<li>在插入记录时，如果不指定此列的值或设置为NULL，会在此前的基础上自动增长1</li>
+<li>不能有默认值（不能使用<code>DEFAULT</code>）</li>
+<li>在一个表格中，最多只能有一列被设置为<code>AUTO_INCREMENT</code></li>
+<li>这一列必须被索引（<code>UNIQUE、PRIMARY KEY、FOREIGN KEY</code>等）</li>
+</ul>
+</li>
+</ul>
+<h3 id="unique索引">UNIQUE索引</h3>
+<p>一旦某一列被设置了 <code>UNIQUE</code>索引，该列的所有值必须是唯一的，允许存在多个NULL值</p>
+<p><strong>两种常见的写法</strong></p>
+<p>列名 数据类型 <code>UNIQUE </code></p>
+<p><code>UNIQUE</code> (列名)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#ff79c6">CREATE</span> <span style="color:#ff79c6">TABLE</span> <span style="color:#50fa7b">student</span>(
+	id <span style="color:#8be9fd">INT</span> <span style="color:#ff79c6">UNIQUE</span>
+	name <span style="color:#8be9fd">VARCHAR</span>(<span style="color:#bd93f9">20</span>)
+	<span style="color:#ff79c6">UNIQUE</span> (name)
+);
+</code></pre></div><h3 id="主键">主键</h3>
+<p>主键的作用：可以保证在一张表中的每一条记录都是唯一的</p>
+<p>如果将某一列设置为主键，那么这一列相当于加上了<code> NOT NULL UNIQUE</code></p>
+<p>建议每一张表都有主键</p>
+<p>主键最好跟业务无关，常设置为 <code>INT AUTO_INCREMENT</code></p>
+<p><strong>两种常见写法</strong></p>
+<p>列名 数据类型 <code>PRIMARY KEY</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#ff79c6">CREATE</span> <span style="color:#ff79c6">TABLE</span> <span style="color:#50fa7b">company</span>(
+	id <span style="color:#8be9fd">INT</span> <span style="color:#ff79c6">AUTO_INCREMENT</span> <span style="color:#ff79c6">PRIMARY</span> <span style="color:#ff79c6">KEY</span>,
+	name <span style="color:#8be9fd">VARCHAR</span>(<span style="color:#bd93f9">20</span>) <span style="color:#ff79c6">NOT</span> NULL <span style="color:#ff79c6">UNIQUE</span>
+);
+</code></pre></div><p><code>PRIMARY KEY </code>(列名)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#ff79c6">CREATE</span> <span style="color:#ff79c6">TABLE</span> <span style="color:#50fa7b">company</span>(
+	id <span style="color:#8be9fd">INT</span> <span style="color:#ff79c6">AUTO_INCREMENT</span>,
+	name <span style="color:#8be9fd">VARCHAR</span>(<span style="color:#bd93f9">20</span>) <span style="color:#ff79c6">NOT</span> NULL <span style="color:#ff79c6">UNIQUE</span>,
+	<span style="color:#ff79c6">PRIMARY</span> <span style="color:#ff79c6">KEY</span> (id)
+);
+</code></pre></div><h3 id="外键">外键</h3>
+<p>一般用外键来引用其他表的主键</p>
+<p>常见写法</p>
+<p><code>FOREIGN KEY (列名) REFERENCE 表名（列名）</code></p>
+<p>常见写法</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#ff79c6">CREATE</span> <span style="color:#ff79c6">TABLE</span> <span style="color:#50fa7b">company</span>(
+	id <span style="color:#8be9fd">INT</span> <span style="color:#ff79c6">AUTO_INCREMENT</span> <span style="color:#ff79c6">PRIMARY</span> <span style="color:#ff79c6">KEY</span>,
+	name <span style="color:#8be9fd">VARCHAR</span>(<span style="color:#bd93f9">20</span>) <span style="color:#ff79c6">NOT</span> NULL <span style="color:#ff79c6">UNIQUE</span>
+);
+
+<span style="color:#ff79c6">CREATE</span> <span style="color:#ff79c6">TABLE</span> <span style="color:#50fa7b">customer</span>(
+	id <span style="color:#8be9fd">INT</span> <span style="color:#ff79c6">AUTO_INCREMENT</span> <span style="color:#ff79c6">PRIMARY</span> <span style="color:#ff79c6">KEY</span>,
+  name <span style="color:#8be9fd">VARCHAR</span>(<span style="color:#bd93f9">20</span>) <span style="color:#ff79c6">NOT</span> NULL,
+  company_id <span style="color:#8be9fd">INT</span> <span style="color:#ff79c6">NOT</span> NULL,
+  <span style="color:#ff79c6">FOREIGN</span> <span style="color:#ff79c6">KEY</span> (company_id) <span style="color:#ff79c6">REFERENCES</span> <span style="color:#50fa7b">company</span>(id)
+);
+</code></pre></div><h3 id="级联">级联</h3>
+<p>定义外键时，可以设置级联</p>
+<p><code>ON DELETE CASCADE</code></p>
+<p>当删除<strong>被引用</strong>的记录时，引用了此记录的其他所有记录都会被自动删除</p>
+<p><code>ON UPDATE CASCADE</code></p>
+<p>当修改<strong>被引用</strong>的记录时，引用了此记录的其他所有记录都会被自动更新</p>
+<h3 id="多表查询">多表查询</h3>
+<p><strong>内连接</strong></p>
+<p><code>INNER JOIN、CROSS JOIN、JOIN</code></p>
+<p>在 <code>MySQL</code>中，他们是等价的；但是在标准SQL中，他们并不是等价的</p>
+<p><strong>外连接</strong></p>
+<p><code>LEFT JOIN、RIGHT JOIN</code></p>
+<p><strong>并集</strong></p>
+<p><code>UNION</code></p>
+<p>MySQL并不支持标准SQL中的 <code>FULL JOIN</code> ， 可以用UNION来替代实现</p>
+<p><strong>多表查询</strong></p>
+<p><code>ON 和 WHERE</code>后面都可以跟着条件，他们的区别是：</p>
+<ul>
+<li><code>ON</code>：配合 <code>JOIN</code> 语句使用，用以指定如何连接表的条件</li>
+<li><code>WHERE</code>：限制哪些记录出现在结果集中</li>
+</ul>
+<p><code>INNER JOIN</code> 和逗号在没有连接条件的情况下，语意上是等价的</p>
+<ul>
+<li>都在指定的表之间产生笛卡尔乘积</li>
+<li>也就是说，第一个表中的每一行都连接到第二个表中的第一行</li>
+</ul>
+<h3 id="排序分页">排序、分页</h3>
+<h5 id="排序">排序</h5>
+<p><code>ORDER BY</code> 字段 [ <code>ASC | DESC</code>]</p>
+<h5 id="分页">分页</h5>
+<p><code>LIMIT { [offset,] row_count | row_count OFFSET offset }</code></p>
+<ul>
+<li>
+<p><code>offset </code>是记录的偏量（最小值0），从那一条记录开始选择</p>
+</li>
+<li>
+<p><code>row_count</code> 是希望选择的记录数量</p>
+<p><code>LIMIT 10, 20 </code> 或者 <code>LIMIT 20 OFFSET 10</code>	表示从第10条记录开始，选择20条记录</p>
+</li>
+</ul>
+<h3 id="子查询">子查询</h3>
+<p>当一个查询是另一个查询的条件是，称为<strong>子查询</strong></p>
+<p><code>SELECT * FROM customer WHERE company_id = (SELECT id FROM company WHERE name = '腾讯')</code></p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/10/23/MySqlLeaning03/" data-toggle="tooltip" data-placement="top" title="MySQL(三) - 数据多表查询">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/10/24/goOpMysql/" data-toggle="tooltip" data-placement="top" title="go 操作 mysql">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/go" title="go">
+                            go
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ios" title="ios">
+                            ios
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                            mysql
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/swift" title="swift">
+                            swift
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+                <section>
+                    <hr>
+                    <h5>FRIENDS</h5>
+                    <ul class="list-inline">
+                        
+                    </ul>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Cheng Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:401932941@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/luckyliang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Cheng Blog 2017
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>

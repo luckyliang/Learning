@@ -10,8 +10,8 @@
     <meta property="og:type" content="article">
 
     
-    <meta property="og:image" content="https://luckyliang.github.io/img/home-bg-jeep.jpg">
-    <meta property="twitter:image" content="https://luckyliang.github.io/img/home-bg-jeep.jpg" />
+    <meta property="og:image" content="http://lruoheng.com/img/home-bg-jeep.jpg">
+    <meta property="twitter:image" content="http://lruoheng.com/img/home-bg-jeep.jpg" />
     
 
     
@@ -39,45 +39,32 @@
     <link rel="canonical" href="/2018/04/18/swiftURlSession/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
-	
+
     
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     
-    <link rel="stylesheet" href="/css/hux-blog.min.css">
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
 
-    
-    <link rel="stylesheet" href="/css/syntax.css">
-    
     
     <link rel="stylesheet" href="/css/zanshang.css">
-    
-    
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     
-    <link rel="stylesheet" href="https://luckyliang.github.io/css/tomorrow-night-eighties.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"><link rel="stylesheet" href="https://luckyliang.github.io/css/main.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+    
+    
 
     
     
     <script src="/js/jquery.min.js"></script>
-    
-    
-    <script src="/js/bootstrap.min.js"></script>
-    
-    
-    <script src="/js/hux-blog.min.js"></script>
-  
-    
-    
-    <script src="/js/preetyCode.js"></script>
 
     
+    <script src="/js/bootstrap.min.js"></script>
+
     
-    
-    
-    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-        
+    <script src="/js/hux-blog.min.js"></script>
+
     
     
 
@@ -85,7 +72,9 @@
 
 
 
+
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
     <div class="container-fluid">
         
         <div class="navbar-header page-scroll">
@@ -121,6 +110,14 @@
                         </li>
                         
                         <li>
+                            <a href="/categories/other">other</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
                             <a href="/categories/web">web</a>
                         </li>
                         
@@ -131,15 +128,9 @@
                     
                     
 		    
-                        <li><a href="/top/books/">BOOKS</a></li>
-                    
                         <li><a href="/top/about/">ABOUT</a></li>
                     
 
-                    
-		    <li>
-                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
-		    </li>
                     
                 </ul>
             </div>
@@ -185,7 +176,9 @@
         background-image: url('https://img.zhaohuabing.com/in-post/2018-04-11-service-mesh-vs-api-gateway/background.jpg')
     }
 </style>
-<header class="intro-header">
+
+<header class="intro-header" >
+
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -204,15 +197,17 @@
                     <h1>Siwft网络请求 - URLSession</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
-                        Posted by 
                         
-                            Cheng
-                         
-                        on 
-                        Wednesday, April 18, 2018
-                        
-                        
-                        
+                            Posted by 
+                            
+                                Cheng
+                             
+                            on 
+                            Wednesday, April 18, 2018
+                            
+                            
+                            
+                            
                     </span>
                 </div>
             </div>
@@ -238,24 +233,16 @@
                     <h2>TOC</h2>
                 </header>
                 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#urlsession功能">URLSession功能</a></li>
-<li><a href="#urlsessionconfiguration的三种模式">URLSessionConfiguration的三种模式</a></li>
-<li><a href="#urlsessiontask">URLSessionTask</a></li>
-<li><a href="#post带参请求">Post带参请求</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                 
-                
-
-<h3 id="urlsession功能">URLSession功能</h3>
-
+                <h3 id="urlsession功能">URLSession功能</h3>
 <ul>
 <li>NSURLSession 支持 http2.0 协议</li>
 <li>在处理下载任务的时候可以直接把数据下载到磁盘</li>
@@ -264,238 +251,178 @@
 <li>提供了全局的 session 并且可以统一配置，使用更加方便</li>
 <li>下载的时候是多线程异步处理，效率更高</li>
 </ul>
-
 <p><a href="/img/swift/02-URLSession.png">URLSession基本请求类</a></p>
-
 <h3 id="urlsessionconfiguration的三种模式">URLSessionConfiguration的三种模式</h3>
-
 <ol>
-<li><strong><em>default</em></strong>: 默认配置，使用磁盘持久化全局缓存，认证和cookie储存对象</li>
-<li><strong><em>ephemeral</em></strong>：暂时会话，不使用磁盘保存任何数据，所有会话相关的都保存在内存中，因此当会话无效时，这些数据被自动清空</li>
-
-<li><p><strong><em>background</em></strong>： 该模式在后台完成上传和下载，在创建Configuration对象的时候需要提供一个NSString类型的ID用于标识完成工作的后台会话。</p>
-
-<pre><code class="language-swift">URLSessionConfiguration.default
+<li><em><strong>default</strong></em>: 默认配置，使用磁盘持久化全局缓存，认证和cookie储存对象</li>
+<li><em><strong>ephemeral</strong></em>：暂时会话，不使用磁盘保存任何数据，所有会话相关的都保存在内存中，因此当会话无效时，这些数据被自动清空</li>
+<li><em><strong>background</strong></em>： 该模式在后台完成上传和下载，在创建Configuration对象的时候需要提供一个NSString类型的ID用于标识完成工作的后台会话。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift">URLSessionConfiguration.<span style="color:#ff79c6">default</span>
 URLSessionConfiguration.ephemeral
-URLSessionConfiguration.background(withIdentifier: &quot;nw-Session&quot;)
-</code></pre></li>
-</ol>
-
-<p>URLSessionConfiguration也可以配置请求超时时间，缓存策略，和header，可以看 <a href="https://developer.apple.com/reference/foundation/urlsessionconfiguration">Apple’s documentation</a> 的配置列表</p>
-
+URLSessionConfiguration.background(withIdentifier: <span style="color:#f1fa8c">&#34;nw-Session&#34;</span>)
+</code></pre></div><p>URLSessionConfiguration也可以配置请求超时时间，缓存策略，和header，可以看 <a href="https://developer.apple.com/reference/foundation/urlsessionconfiguration">Apple’s documentation</a> 的配置列表</p>
 <h3 id="urlsessiontask">URLSessionTask</h3>
-
 <ol>
-<li><strong><em>URLSessionTask</em></strong>：一个可撤销的对象,指的是生命周期内处理一个给定的请求。</li>
-<li><strong><em>URLSessionDataTask</em></strong>：一个 数据请求 的 <code>URLSessionTask</code> 的子类，用于数据的请求。</li>
-<li><strong><em>URLSessionUploadTask</em></strong>：是一个 上传数据 的 <code>URLSessionDataTask</code> 的子类。</li>
-<li><strong><em>URLSessionDownloadTask</em></strong>：是一个下载数据 的<code>URLSessionTask</code> 的子类</li>
-<li><strong><em>URLSessionStreamTask</em></strong>：是一个双向会话的 <code>URLSessionTask</code>的子类</li>
+<li><em><strong>URLSessionTask</strong></em>：一个可撤销的对象,指的是生命周期内处理一个给定的请求。</li>
+<li><em><strong>URLSessionDataTask</strong></em>：一个 数据请求 的 <code>URLSessionTask</code> 的子类，用于数据的请求。</li>
+<li><em><strong>URLSessionUploadTask</strong></em>：是一个 上传数据 的 <code>URLSessionDataTask</code> 的子类。</li>
+<li><em><strong>URLSessionDownloadTask</strong></em>：是一个下载数据 的<code> URLSessionTask</code> 的子类</li>
+<li><em><strong>URLSessionStreamTask</strong></em>：是一个双向会话的 <code>URLSessionTask </code>的子类</li>
 </ol>
-
 <p><a href="03-URLSessionTask.png">URLSessionTask</a></p>
-
 <p>简单请求</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift">  <span style="color:#8be9fd;font-style:italic">var</span> <span style="color:#8be9fd;font-style:italic">urlStr</span> = <span style="color:#f1fa8c">&#34;https://learnappmaking.com/ex/users.json&#34;</span>
+  <span style="color:#6272a4">/// 链接转吗</span>
+  urlStr = urlStr.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)<span style="color:#ff79c6">!</span>
+  <span style="color:#6272a4">///请求网链接</span>
+  <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">url</span> = URL(string: urlStr)
 
-<pre><code class="language-swift">  var urlStr = &quot;https://learnappmaking.com/ex/users.json&quot;
-  /// 链接转吗
-  urlStr = urlStr.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)!
-  ///请求网链接
-  let url = URL(string: urlStr)
+  <span style="color:#6272a4">///创建config</span>
+  <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">config</span> = URLSessionConfiguration.<span style="color:#ff79c6">default</span>
+  <span style="color:#6272a4">/// 设置超时时间</span>
+  config.timeoutIntervalForRequest = <span style="color:#bd93f9">15.0</span>
+  <span style="color:#6272a4">///会话</span>
+  <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">session</span> = URLSession(configuration: config)
 
-  ///创建config
-  let config = URLSessionConfiguration.default
-  /// 设置超时时间
-  config.timeoutIntervalForRequest = 15.0
-  ///会话
-  let session = URLSession(configuration: config)
+  <span style="color:#ff79c6">guard</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">requestUrl</span> = url <span style="color:#ff79c6">else</span> { <span style="color:#ff79c6">return</span> }
 
-  guard let requestUrl = url else { return }
+  <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">request</span> =  URLRequest(url: requestUrl)
 
-  let request =  URLRequest(url: requestUrl)
+  <span style="color:#ff79c6">self</span>.view.makeActivity()
 
-  self.view.makeActivity()
-
-  let task = session.dataTask(with: request) { (data, response, error) in
-      ///请求回调数据
-      if error != nil {
-          print(&quot;网络请求错误&quot;)
+  <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">task</span> = session.dataTask(with: request) { (data, response, error) <span style="color:#ff79c6">in</span>
+      <span style="color:#6272a4">///请求回调数据</span>
+      <span style="color:#ff79c6">if</span> error <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+          print(<span style="color:#f1fa8c">&#34;网络请求错误&#34;</span>)
       }
-      ///服务器响应
-      guard let httpResponse = response as? HTTPURLResponse,  (200...299).contains(httpResponse.statusCode) else {
-          print(&quot;服务器错误&quot;)
-          return
+      <span style="color:#6272a4">///服务器响应</span>
+      <span style="color:#ff79c6">guard</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">httpResponse</span> = response <span style="color:#ff79c6">as</span>? HTTPURLResponse,  (<span style="color:#bd93f9">200.</span>..<span style="color:#bd93f9">299</span>).contains(httpResponse.statusCode) <span style="color:#ff79c6">else</span> {
+          print(<span style="color:#f1fa8c">&#34;服务器错误&#34;</span>)
+          <span style="color:#ff79c6">return</span>
       }
-      guard let `data` = data else {return
-      let json = try? JSONSerialization.jsonObject(with: data, options: [])
-      DispatchQueue.main.async {//回到主线程
-          if let jsonData = json as? Dictionary&lt;String, Any&gt; {
+      <span style="color:#ff79c6">guard</span> <span style="color:#8be9fd;font-style:italic">let</span> `data` = data <span style="color:#ff79c6">else</span> {<span style="color:#ff79c6">return</span>
+      <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">json</span> = <span style="color:#ff79c6">try</span>? JSONSerialization.jsonObject(with: data, options: [])
+      DispatchQueue.main.async {<span style="color:#6272a4">//回到主线程</span>
+          <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">jsonData</span> = json <span style="color:#ff79c6">as</span>? <span style="color:#8be9fd;font-style:italic">Dictionary</span>&lt;<span style="color:#8be9fd;font-style:italic">String</span>, <span style="color:#8be9fd;font-style:italic">Any</span>&gt; {
               print(jsonData)
           }
-          self.view.hideToast()
+          <span style="color:#ff79c6">self</span>.view.hideToast()
       }
   }
-  /// 开始请求
+  <span style="color:#6272a4">/// 开始请求</span>
   task.resume()
-</code></pre>
-
-<h3 id="post带参请求">Post带参请求</h3>
-
+</code></pre></div><h3 id="post带参请求">Post带参请求</h3>
 <p>这里自己用go写了个简单的测试服务端，终端运行go run main.go就可以了</p>
-
-<pre><code class="language-go">import (
-	json2 &quot;encoding/json&quot;
-	&quot;fmt&quot;
-	&quot;log&quot;
-	&quot;net/http&quot;
-	&quot;strconv&quot;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">import</span> (
+	json2 <span style="color:#f1fa8c">&#34;encoding/json&#34;</span>
+	<span style="color:#f1fa8c">&#34;fmt&#34;</span>
+	<span style="color:#f1fa8c">&#34;log&#34;</span>
+	<span style="color:#f1fa8c">&#34;net/http&#34;</span>
+	<span style="color:#f1fa8c">&#34;strconv&#34;</span>
 )
 
-type BaseData struct {
-	Status string	 `json:&quot;status&quot;`
-	Msg string 	  	 `json:&quot;msg&quot;`
-	Data [] NewData	 `json:&quot;data&quot;`
+<span style="color:#8be9fd;font-style:italic">type</span> BaseData <span style="color:#8be9fd;font-style:italic">struct</span> {
+	Status <span style="color:#8be9fd">string</span>	 <span style="color:#f1fa8c">`json:&#34;status&#34;`</span>
+	Msg <span style="color:#8be9fd">string</span> 	  	 <span style="color:#f1fa8c">`json:&#34;msg&#34;`</span>
+	Data [] NewData	 <span style="color:#f1fa8c">`json:&#34;data&#34;`</span>
 }
 
-type NewData struct {
-	Title string		`json:&quot;title&quot;`
-	Content string		`json:&quot;content&quot;`
-	Index int			`json:&quot;index&quot;`
+<span style="color:#8be9fd;font-style:italic">type</span> NewData <span style="color:#8be9fd;font-style:italic">struct</span> {
+	Title <span style="color:#8be9fd">string</span>		<span style="color:#f1fa8c">`json:&#34;title&#34;`</span>
+	Content <span style="color:#8be9fd">string</span>		<span style="color:#f1fa8c">`json:&#34;content&#34;`</span>
+	Index <span style="color:#8be9fd">int</span>			<span style="color:#f1fa8c">`json:&#34;index&#34;`</span>
 }
-/*
-3. 获取json数据
-*/
-func getNews(writer http.ResponseWriter, request *http.Request) {
+<span style="color:#6272a4">/*
+</span><span style="color:#6272a4">3. 获取json数据
+</span><span style="color:#6272a4">*/</span>
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">getNews</span>(writer http.ResponseWriter, request <span style="color:#ff79c6">*</span>http.Request) {
 
-	// Form：存储了post、put和get参数，在使用之前需要调用 ParseForm 方法。
-	err :=  request.ParseForm()
-	if err != nil{
-		return
+	<span style="color:#6272a4">// Form：存储了post、put和get参数，在使用之前需要调用 ParseForm 方法。
+</span><span style="color:#6272a4"></span>	err <span style="color:#ff79c6">:=</span>  request.<span style="color:#50fa7b">ParseForm</span>()
+	<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span>{
+		<span style="color:#ff79c6">return</span>
 	}
 
-	///获取请求参数
-	num := request.Form.Get(&quot;num&quot;)
-	title := request.Form.Get(&quot;channel&quot;)
-	// 字符窜转int
-	index, err  := strconv.Atoi(num)
+	<span style="color:#6272a4">///获取请求参数
+</span><span style="color:#6272a4"></span>	num <span style="color:#ff79c6">:=</span> request.Form.<span style="color:#50fa7b">Get</span>(<span style="color:#f1fa8c">&#34;num&#34;</span>)
+	title <span style="color:#ff79c6">:=</span> request.Form.<span style="color:#50fa7b">Get</span>(<span style="color:#f1fa8c">&#34;channel&#34;</span>)
+	<span style="color:#6272a4">// 字符窜转int
+</span><span style="color:#6272a4"></span>	index, err  <span style="color:#ff79c6">:=</span> strconv.<span style="color:#50fa7b">Atoi</span>(num)
 
-	var dataList []NewData
-	///制作假数据
-	for i := 0; i &lt; index; i++ {
-		newData := NewData{ fmt.Sprint(title,i), fmt.Sprint(&quot;今日内容:&quot;,title,i,&quot;内容&quot;),i}
-		dataList = append(dataList, newData)
+	<span style="color:#8be9fd;font-style:italic">var</span> dataList []NewData
+	<span style="color:#6272a4">///制作假数据
+</span><span style="color:#6272a4"></span>	<span style="color:#ff79c6">for</span> i <span style="color:#ff79c6">:=</span> <span style="color:#bd93f9">0</span>; i &lt; index; i<span style="color:#ff79c6">++</span> {
+		newData <span style="color:#ff79c6">:=</span> NewData{ fmt.<span style="color:#50fa7b">Sprint</span>(title,i), fmt.<span style="color:#50fa7b">Sprint</span>(<span style="color:#f1fa8c">&#34;今日内容:&#34;</span>,title,i,<span style="color:#f1fa8c">&#34;内容&#34;</span>),i}
+		dataList = <span style="color:#8be9fd;font-style:italic">append</span>(dataList, newData)
 	}
 
-	data := BaseData{Status:&quot;200&quot;, Msg:&quot;请求成功&quot;, Data:dataList}
+	data <span style="color:#ff79c6">:=</span> BaseData{Status:<span style="color:#f1fa8c">&#34;200&#34;</span>, Msg:<span style="color:#f1fa8c">&#34;请求成功&#34;</span>, Data:dataList}
 
-	///转成json
-	json, err := json2.Marshal(data)
+	<span style="color:#6272a4">///转成json
+</span><span style="color:#6272a4"></span>	json, err <span style="color:#ff79c6">:=</span> json2.<span style="color:#50fa7b">Marshal</span>(data)
 
-	if err != nil {
-		http.Error(writer, err.Error(), http.StatusInternalServerError)
-		return
+	<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		http.<span style="color:#50fa7b">Error</span>(writer, err.<span style="color:#50fa7b">Error</span>(), http.StatusInternalServerError)
+		<span style="color:#ff79c6">return</span>
 	}
 
-	writer.Header().Set(&quot;Content-Type&quot;, &quot;application/json&quot;)
-	writer.Write(json)
+	writer.<span style="color:#50fa7b">Header</span>().<span style="color:#50fa7b">Set</span>(<span style="color:#f1fa8c">&#34;Content-Type&#34;</span>, <span style="color:#f1fa8c">&#34;application/json&#34;</span>)
+	writer.<span style="color:#50fa7b">Write</span>(json)
 }
 
-func main() {
-	go http.HandleFunc(&quot;/getNews&quot;,getNews)
-	///监听端口
-	log.Println(&quot;Listening....&quot;)
-	err := http.ListenAndServe(&quot;:3001&quot;,nil)
-	if err != nil {
-		log.Fatal(&quot;ListenAndServe: &quot;, err)
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>() {
+	<span style="color:#ff79c6">go</span> http.<span style="color:#50fa7b">HandleFunc</span>(<span style="color:#f1fa8c">&#34;/getNews&#34;</span>,getNews)
+	<span style="color:#6272a4">///监听端口
+</span><span style="color:#6272a4"></span>	log.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;Listening....&#34;</span>)
+	err <span style="color:#ff79c6">:=</span> http.<span style="color:#50fa7b">ListenAndServe</span>(<span style="color:#f1fa8c">&#34;:3001&#34;</span>,<span style="color:#ff79c6">nil</span>)
+	<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		log.<span style="color:#50fa7b">Fatal</span>(<span style="color:#f1fa8c">&#34;ListenAndServe: &#34;</span>, err)
 	}
 }
-</code></pre>
+</code></pre></div><p>客户端代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift">   <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">_postRequest</span>() {
+      <span style="color:#6272a4">/// 请求链接</span>
+      <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">linkStr</span> = <span style="color:#f1fa8c">&#34;http://localhost:3001/getNews&#34;</span>.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)
 
-<p>客户端代码</p>
+      <span style="color:#ff79c6">guard</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">link</span> = linkStr, <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">url</span> = URL(string: link) <span style="color:#ff79c6">else</span> { <span style="color:#ff79c6">return</span> }
 
-<pre><code class="language-swift">   private func _postRequest() {
-      /// 请求链接
-      let linkStr = &quot;http://localhost:3001/getNews&quot;.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)
+      <span style="color:#6272a4">//创建请求载体</span>
+      <span style="color:#8be9fd;font-style:italic">var</span> <span style="color:#8be9fd;font-style:italic">request</span> = URLRequest(url: url)
+      request.httpMethod = <span style="color:#f1fa8c">&#34;POST&#34;</span>
+      request.setValue(<span style="color:#f1fa8c">&#34;application/x-www-form-urlencoded&#34;</span>, forHTTPHeaderField: <span style="color:#f1fa8c">&#34;Content-Type&#34;</span>)
+      <span style="color:#6272a4">///请求参</span>
+      request.httpBody = <span style="color:#f1fa8c">&#34;channel=</span><span style="color:#f1fa8c">\&#34;</span><span style="color:#f1fa8c">头条</span><span style="color:#f1fa8c">\&#34;</span><span style="color:#f1fa8c">&amp;num=20&#34;</span>.data(using: .utf8)
 
-      guard let link = linkStr, let url = URL(string: link) else { return }
-
-      //创建请求载体
-      var request = URLRequest(url: url)
-      request.httpMethod = &quot;POST&quot;
-      request.setValue(&quot;application/x-www-form-urlencoded&quot;, forHTTPHeaderField: &quot;Content-Type&quot;)
-      ///请求参
-      request.httpBody = &quot;channel=\&quot;头条\&quot;&amp;num=20&quot;.data(using: .utf8)
-
-      self.view.makeActivity()
-      //发起网络请求
-      let postTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
-          ///子线程
-          ///请求回调数据
-          if error != nil {
-              print(&quot;网络请求错误&quot;)
+      <span style="color:#ff79c6">self</span>.view.makeActivity()
+      <span style="color:#6272a4">//发起网络请求</span>
+      <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">postTask</span> = URLSession.shared.dataTask(with: request) { (data, response, error) <span style="color:#ff79c6">in</span>
+          <span style="color:#6272a4">///子线程</span>
+          <span style="color:#6272a4">///请求回调数据</span>
+          <span style="color:#ff79c6">if</span> error <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+              print(<span style="color:#f1fa8c">&#34;网络请求错误&#34;</span>)
           }
-          ///服务器响应
-          guard let httpResponse = response as? HTTPURLResponse,  (200...299).contains(httpResponse.statusCode) else {
-              print(&quot;服务器错误&quot;)
-              return
+          <span style="color:#6272a4">///服务器响应</span>
+          <span style="color:#ff79c6">guard</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">httpResponse</span> = response <span style="color:#ff79c6">as</span>? HTTPURLResponse,  (<span style="color:#bd93f9">200.</span>..<span style="color:#bd93f9">299</span>).contains(httpResponse.statusCode) <span style="color:#ff79c6">else</span> {
+              print(<span style="color:#f1fa8c">&#34;服务器错误&#34;</span>)
+              <span style="color:#ff79c6">return</span>
           }
-          guard let `data` = data else {return}
-          let json = try? JSONSerialization.jsonObject(with: data, options: [])
+          <span style="color:#ff79c6">guard</span> <span style="color:#8be9fd;font-style:italic">let</span> `data` = data <span style="color:#ff79c6">else</span> {<span style="color:#ff79c6">return</span>}
+          <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">json</span> = <span style="color:#ff79c6">try</span>? JSONSerialization.jsonObject(with: data, options: [])
 
           DispatchQueue.main.async {
-              ///回到主线程刷新数据
-              self.view.hideToast()
-              if let jsonData = json as? Dictionary&lt;String, Any&gt; {
+              <span style="color:#6272a4">///回到主线程刷新数据</span>
+              <span style="color:#ff79c6">self</span>.view.hideToast()
+              <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#8be9fd;font-style:italic">jsonData</span> = json <span style="color:#ff79c6">as</span>? <span style="color:#8be9fd;font-style:italic">Dictionary</span>&lt;<span style="color:#8be9fd;font-style:italic">String</span>, <span style="color:#8be9fd;font-style:italic">Any</span>&gt; {
                   print(jsonData)
               }
           }
           }
-      /// 开始请求
+      <span style="color:#6272a4">/// 开始请求</span>
       postTask.resume()
 
   }
-</code></pre>
-
-
-                
-                
-<div class="entry-shang text-center">
-    
-	    <p>「真诚赞赏，手留余香」</p>
-	
-	<button class="zs show-zs btn btn-bred">赞赏支持</button>
-</div>
-<div class="zs-modal-bg"></div>
-<div class="zs-modal-box">
-	<div class="zs-modal-head">
-		<button type="button" class="close">×</button>
-		<span class="author"><a href="https://luckyliang.github.io"><img src="/img/favicon.png" />Cheng Blog</a></span>
-        
-	        <p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
-		
- 
-	</div>
-	<div class="zs-modal-body">
-		<div class="zs-modal-btns">
-			<button class="btn btn-blink" data-num="2">2元</button>
-			<button class="btn btn-blink" data-num="5">5元</button>
-			<button class="btn btn-blink" data-num="10">10元</button>
-			<button class="btn btn-blink" data-num="50">50元</button>
-			<button class="btn btn-blink" data-num="100">100元</button>
-			<button class="btn btn-blink" data-num="1">任意金额</button>
-		</div>
-		<div class="zs-modal-pay">
-			<button class="btn btn-bred" id="pay-text">2元</button>
-			<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
-			<img src="/img/reward/wechat-2.png"  id="pay-image"/>
-		</div>
-	</div>
-	<div class="zs-modal-footer">
-		<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
-		<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
-	</div>
-</div>
-<script type="text/javascript" src="/js/reward.js"></script>
+</code></pre></div>
 
                 
 
@@ -536,6 +463,8 @@ func main() {
                         
                         
                         
+                        
+                        
                         <a href="/tags/go" title="go">
                             go
                         </a>
@@ -548,11 +477,11 @@ func main() {
                         
                         
                         
-                        <a href="/tags/java" title="java">
-                            java
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                            mysql
                         </a>
-                        
-                        
                         
                         
                         
@@ -563,6 +492,10 @@ func main() {
                         <a href="/tags/swift" title="swift">
                             swift
                         </a>
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -602,23 +535,23 @@ func main() {
                    <li>
                        <a href='' rel="alternate" type="application/rss+xml" title="Cheng Blog" >
                            <span class="fa-stack fa-lg">
-                               <i class="fa fa-circle fa-stack-2x"></i>
-                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
                            </span>
                        </a>
                    </li>
                    
                     
                     <li>
-                        <a href="mailto:401932941@qq.com">
+                        <a href="mailto:401932941@gmail.com">
                             <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
 		    
-                    
+
                     
                     
                     
@@ -629,10 +562,10 @@ func main() {
                     
                     
                     <li>
-                        <a target="_blank" href="https://github.com/LuckyLiang">
+                        <a target="_blank" href="https://github.com/luckyliang">
                             <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -646,8 +579,19 @@ func main() {
                     
                     
             
+            
+            
                 </ul>
-		
+		<p class="copyright text-muted">
+                    Copyright &copy; Cheng Blog 2017
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
             </div>
         </div>
     </div>
@@ -657,7 +601,7 @@ func main() {
 
 
 <script>
-    function async(u, c) {
+    function loadAsync(u, c) {
       var d = document, t = 'script',
           o = d.createElement(t),
           s = d.getElementsByTagName(t)[0];
@@ -675,7 +619,7 @@ func main() {
 <script>
     
     if($('#tag_cloud').length !== 0){
-        async("/js/jquery.tagcloud.js",function(){
+        loadAsync("/js/jquery.tagcloud.js",function(){
             $.fn.tagcloud.defaults = {
                 
                 color: {start: '#bbbbee', end: '#0085a1'},
@@ -687,7 +631,7 @@ func main() {
 
 
 <script>
-    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+    loadAsync("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
         var $nav = document.querySelector("nav");
         if($nav) FastClick.attach($nav);
     })
